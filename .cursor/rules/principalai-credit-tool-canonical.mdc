@@ -1,0 +1,23 @@
+---
+description: Use principalai-credit-tool as the canonical repo for the live credit memo (principalai.pro)
+alwaysApply: true
+---
+
+# Canonical project: principalai-credit-tool
+
+- **Repository:** `sudipto-mo/principalai-credit-tool` — this is the GitHub repo that powers **Vercel** for **`www.principalai.pro`**.
+- **Local path (reference):** `/Users/sudipto/Documents/Projects/principalai.pro/principalai-credit-tool`
+
+## Where to edit
+
+- **Full credit memo (single HTML):** `index.html` at the repo root.
+
+## Workflow
+
+- Run locally (static): `cd` to repo root, then `./serve.sh` (serves on **port 8080**) or `python3 -m http.server 8080`.
+- When the user asks to update GitHub or the live site: **commit and push to `origin main`** on **this** repo.
+- **`principalai-app`** may contain a copy under `public/credit-memo/index.html` for the Next.js demo; treat it as **secondary** unless the user explicitly asks to sync that repo.
+
+## Deploy
+
+- Production follows **Vercel** deployments from **`main`** on **`principalai-credit-tool`**. After substantive HTML changes, push `main` and confirm a new deployment in Vercel.
