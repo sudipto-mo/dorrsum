@@ -1046,6 +1046,21 @@
 
     <section id="sec-review" class="memo-section" aria-labelledby="memo-h-review">
       <h2 id="memo-h-review" class="memo-section-title">Review &amp; sign-off</h2>
+    <div class="analyst-judgement">
+      <div class="aj-header">
+        👤 Analyst Judgement Layer — Human Override
+      </div>
+      <div class="aj-label">AI Draft Recommendation</div>
+      <div class="aj-text">
+        Helios Towers carries an implied BB+ rating with meaningful credit risk driven by elevated leverage (~5.8x) and multi-currency FX exposure across Sub-Saharan Africa. However, its contracted tower lease model, blue-chip MNO counterparties, and ~52% EBITDA margins provide strong structural protection. AI recommends: <strong>Proceed with Conditions</strong> — leverage covenant step-down to 5.0x by FY26, FX hedging requirements, cash sweep above 6.0x. Estimated incremental debt capacity: USD ~140m.
+      </div>
+      <div class="aj-label">Analyst Override / Annotation</div>
+      <div class="aj-override">
+        <input type="text" id="analyst-note-input" placeholder="Add your annotation or override (e.g. 'Confirm customer concentration % from latest filing…')" />
+        <button onclick="addNote()">+ Add Note</button>
+      </div>
+      <div id="analyst-notes-list" style="margin-top:10px;"></div>
+    </div>
     <div class="review-banner" id="review-banner">
       <div class="review-icon">👤</div>
       <div class="review-text">
@@ -1708,25 +1723,6 @@
           </div>
         </div>
       </div>
-    </section>
-
-    <section id="sec-analyst" class="memo-section" aria-labelledby="memo-h-analyst">
-      <h2 id="memo-h-analyst" class="memo-section-title">Analyst judgement layer</h2>
-    <div class="analyst-judgement">
-      <div class="aj-header">
-        👤 Analyst Judgement Layer — Human Override
-      </div>
-      <div class="aj-label">AI Draft Recommendation</div>
-      <div class="aj-text">
-        Helios Towers carries an implied BB+ rating with meaningful credit risk driven by elevated leverage (~5.8x) and multi-currency FX exposure across Sub-Saharan Africa. However, its contracted tower lease model, blue-chip MNO counterparties, and ~52% EBITDA margins provide strong structural protection. AI recommends: <strong>Proceed with Conditions</strong> — leverage covenant step-down to 5.0x by FY26, FX hedging requirements, cash sweep above 6.0x. Estimated incremental debt capacity: USD ~140m.
-      </div>
-      <div class="aj-label">Analyst Override / Annotation</div>
-      <div class="aj-override">
-        <input type="text" id="analyst-note-input" placeholder="Add your annotation or override (e.g. 'Confirm customer concentration % from latest filing…')" />
-        <button onclick="addNote()">+ Add Note</button>
-      </div>
-      <div id="analyst-notes-list" style="margin-top:10px;"></div>
-    </div>
     </section>
 
     <section id="sec-about" class="memo-section" aria-labelledby="memo-h-about">
