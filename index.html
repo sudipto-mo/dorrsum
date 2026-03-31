@@ -508,8 +508,14 @@
     }
     .review-icon { font-size: 18px; }
     .review-text b { color: var(--amber); }
-    .approve-btn {
+    .review-banner-actions {
       margin-left: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 16px;
+    }
+    .approve-btn {
       background: var(--green);
       border: none;
       border-radius: 6px;
@@ -1201,7 +1207,6 @@
       margin-bottom: 10px;
     }
     .aj-label { font-size: 10px; color: var(--text-dim); margin-bottom: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-    .aj-text { font-size: 13px; line-height: 1.6; margin-bottom: 12px; }
     .aj-override {
       display: flex; gap: 10px; margin-top: 8px;
       align-items: center; flex-wrap: wrap;
@@ -1227,13 +1232,19 @@
       font-weight: 600;
       cursor: pointer;
     }
+    .aj-override-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 16px;
+    }
 
     /* Recommendation */
     .rec-box {
       background: rgba(0,188,212,0.04);
       border: 1px solid rgba(0,188,212,0.15);
       border-radius: 10px;
-      padding: 16px 20px;
+      padding: 14px 16px;
       margin-bottom: 20px;
     }
     .rec-header {
@@ -1241,11 +1252,44 @@
       align-items: center;
       gap: 8px;
       font-size: 11px; font-weight: 600; letter-spacing: 1px;
-      text-transform: uppercase; color: var(--teal); margin-bottom: 8px;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 6px;
     }
     .rec-header-icon { color: var(--teal); }
     .rec-header-icon .ui-svg { width: 15px; height: 15px; }
-    .rec-text { font-size: 14px; line-height: 1.6; }
+    .rec-text { font-size: 14px; line-height: 1.45; }
+    .rec-section { margin-top: 8px; }
+    .rec-section:first-child { margin-top: 0; }
+    .rec-section-title {
+      margin: 0 0 3px;
+      padding: 0;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: var(--teal);
+      line-height: 1.25;
+    }
+    .rec-section p {
+      margin: 0 0 3px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .rec-section p:last-child { margin-bottom: 0; }
+    .rec-section ul {
+      margin: 0;
+      padding: 0 0 0 1.15em;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .rec-section li { margin: 0 0 2px; }
+    .rec-section li:last-child { margin-bottom: 0; }
+    .rec-text-footnote {
+      display: block;
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 1.4;
+      color: var(--amber);
+    }
     .rec-risk-panel {
       margin-top: 18px;
       padding-top: 16px;
@@ -1695,14 +1739,13 @@
       <div class="aj-header">
         👤 Analyst Judgement Layer — Human Override
       </div>
-      <div class="aj-label">AI Draft Recommendation</div>
-      <div class="aj-text">
-        Helios Towers carries an implied BB+ rating with meaningful credit risk driven by elevated leverage (~5.8x) and multi-currency FX exposure across Sub-Saharan Africa. However, its contracted tower lease model, blue-chip MNO counterparties, and ~52% EBITDA margins provide strong structural protection. AI recommends: <strong>Proceed with Conditions</strong> — leverage covenant step-down to 5.0x by FY26, FX hedging requirements, cash sweep above 6.0x. Estimated incremental debt capacity: USD ~140m.
-      </div>
       <div class="aj-label">Analyst Override / Annotation</div>
       <div class="aj-override">
         <input type="text" id="analyst-note-input" placeholder="Add your annotation or override (e.g. 'Confirm customer concentration % from latest filing…')" />
-        <button onclick="addNote()">+ Add Note</button>
+        <div class="aj-override-actions">
+          <button type="button" onclick="showAnalystAddNoteSubscriptionHint()">+ Add Note</button>
+          <span id="analyst-note-subscription-hint" class="financial-login-hint" hidden>Subscription only</span>
+        </div>
       </div>
       <div id="analyst-notes-list" style="margin-top:10px;"></div>
     </div>
@@ -1711,7 +1754,10 @@
       <div class="review-text">
         <b>Analyst Review Required</b> — AI draft complete. Please review all figures against source documents before approving.
       </div>
-      <button class="approve-btn" onclick="approveMemo()">✓ Approve Memo</button>
+      <div class="review-banner-actions">
+        <button type="button" class="approve-btn" onclick="showApproveMemoSubscriptionHint()">✓ Approve Memo</button>
+        <span id="approve-memo-subscription-hint" class="financial-login-hint" hidden>Subscription only</span>
+      </div>
       <div class="approved-tag" id="approved-tag">✓ Analyst Approved</div>
     </div>
     </section>
@@ -1739,9 +1785,40 @@
     <div class="rec-box">
       <div class="rec-header"><span class="rec-header-icon" aria-hidden="true"><span class="ui-svg"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg></span></span>AI-drafted credit recommendation — pending analyst sign-off</div>
       <div class="rec-text">
-        Helios Towers Africa presents a sub-investment grade credit (implied BB+), supported by a contracted tower-lease business model with top-tier MNO counterparties across Sub-Saharan Africa. The ~52% Adjusted EBITDA margin reflects the structural strength of the TowerCo model. Credit concerns are centred on leverage (~4.5x Debt/EBITDA FY2024 per memo tables; verify ND/Adj. EBITDA), FX mismatch between USD-denominated debt and local currency revenues, and a refinancing profile that warrants close monitoring. <strong>AI-suggested decision: Proceed with Conditions.</strong> Suggested covenant package: net leverage step-down to 5.0x by FY2026, mandatory FX hedging on ≥70% of USD obligations, and a cash sweep mechanism triggered above 6.0x leverage. Estimated headroom for additional debt on current EBITDA: USD ~140m at 5.0x covenant level.
-        <br><br>
-        <span style="font-size:12px;color:var(--amber);">⚠ This is an AI-generated draft. The analyst must verify all figures against source documents, apply professional judgement, and approve before this memo is used for any credit decision.</span>
+        <div class="rec-section">
+          <h3 class="rec-section-title">Credit Profile</h3>
+          <p>Sub-investment grade credit (implied BB+)</p>
+          <p>Contracted tower-lease business model with top-tier MNO counterparties across Sub-Saharan Africa</p>
+        </div>
+        <div class="rec-section">
+          <h3 class="rec-section-title">Business Strengths</h3>
+          <p>~52% Adjusted EBITDA margin reflects structural strength of TowerCo model</p>
+        </div>
+        <div class="rec-section">
+          <h3 class="rec-section-title">Credit Concerns</h3>
+          <ul>
+            <li>Elevated leverage (~4.5x Debt/EBITDA FY2024; verify Net Debt/Adj. EBITDA per memo tables)</li>
+            <li>FX mismatch: USD-denominated debt vs. local currency revenues</li>
+            <li>Refinancing profile requires close monitoring</li>
+          </ul>
+        </div>
+        <div class="rec-section">
+          <h3 class="rec-section-title">Recommended Decision</h3>
+          <p><strong>Proceed with Conditions</strong></p>
+        </div>
+        <div class="rec-section">
+          <h3 class="rec-section-title">Suggested Covenant Package</h3>
+          <ul>
+            <li>Net leverage step-down to 5.0x by FY2026</li>
+            <li>Mandatory FX hedging on ≥70% of USD obligations</li>
+            <li>Cash sweep mechanism triggered above 6.0x leverage</li>
+          </ul>
+        </div>
+        <div class="rec-section">
+          <h3 class="rec-section-title">Debt Capacity</h3>
+          <p>Estimated headroom for additional debt: USD ~140m at 5.0x covenant level (on current EBITDA base)</p>
+        </div>
+        <span class="rec-text-footnote">⚠ This is an AI-generated draft. The analyst must verify all figures against source documents, apply professional judgement, and approve before this memo is used for any credit decision.</span>
       </div>
 
       <div class="rec-risk-panel">
@@ -1864,14 +1941,14 @@
                   <div class="metric-label">Adjusted working capital change (<span id="ca-km-adj-nwa-fy">FY2024</span>)</div>
                   <div class="metric-value" id="ca-km-adj-nwa-value">(7.5)</div>
                   <div class="metric-sub">USD m</div>
-                  <div class="metric-trend neutral">TBC AI reasoning</div>
+                  <div class="metric-trend neutral">TBC reasoning</div>
                 </div>
                 <div class="metric-card" id="ca-km-nwa-sales-card">
                   <div class="metric-source">Derived</div>
                   <div class="metric-label">Adjusted working capital / Sales (<span id="ca-km-nwa-sales-fy">FY2024</span>)</div>
                   <div class="metric-value" id="ca-km-nwa-sales-value">10%</div>
                   <div class="metric-sub">Ratio</div>
-                  <div class="metric-trend neutral">TBC AI reasoning</div>
+                  <div class="metric-trend neutral">TBC reasoning</div>
                 </div>
               </div>
             </div>
@@ -1956,7 +2033,7 @@
                     </tr>
 
                     <tr class="nwa-row nwa-row--chart" data-series="grossCFO">
-                      <td><b>Gross CFO</b></td>
+                      <td><b>Operating Cash Flow</b></td>
                       <td><b>186.3</b></td><td><b>196.2</b></td><td><b>251.8</b></td><td><b>228.7</b></td><td><b>370.7</b></td><td><b>412.3</b></td>
                     </tr>
 
@@ -1990,7 +2067,7 @@
                 <li><span class="bm-li-label">Contract assets:</span> IFRS 15 amplifier; the build/unwind drove the biggest swings in adjusted working capital.</li>
                 <li><span class="bm-li-label">Accruals &amp; other CL:</span> generally acted as a headwind in FY2024 (offsetting contract asset benefit).</li>
                 <li><span class="bm-li-label">Receivables:</span> structurally the drag (collection cycles lengthening even when advances exist).</li>
-                <li><span class="bm-li-label">NWCC context:</span> advance payments (and deferred income) partially offset trade exposure.</li>
+                <li><span class="bm-li-label">Net Working Capital Cycle context:</span> advance payments (and deferred income) partially offset trade exposure.</li>
               </ul>
             </div>
           </div>
@@ -2018,14 +2095,14 @@
                   <div class="metric-label">Capex / Total <abbr class="da-abbr" title="Depreciation &amp; Amortization">D&amp;A</abbr> (<span id="fa-km-capex-da-fy">FY2024</span>)</div>
                   <div class="metric-value" id="fa-km-capex-da-value">1.4x</div>
                   <div class="metric-sub">Intensity</div>
-                  <div class="metric-trend neutral">TBC AI reasoning</div>
+                  <div class="metric-trend neutral">TBC reasoning</div>
                 </div>
                 <div class="metric-card" id="fa-km-sps-card">
                   <div class="metric-source">Derived</div>
                   <div class="metric-label">Sales per Site (<span id="fa-km-sps-fy">FY2024</span>)</div>
                   <div class="metric-value" id="fa-km-sps-value">55.3</div>
                   <div class="metric-sub">$000</div>
-                  <div class="metric-trend neutral">TBC AI reasoning</div>
+                  <div class="metric-trend neutral">TBC reasoning</div>
                 </div>
               </div>
             </div>
@@ -2098,9 +2175,9 @@
               </div>
               <ul class="bm-list">
                 <li><span class="bm-li-label">CAPEX Trajectory — Acquisitive to Organic:</span> CAPEX/<abbr class="da-abbr" title="Depreciation &amp; Amortization">D&amp;A</abbr> peaked at 2.5x (FY2022) during the DRC, South Africa, Senegal and Malawi acquisition program (FY2021–22, ~7,000+ towers added). Management formally pivoted to organic-only in 2023: +544 sites (FY2023), +228 sites (FY2024). CAPEX/<abbr class="da-abbr" title="Depreciation &amp; Amortization">D&amp;A</abbr> has moderated to 1.4x (FY2024), appropriate for maintenance + organic build. Note: the ratio is flattered by the South Africa disposal which reduced total <abbr class="da-abbr" title="Depreciation &amp; Amortization">D&amp;A</abbr> sharply from 192.9 (FY2023) to 139.2 (FY2024) — watch for re-acceleration in FY2025+.</li>
-                <li><span class="bm-li-label">CAPEX Affordability — Structural Turning Point in FY2023/24:</span> Net CFO improved from $165–219M (FY2020–22) to $410–418M (FY2023–24) as tenancy growth drove operating leverage. Net CFO/CAPEX recovered from 0.5x (FY2021–22) to 2.1x (FY2024): Helios now self-funds all CAPEX from operations for the first time. FCFF+FCInv (168.8M, FY2024) falls marginally short of total CAPEX (200.0M), still requiring modest external funding for growth — but the gap vs. prior years (FCFF+FCInv was only 9.3M in FY2021) represents a step-change improvement.</li>
+                <li><span class="bm-li-label">CAPEX Affordability — Structural Turning Point in FY2023/24:</span> Free Cash Flow improved from $165–219M (FY2020–22) to $410–418M (FY2023–24) as tenancy growth drove operating leverage. Free Cash Flow/CAPEX recovered from 0.5x (FY2021–22) to 2.1x (FY2024): Helios now self-funds all CAPEX from operations for the first time. CADS (168.8M, FY2024) falls marginally short of total CAPEX (200.0M), still requiring modest external funding for growth — but the gap vs. prior years (CADS was only 9.3M in FY2021) represents a step-change improvement.</li>
                 <li><span class="bm-li-label">Investment Payoff — Confirmed by Operational KPIs:</span> Tenancy ratio reached 2.07x (FY2024), confirmed from annual report, up from ~1.30x pre-acquisition: the internal 2.0x investment thesis has been delivered. Sales per site fully recovered to $55.3k (FY2024), matching the FY2019 pre-M&amp;A baseline of $55.4k despite near-doubling of site count (7,000 → 14,325). EBITDA/site also recovered to $30.2k (FY2024) vs $30.6k (FY2019). The dilution from acquiring lower-utilisation towers has been fully absorbed.</li>
-                <li><span class="bm-li-label">Leverage and Affordability Risk:</span> Interest expense (196.9M, FY2024) consumes 47% of Net CFO, leaving FCFF+FCInv of 220.8M. CPLTD of 52.0M (CPLTD Bond 16.5M + Finance Leases CP 35.5M) then reduces FCFF+FCInv to 168.8M. While improved vs FY2021 (FCFF+FCInv: 9.3M), any Net CFO reversal — driven by SSA FX devaluation (TZS, GHS, CDF) or energy cost spikes — would quickly erode CAPEX coverage. Bond refinancing risk remains the key overhang, given elevated net leverage.</li>
+                <li><span class="bm-li-label">Leverage and Affordability Risk:</span> Interest expense (196.9M, FY2024) consumes 47% of Free Cash Flow, leaving CADS of 220.8M. CPLTD of 52.0M (CPLTD Bond 16.5M + Finance Leases CP 35.5M) then reduces CADS to 168.8M. While improved vs FY2021 (CADS: 9.3M), any Free Cash Flow reversal — driven by SSA FX devaluation (TZS, GHS, CDF) or energy cost spikes — would quickly erode CAPEX coverage. Bond refinancing risk remains the key overhang, given elevated net leverage.</li>
                 <li><span class="bm-li-label">Asset Efficiency vs. Peers — Still Closing the Gap:</span> Fixed asset turnover (0.24x, FY2024) remains below AMT (0.27x) and SBA (0.46x), reflecting structurally lower revenue density in SSA vs. developed markets. Capex/Sales at ~25% (FY2024) has normalised from the FY2021 peak of ~349% but remains above global tower peers (~9–14%). The path to peer-level returns requires continued tenancy growth (current 2.07x vs. mature market benchmark ~2.5x+) and EBITDA margin expansion beyond the current ~55% base.</li>
               </ul>
             </div>
@@ -2125,14 +2202,14 @@
               <div class="metric-label">Revenue (<span id="sp-km-revenue-fy">FY2024</span>)</div>
               <div class="metric-value" id="sp-km-revenue-value">$792m</div>
               <div class="metric-sub" id="sp-km-revenue-yoy">+9.8% YoY</div>
-              <div class="metric-trend neutral" id="sp-km-revenue-reasoning">TBC AI reasoning</div>
+              <div class="metric-trend neutral" id="sp-km-revenue-reasoning">TBC reasoning</div>
             </div>
             <div class="metric-card" id="sp-km-ebitda-card">
               <div class="metric-source">Public filing</div>
               <div class="metric-label">Adj. EBITDA margin (<span id="sp-km-ebitda-fy">FY2024</span>)</div>
               <div class="metric-value" id="sp-km-ebitda-value">~53%</div>
               <div class="metric-sub" id="sp-km-ebitda-pp">+1.8pp vs prior FY</div>
-              <div class="metric-trend neutral" id="sp-km-ebitda-reasoning">TBC AI reasoning</div>
+              <div class="metric-trend neutral" id="sp-km-ebitda-reasoning">TBC reasoning</div>
             </div>
           </div>
         </div>
@@ -2206,10 +2283,10 @@
           </div>
           <ul class="bm-list">
             <li><span class="bm-li-label">Revenue: strong USD growth, FX the persistent headwind:</span> Sales expanded from $414m (FY2020) to $792m (FY2024) — a 91% increase over four years, underpinned by tower additions, tenancy ratio gains, and contracted CPI-linked escalators. USD growth peaked at +29% (FY2023) before moderating to +10% (FY2024) as SSA currency devaluations increasingly compress reported USD revenue. Tanzania ($270m, 34%) and DRC ($118m, 15%) are the dominant markets — together ~49% of FY2024 revenue — with Ghana ($127m, 16%) adding further FX exposure; collectively ~65% of revenue is in high-FX-risk jurisdictions (TZS, CDF, GHS). Senegal and South Africa provide growing but subscale offsets.</li>
-            <li><span class="bm-li-label">GP margin step-change in FY2024: IFRS 16 rolloff, not cash improvement:</span> Gross Profit margin from trading jumped 10.8pp to 48.4% in FY2024 (from 37.5% in FY2023). The primary driver was IFRS 16 ROU depreciation rolling off acquired lease towers (+9.2pp), a non-cash accounting release; incremental cash COS efficiency contributed only +1.7pp. The EBITDA(CF) margin improved modestly from 51% to 53% (FY2023→FY2024), confirming the bulk of the GP uplift is non-cash. EBITDA(CF) grew from $227m (FY2020) to $420m (FY2024) — an 85% increase at 17% CAGR — reflecting genuine operating leverage on the tower network.</li>
+            <li><span class="bm-li-label">GP margin step-change in FY2024: IFRS 16 rolloff, not cash improvement:</span> Gross Profit margin from trading jumped 10.8pp to 48.4% in FY2024 (from 37.5% in FY2023). The primary driver was IFRS 16 ROU depreciation rolling off acquired lease towers (+9.2pp), a non-cash accounting release; incremental cash COS efficiency contributed only +1.7pp. The EBITDA margin improved modestly from 51% to 53% (FY2023→FY2024), confirming the bulk of the GP uplift is non-cash. EBITDA grew from $227m (FY2020) to $420m (FY2024) — an 85% increase at 17% CAGR — reflecting genuine operating leverage on the tower network.</li>
             <li><span class="bm-li-label">FY2024: first profit since IPO, but interest &amp; FX costs remain elevated:</span> EBIT reached $263m (FY2024), driving the first positive NPBT (+$44.2m) and NPAT (+$27m) since listing. However, gross interest expense compounded at ~16% p.a. to $197m (FY2024), and FX translation losses on non-USD debt added a further $22m — total interest and FX cost of $219m absorbed the majority of EBIT. FY2022/FY2023 FX losses ($52m/$66m) severely suppressed NPBT in those years. Structural profitability requires both continued EBITDA expansion and FX stabilisation across the SSA portfolio.</li>
             <li><span class="bm-li-label">Divisional: Tanzania and DRC core, but no segment EBITDA disclosed:</span> Tanzania ($270m, +9% YoY) and DRC ($118m, +10%) are the earnings engine, growing steadily despite currency pressure. South Africa delivered the fastest growth at +10% to $87m as the build-out matures. Ghana ($127m) and Senegal ($71m) are broadly stable. The Group reports only segment revenue — no divisional EBITDA or margin data is disclosed, limiting the ability to assess profitability distribution and cross-subsidy risk across the six markets.</li>
-            <li><span class="bm-li-label">Cash generation: step-change in FY2024; interest coverage improving:</span> Derived Gross CFO reached $440m (FY2024), more than doubling from $197m (FY2021), as EBITDA(CF) expanded and adjusted working capital reversed — releasing $20m in FY2024 after absorbing $44–54m annually in FY2021–FY2023. Net CFO of $418m (FY2024) covers cash interest of $197m at 2.1x (FY2019: 1.7x). FCFF+FCInv (post-interest) improved to $221m, providing meaningful headroom for debt service and growth CAPEX. Est. FY2025 Net CFO ~$400m [E] — stable-to-slight decline as the FY2023 tax credit unwinds and FX/other costs normalise.</li>
+            <li><span class="bm-li-label">Cash generation: step-change in FY2024; interest coverage improving:</span> Derived Operating Cash Flow reached $440m (FY2024), more than doubling from $197m (FY2021), as EBITDA expanded and adjusted working capital reversed — releasing $20m in FY2024 after absorbing $44–54m annually in FY2021–FY2023. Free Cash Flow of $418m (FY2024) covers cash interest of $197m at 2.1x (FY2019: 1.7x). CADS (post-interest) improved to $221m, providing meaningful headroom for debt service and growth CAPEX. Est. FY2025 Free Cash Flow ~$400m [E] — stable-to-slight decline as the FY2023 tax credit unwinds and FX/other costs normalise.</li>
           </ul>
         </div>
       </div>
@@ -2235,14 +2312,14 @@
               <div class="metric-label">Net leverage (<span id="solv-km-leverage-fy">FY2024</span>)</div>
               <div class="metric-value" id="solv-km-leverage-value">~4.5x</div>
               <div class="metric-sub">ND / Adj. EBITDA</div>
-              <div class="metric-trend neutral" id="solv-km-leverage-reasoning">TBC AI reasoning</div>
+              <div class="metric-trend neutral" id="solv-km-leverage-reasoning">TBC reasoning</div>
             </div>
             <div class="metric-card" id="solv-km-dscr-card">
               <div class="metric-source">Public filing</div>
               <div class="metric-label">Est. DSCR (<span id="solv-km-dscr-fy">FY2024</span>)</div>
               <div class="metric-value" id="solv-km-dscr-value">~2.1x</div>
               <div class="metric-sub">Debt Service Cover</div>
-              <div class="metric-trend neutral" id="solv-km-dscr-reasoning">TBC AI reasoning</div>
+              <div class="metric-trend neutral" id="solv-km-dscr-reasoning">TBC reasoning</div>
             </div>
           </div>
         </div>
@@ -2320,7 +2397,7 @@
               </thead>
               <tbody>
                 <tr class="solv-cf-row" data-series="solvCfNcao">
-                  <td>Net CFO (CF)</td>
+                  <td>Free Cash Flow (CF)</td>
                   <td>162.0</td><td>165.6</td><td>164.9</td><td>218.6</td><td>410.4</td><td>417.7</td><td>400 [E]</td>
                 </tr>
                 <tr class="solv-cf-row" data-series="solvCfCapex">
@@ -2372,7 +2449,7 @@
             <li><span class="bm-li-label">Liquidity — Moderate risk:</span> Approximately $581m in known sources versus $323m in near-term uses implies a surplus; however, growth capex (~$165–180m p.a.) and limited visibility on undrawn facilities absorb most of that buffer.</li>
             <li><span class="bm-li-label">Solvency — Elevated risk:</span> Debt / EBITDA ~4.6× (FY2024) is improving but remains above investment-grade thresholds. Negative net worth (equity deficit ~$527m, FY2024) and EBITDA / interest ~2.15× underscore balance-sheet stress.</li>
             <li><span class="bm-li-label">Affordability — Improving:</span> Cash flow after all debt obligations turned positive in FY2023; FY2024 ~+$24m marks the first sustained positive outcome on this bridge.</li>
-            <li><span class="bm-li-label">Refinancing — High risk (key concern):</span> ~$1.1bn of senior secured bonds mature in 2026–2028 (~3× annual Net CFO), with dependency on bond and bank markets in a rising-rate environment.</li>
+            <li><span class="bm-li-label">Refinancing — High risk (key concern):</span> ~$1.1bn of senior secured bonds mature in 2026–2028 (~3× annual Free Cash Flow), with dependency on bond and bank markets in a rising-rate environment.</li>
             <li><span class="bm-li-label">Equity — High risk:</span> Share price down ~58% from IPO; market cap ~$390m versus gross debt ~$1.9bn — material risk of equity dilution if markets remain stressed.</li>
             <li><span class="bm-li-label">Overall:</span> Financial risk is elevated but manageable in the near term provided EBITDA growth holds and bond refinancing executes; the 2026–2028 maturity wall is the single most critical risk event.</li>
           </ul>
@@ -2715,6 +2792,16 @@ function scrollMemoTop() {
 
 function showAddLatestFinancialsSubscriptionHint() {
   const el = document.getElementById("financial-subscription-hint");
+  if (el) el.removeAttribute("hidden");
+}
+
+function showAnalystAddNoteSubscriptionHint() {
+  const el = document.getElementById("analyst-note-subscription-hint");
+  if (el) el.removeAttribute("hidden");
+}
+
+function showApproveMemoSubscriptionHint() {
+  const el = document.getElementById("approve-memo-subscription-hint");
   if (el) el.removeAttribute("hidden");
 }
 
@@ -3243,7 +3330,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
       }
     }
 
-    var tbcAi = "TBC AI reasoning";
+    var tbcAi = "TBC reasoning";
     var revReason = document.getElementById("sp-km-revenue-reasoning");
     var ebitdaReason = document.getElementById("sp-km-ebitda-reasoning");
     if (revReason) revReason.textContent = tbcAi;
@@ -3500,7 +3587,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     if (dscrFy) dscrFy.textContent = lastFY;
     if (dscrVal) dscrVal.textContent = fmtSolvKeyMetricTimes(series.solvDSCR[lastIdx]);
 
-    var tbcAi = "TBC AI reasoning";
+    var tbcAi = "TBC reasoning";
     var levR = document.getElementById("solv-km-leverage-reasoning");
     var dscrR = document.getElementById("solv-km-dscr-reasoning");
     if (levR) levR.textContent = tbcAi;
@@ -3843,6 +3930,8 @@ async function runAnalysis() {
   document.getElementById("output").style.display = "block";
   document.getElementById("approved-tag").style.display = "none";
   document.querySelector(".approve-btn").style.display = "inline-block";
+  var approveSubHint = document.getElementById("approve-memo-subscription-hint");
+  if (approveSubHint) approveSubHint.setAttribute("hidden", "");
   document.getElementById("review-banner").style.borderColor = "rgba(255,179,0,0.3)";
   document.getElementById("review-banner").style.background = "rgba(255,179,0,0.08)";
   document.getElementById("review-banner").querySelector(".review-text").innerHTML =
@@ -3906,60 +3995,6 @@ function setCreditRecOptionsDisabled(disabled) {
   if (fs) fs.style.opacity = disabled ? "0.7" : "";
 }
 
-function approveMemo() {
-  var sel = getCreditRecSelection();
-  document.querySelector(".approve-btn").style.display = "none";
-  document.getElementById("approved-tag").style.display = "inline-block";
-  document.getElementById("review-banner").style.borderColor = "rgba(0,200,150,0.3)";
-  document.getElementById("review-banner").style.background = "rgba(0,200,150,0.06)";
-  document.getElementById("review-banner").querySelector(".review-text").innerHTML =
-    '<b style="color:var(--green)">✓ Analyst Approved</b> — Memo verified and signed off. Ready for credit committee.<br><span style="font-size:12px;font-weight:500;margin-top:6px;display:inline-block;">Recorded credit stance: <strong>' +
-    sel.label +
-    "</strong></span>";
-
-  var list = document.getElementById("analyst-notes-list");
-  if (list) {
-    var now = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    var div = document.createElement("div");
-    div.style.cssText =
-      "background:rgba(0,200,150,0.08);border:1px solid rgba(0,200,150,0.28);border-radius:6px;padding:8px 12px;margin-top:6px;font-size:12px;";
-    div.innerHTML =
-      '<span style="color:var(--green);font-weight:600;">✓ Sign-off · ' +
-      now +
-      "</span><br>Memo approved. Credit recommendation option recorded: <strong>" +
-      sel.label +
-      "</strong>.";
-    list.insertBefore(div, list.firstChild);
-  }
-
-  setCreditRecOptionsDisabled(true);
-}
-
-function addNote() {
-  var inp = document.getElementById("analyst-note-input");
-  var val = inp.value.trim();
-  if (!val) return;
-  var list = document.getElementById("analyst-notes-list");
-  var now = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  var sel = getCreditRecSelection();
-  var div = document.createElement("div");
-  div.style.cssText =
-    "background:rgba(255,179,0,0.06);border:1px solid rgba(255,179,0,0.2);border-radius:6px;padding:8px 12px;margin-top:6px;font-size:12px;";
-  var meta = document.createElement("div");
-  meta.innerHTML =
-    '<span style="color:var(--amber);font-weight:600;">👤 Analyst · ' + now + "</span>";
-  var body = document.createElement("div");
-  body.style.marginTop = "4px";
-  body.textContent = val;
-  var stance = document.createElement("div");
-  stance.style.cssText = "opacity:0.8;font-size:10px;margin-top:6px;color:var(--text-dim);";
-  stance.textContent = "Credit stance at note time: " + sel.label;
-  div.appendChild(meta);
-  div.appendChild(body);
-  div.appendChild(stance);
-  list.appendChild(div);
-  inp.value = "";
-}
 </script>
 </body>
 </html>
