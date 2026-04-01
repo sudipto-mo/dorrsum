@@ -1659,7 +1659,7 @@
     </div>
     <div class="analyst-note">
       <span class="analyst-note-icon" aria-hidden="true"><span class="ui-svg"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></span></span>
-      <span>The AI pipeline extracts and structures data from public filings. The analyst reviews all outputs, overrides where needed, and approves before the draft is finalised.</span>
+      <span>The AI pipeline extracts and structures data from public filings. The analyst reviews outputs, overrides where needed, and should confirm figures against filings before treating the draft as authoritative.</span>
     </div>
     <div class="demo-banner" role="note">
       <span class="demo-banner-icon" aria-hidden="true"><span class="ui-svg"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span></span>
@@ -1674,7 +1674,7 @@
   <!-- Loading -->
   <div id="loading" class="no-print">
     <div style="font-size:15px;font-weight:600;">Running Claude Agent…</div>
-    <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">AI processes · Analyst reviews · Human approves</div>
+    <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">AI processes · Analyst reviews · Human verifies</div>
     <div class="loading-steps" id="steps">
       <div class="step-item" id="s1">
         <div class="step-dot"></div>
@@ -1698,7 +1698,7 @@
       </div>
       <div class="step-item" id="s6">
         <div class="step-dot"></div>
-        <span>⏳ &nbsp;Pending analyst review &amp; sign-off <span class="step-tag tag-human">ANALYST</span></span>
+        <span>⏳ &nbsp;Analyst verification recommended <span class="step-tag tag-human">ANALYST</span></span>
       </div>
     </div>
   </div>
@@ -1713,7 +1713,7 @@
         <label for="draft-toc-jump" class="draft-toc-jump-label">Jump to section</label>
         <select id="draft-toc-jump" class="draft-toc-select">
           <option value="" selected disabled>Select section…</option>
-          <option value="#sec-review">Review &amp; sign-off</option>
+          <option value="#sec-review">Review &amp; verification</option>
           <option value="#sec-cover">Rating Summary</option>
           <option value="#sec-biz-overview">Business Model</option>
           <option value="#sec-biz-asset">Asset management</option>
@@ -1722,7 +1722,7 @@
         </select>
       </div>
       <ul>
-        <li><a href="#sec-review">Review &amp; sign-off</a></li>
+        <li><a href="#sec-review">Review &amp; verification</a></li>
         <li><a href="#sec-cover">Rating Summary</a></li>
         <li><a href="#sec-biz-overview">Business Model</a></li>
         <li><a href="#sec-biz-asset">Asset management</a></li>
@@ -1734,7 +1734,7 @@
     <div class="draft-main">
 
     <section id="sec-review" class="draft-section" aria-labelledby="draft-h-review">
-      <h2 id="draft-h-review" class="draft-section-title">Review &amp; sign-off</h2>
+      <h2 id="draft-h-review" class="draft-section-title">Review &amp; verification</h2>
     <div class="analyst-judgement">
       <div class="aj-header">
         👤 Analyst Judgement Layer — Human Override
@@ -1752,13 +1752,13 @@
     <div class="review-banner" id="review-banner">
       <div class="review-icon">👤</div>
       <div class="review-text">
-        <b>Analyst Review Required</b> — AI draft complete. Please review all figures against source documents before approving.
+        <b>Verify against sources</b> — AI draft complete. Check all figures against primary documents and apply your own professional judgement before relying on this output.
       </div>
       <div class="review-banner-actions">
         <button type="button" class="approve-btn" onclick="showApproveDraftSubscriptionHint()">Review Brief</button>
         <span id="approve-draft-subscription-hint" class="financial-login-hint" hidden>Subscription only</span>
       </div>
-      <div class="approved-tag" id="approved-tag">✓ Analyst Approved</div>
+      <div class="approved-tag" id="approved-tag">✓ Review acknowledged</div>
     </div>
     </section>
 
@@ -1783,7 +1783,7 @@
       </div>
     </div>
     <div class="rec-box">
-      <div class="rec-header"><span class="rec-header-icon" aria-hidden="true"><span class="ui-svg"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg></span></span>AI-drafted credit recommendation — pending analyst sign-off</div>
+      <div class="rec-header"><span class="rec-header-icon" aria-hidden="true"><span class="ui-svg"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg></span></span>AI-drafted credit recommendation — verify against sources before use</div>
       <div class="rec-text">
         <div class="rec-section">
           <h3 class="rec-section-title">Credit Profile</h3>
@@ -1818,7 +1818,7 @@
           <h3 class="rec-section-title">Debt Capacity</h3>
           <p>Estimated headroom for additional debt: USD ~140m at 5.0x covenant level (on current EBITDA base)</p>
         </div>
-        <span class="rec-text-footnote">⚠ This is an AI-generated draft. The analyst must verify all figures against source documents, apply professional judgement, and approve before this draft is used for any credit decision.</span>
+        <span class="rec-text-footnote">⚠ This is an AI-generated draft. Verify all figures against source documents and apply professional judgement before relying on this draft for any credit decision.</span>
       </div>
 
       <div class="rec-risk-panel">
@@ -3935,7 +3935,7 @@ async function runAnalysis() {
   document.getElementById("review-banner").style.borderColor = "rgba(255,179,0,0.3)";
   document.getElementById("review-banner").style.background = "rgba(255,179,0,0.08)";
   document.getElementById("review-banner").querySelector(".review-text").innerHTML =
-    "<b>Analyst Review Required</b> — AI draft complete. Please review all figures against source documents before approving.";
+    "<b>Verify against sources</b> — AI draft complete. Check all figures against primary documents and apply your own professional judgement before relying on this output.";
   if (typeof setCreditRecOptionsDisabled === "function") setCreditRecOptionsDisabled(false);
 
   const behave = scrollBehaviorOpt();
