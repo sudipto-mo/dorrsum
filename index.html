@@ -466,91 +466,6 @@
       font-weight: 600;
       letter-spacing: 0.2px;
     }
-    .interest-gate.financial-login-hint[hidden] {
-      display: none !important;
-    }
-    .interest-gate.financial-login-hint {
-      display: block;
-      max-width: min(100%, 360px);
-      margin-top: 8px;
-      padding: 10px 12px;
-      background: rgba(255,179,0,0.07);
-      border: 1px solid rgba(255,179,0,0.28);
-      border-radius: 8px;
-      color: var(--text);
-      font-weight: 400;
-      letter-spacing: 0;
-    }
-    .conclusion-regen-toolbar .interest-gate.financial-login-hint {
-      flex-basis: 100%;
-      max-width: 100%;
-    }
-    .financial-toolbar .interest-gate.financial-login-hint,
-    .review-banner-actions .interest-gate.financial-login-hint,
-    .aj-override-actions .interest-gate.financial-login-hint {
-      flex-basis: 100%;
-      max-width: 100%;
-    }
-    .interest-gate-title {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: rgba(255,179,0,0.92);
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
-    .interest-gate-form {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-    .interest-gate-email {
-      flex: 1 1 180px;
-      min-width: 0;
-      padding: 8px 10px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--navy);
-      color: var(--text);
-      font-size: 13px;
-      font-family: inherit;
-    }
-    .interest-gate-email:focus {
-      outline: 2px solid rgba(0,188,212,0.45);
-      outline-offset: 1px;
-    }
-    .interest-gate-submit {
-      appearance: none;
-      border: 1px solid rgba(255,179,0,0.45);
-      background: rgba(255,179,0,0.12);
-      color: var(--amber);
-      font-family: inherit;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 8px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
-    }
-    .interest-gate-submit:hover {
-      background: rgba(255,179,0,0.2);
-      border-color: rgba(255,179,0,0.6);
-    }
-    .interest-gate-thanks,
-    .interest-gate-unlocked {
-      font-size: 12px;
-      font-weight: 600;
-      line-height: 1.45;
-    }
-    .interest-gate-thanks {
-      color: rgba(120, 200, 160, 0.95);
-    }
-    html[data-theme="light"] .interest-gate-email {
-      background: #ffffff;
-      border-color: var(--border);
-    }
     .analyst-note {
       display: flex;
       align-items: flex-start;
@@ -1845,17 +1760,7 @@
         <input type="text" id="financials-range" value="Public filings · FY 2019 – FY 2024" readonly />
         <div class="financial-toolbar">
           <button type="button" class="btn-secondary" onclick="showAddLatestFinancialsSubscriptionHint()"><span class="btn-sec-icon" aria-hidden="true"><span class="ui-svg"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></span> Add latest financials</button>
-          <div class="interest-gate financial-login-hint" id="financial-subscription-hint" hidden>
-            <div class="interest-gate-unlocked" hidden></div>
-            <div class="interest-gate-body">
-              <div class="interest-gate-title">By Invitation — Submit Your Interest</div>
-              <form class="interest-gate-form" data-interest-source="add-latest-financials" onsubmit="return submitInterestGate(event, this)">
-                <input type="email" name="email" required class="interest-gate-email" placeholder="Work email" autocomplete="email" aria-label="Email for interest submission" />
-                <button type="submit" class="interest-gate-submit">Submit interest</button>
-              </form>
-            </div>
-            <div class="interest-gate-thanks" hidden role="status">Thank you — we will be in touch.</div>
-          </div>
+          <span id="financial-subscription-hint" class="financial-login-hint" hidden>Subscription only</span>
         </div>
       </div>
     </div>
@@ -1946,17 +1851,7 @@
         <input type="text" id="analyst-note-input" placeholder="Add your annotation or override (e.g. 'Confirm customer concentration % from latest filing…')" />
         <div class="aj-override-actions">
           <button type="button" onclick="showAnalystAddNoteSubscriptionHint()">+ Add Note</button>
-          <div class="interest-gate financial-login-hint" id="analyst-note-subscription-hint" hidden>
-            <div class="interest-gate-unlocked" hidden></div>
-            <div class="interest-gate-body">
-              <div class="interest-gate-title">By Invitation — Submit Your Interest</div>
-              <form class="interest-gate-form" data-interest-source="analyst-note" onsubmit="return submitInterestGate(event, this)">
-                <input type="email" name="email" required class="interest-gate-email" placeholder="Work email" autocomplete="email" aria-label="Email for interest submission" />
-                <button type="submit" class="interest-gate-submit">Submit interest</button>
-              </form>
-            </div>
-            <div class="interest-gate-thanks" hidden role="status">Thank you — we will be in touch.</div>
-          </div>
+          <span id="analyst-note-subscription-hint" class="financial-login-hint" hidden>Subscription only</span>
         </div>
       </div>
       <div id="analyst-notes-list" style="margin-top:10px;"></div>
@@ -1968,17 +1863,7 @@
       </div>
       <div class="review-banner-actions">
         <button type="button" class="approve-btn" onclick="showApproveDraftSubscriptionHint()">Review Brief</button>
-        <div class="interest-gate financial-login-hint" id="approve-draft-subscription-hint" hidden>
-          <div class="interest-gate-unlocked" hidden></div>
-          <div class="interest-gate-body">
-            <div class="interest-gate-title">By Invitation — Submit Your Interest</div>
-            <form class="interest-gate-form" data-interest-source="review-brief" onsubmit="return submitInterestGate(event, this)">
-              <input type="email" name="email" required class="interest-gate-email" placeholder="Work email" autocomplete="email" aria-label="Email for interest submission" />
-              <button type="submit" class="interest-gate-submit">Submit interest</button>
-            </form>
-          </div>
-          <div class="interest-gate-thanks" hidden role="status">Thank you — we will be in touch.</div>
-        </div>
+        <span id="approve-draft-subscription-hint" class="financial-login-hint" hidden>Subscription only</span>
       </div>
       <div class="approved-tag" id="approved-tag">✓ Review acknowledged</div>
     </div>
@@ -2185,7 +2070,7 @@
                   <svg id="nwa-chart-svg" viewBox="0 0 340 130" preserveAspectRatio="none"></svg>
                 </div>
 
-                <div class="nwa-legend"><code>■</code> (By invitation)</div>
+                <div class="nwa-legend"><code>■</code> (Subscription only)</div>
 
                 <table class="nwa-table" id="nwa-figures-table" aria-label="Adjusted working capital impact on cash flow; amounts in USD millions">
                   <thead>
@@ -2281,17 +2166,7 @@
                     <span class="ui-svg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4M22 5h-4M4 17v2M5 19H3"/></svg></span>
                     Regenerate
                   </button>
-                  <div class="interest-gate financial-login-hint" hidden>
-                    <div class="interest-gate-unlocked" hidden></div>
-                    <div class="interest-gate-body">
-                      <div class="interest-gate-title">By Invitation — Submit Your Interest</div>
-                      <form class="interest-gate-form" data-interest-source="conclusion-current-asset" onsubmit="return submitInterestGate(event, this)">
-                        <input type="email" name="email" required class="interest-gate-email" placeholder="Work email" autocomplete="email" aria-label="Email for interest submission" />
-                        <button type="submit" class="interest-gate-submit">Submit interest</button>
-                      </form>
-                    </div>
-                    <div class="interest-gate-thanks" hidden role="status">Thank you — we will be in touch.</div>
-                  </div>
+                  <span class="financial-login-hint" hidden>Subscription only</span>
                 </div>
               </div>
               <ul class="bm-list">
@@ -2347,7 +2222,7 @@
                   <svg id="fa-chart-svg" viewBox="0 0 340 130" preserveAspectRatio="none"></svg>
                 </div>
 
-                <div class="nwa-legend"><code>■</code> (By invitation)</div>
+                <div class="nwa-legend"><code>■</code> (Subscription only)</div>
                 <table class="nwa-table" id="fa-figures-table" aria-label="Fixed asset figures table">
                   <thead>
                     <tr>
@@ -2402,17 +2277,7 @@
                     <span class="ui-svg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4M22 5h-4M4 17v2M5 19H3"/></svg></span>
                     Regenerate
                   </button>
-                  <div class="interest-gate financial-login-hint" hidden>
-                    <div class="interest-gate-unlocked" hidden></div>
-                    <div class="interest-gate-body">
-                      <div class="interest-gate-title">By Invitation — Submit Your Interest</div>
-                      <form class="interest-gate-form" data-interest-source="conclusion-fixed-asset" onsubmit="return submitInterestGate(event, this)">
-                        <input type="email" name="email" required class="interest-gate-email" placeholder="Work email" autocomplete="email" aria-label="Email for interest submission" />
-                        <button type="submit" class="interest-gate-submit">Submit interest</button>
-                      </form>
-                    </div>
-                    <div class="interest-gate-thanks" hidden role="status">Thank you — we will be in touch.</div>
-                  </div>
+                  <span class="financial-login-hint" hidden>Subscription only</span>
                 </div>
               </div>
               <ul class="bm-list">
@@ -2465,7 +2330,7 @@
               <svg id="sp-chart-svg" viewBox="0 0 340 130" preserveAspectRatio="none"></svg>
             </div>
 
-            <div class="nwa-legend"><code>■</code> (By invitation)</div>
+            <div class="nwa-legend"><code>■</code> (Subscription only)</div>
             <table class="nwa-table" id="sp-figures-table" aria-label="Sales and profitability detailed figures table">
               <thead>
                 <tr>
@@ -2520,17 +2385,7 @@
                 <span class="ui-svg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4M22 5h-4M4 17v2M5 19H3"/></svg></span>
                 Regenerate
               </button>
-              <div class="interest-gate financial-login-hint" hidden>
-                <div class="interest-gate-unlocked" hidden></div>
-                <div class="interest-gate-body">
-                  <div class="interest-gate-title">By Invitation — Submit Your Interest</div>
-                  <form class="interest-gate-form" data-interest-source="conclusion-sales-profitability" onsubmit="return submitInterestGate(event, this)">
-                    <input type="email" name="email" required class="interest-gate-email" placeholder="Work email" autocomplete="email" aria-label="Email for interest submission" />
-                    <button type="submit" class="interest-gate-submit">Submit interest</button>
-                  </form>
-                </div>
-                <div class="interest-gate-thanks" hidden role="status">Thank you — we will be in touch.</div>
-              </div>
+              <span class="financial-login-hint" hidden>Subscription only</span>
             </div>
           </div>
           <ul class="bm-list">
@@ -2584,7 +2439,7 @@
               <div class="nwa-chart-values" id="solv-chart-values"></div>
               <svg id="solv-chart-svg" viewBox="0 0 340 130" preserveAspectRatio="none"></svg>
             </div>
-            <div class="nwa-legend"><code>■</code> (By invitation)</div>
+            <div class="nwa-legend"><code>■</code> (Subscription only)</div>
             <table class="nwa-table" id="solv-figures-table" aria-label="Solvency detailed figures: debt protection">
               <thead>
                 <tr>
@@ -2633,7 +2488,7 @@
               <div class="nwa-chart-values" id="solv-cf-chart-values"></div>
               <svg id="solv-cf-chart-svg" viewBox="0 0 340 130" preserveAspectRatio="none"></svg>
             </div>
-            <div class="nwa-legend"><code>■</code> (By invitation)</div>
+            <div class="nwa-legend"><code>■</code> (Subscription only)</div>
             <table class="nwa-table" id="solv-cf-table" aria-label="Solvency cash flow available for debt service">
               <thead>
                 <tr>
@@ -2693,17 +2548,7 @@
                 <span class="ui-svg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4M22 5h-4M4 17v2M5 19H3"/></svg></span>
                 Regenerate
               </button>
-              <div class="interest-gate financial-login-hint" hidden>
-                <div class="interest-gate-unlocked" hidden></div>
-                <div class="interest-gate-body">
-                  <div class="interest-gate-title">By Invitation — Submit Your Interest</div>
-                  <form class="interest-gate-form" data-interest-source="conclusion-solvency" onsubmit="return submitInterestGate(event, this)">
-                    <input type="email" name="email" required class="interest-gate-email" placeholder="Work email" autocomplete="email" aria-label="Email for interest submission" />
-                    <button type="submit" class="interest-gate-submit">Submit interest</button>
-                  </form>
-                </div>
-                <div class="interest-gate-thanks" hidden role="status">Thank you — we will be in touch.</div>
-              </div>
+              <span class="financial-login-hint" hidden>Subscription only</span>
             </div>
           </div>
           <ul class="bm-list">
@@ -3053,94 +2898,30 @@ function scrollDraftTop() {
 }
 
 var FULL_REPORT_UNLOCK_MSG = "Full report (demo): would run in production.";
-var INTEREST_STORAGE_KEY = "principalai_interest_submissions";
-
-function submitInterestGate(ev, form) {
-  ev.preventDefault();
-  var emailInput = form.querySelector(".interest-gate-email");
-  var email = emailInput && emailInput.value ? String(emailInput.value).trim() : "";
-  if (!email) return false;
-  var source = form.getAttribute("data-interest-source") || "unknown";
-  try {
-    var prev = JSON.parse(localStorage.getItem(INTEREST_STORAGE_KEY) || "[]");
-    prev.push({ email: email, source: source, t: Date.now() });
-    localStorage.setItem(INTEREST_STORAGE_KEY, JSON.stringify(prev.slice(-100)));
-  } catch (err) {}
-  form.hidden = true;
-  var gate = form.closest(".interest-gate");
-  if (gate) {
-    var thanks = gate.querySelector(".interest-gate-thanks");
-    if (thanks) thanks.hidden = false;
-  }
-  return false;
-}
 
 function isFullReportUnlocked() {
   return document.documentElement.classList.contains("full-report-unlocked");
 }
 
-function resolveInterestGate(el) {
-  if (!el) return null;
-  if (el.classList && el.classList.contains("interest-gate")) return el;
-  return el.closest ? el.closest(".interest-gate") : null;
-}
-
 function applyGatedActionHint(el) {
-  var gate = resolveInterestGate(el);
-  if (!gate) return;
-  var body = gate.querySelector(".interest-gate-body");
-  var unlocked = gate.querySelector(".interest-gate-unlocked");
-  var thanks = gate.querySelector(".interest-gate-thanks");
-  var form = gate.querySelector(".interest-gate-form");
+  if (!el) return;
   if (isFullReportUnlocked()) {
-    if (body) body.hidden = true;
-    if (thanks) thanks.hidden = true;
-    if (form) {
-      form.reset();
-      form.hidden = false;
-    }
-    if (unlocked) {
-      unlocked.textContent = FULL_REPORT_UNLOCK_MSG;
-      unlocked.style.color = "rgba(120, 200, 160, 0.95)";
-      unlocked.hidden = false;
-    }
-    gate.style.color = "";
-    gate.removeAttribute("hidden");
+    el.textContent = FULL_REPORT_UNLOCK_MSG;
+    el.style.color = "rgba(120, 200, 160, 0.95)";
+    el.removeAttribute("hidden");
     return;
   }
-  if (unlocked) unlocked.hidden = true;
-  if (thanks) thanks.hidden = true;
-  if (form) {
-    form.hidden = false;
-    form.reset();
-  }
-  if (body) body.hidden = false;
-  gate.style.color = "";
-  gate.removeAttribute("hidden");
-}
-
-function resetInterestGate(gate) {
-  if (!gate) return;
-  gate.setAttribute("hidden", "");
-  var body = gate.querySelector(".interest-gate-body");
-  var unlocked = gate.querySelector(".interest-gate-unlocked");
-  var thanks = gate.querySelector(".interest-gate-thanks");
-  var form = gate.querySelector(".interest-gate-form");
-  if (body) body.hidden = false;
-  if (unlocked) {
-    unlocked.hidden = true;
-    unlocked.textContent = "";
-    unlocked.style.color = "";
-  }
-  if (thanks) thanks.hidden = true;
-  if (form) {
-    form.hidden = false;
-    form.reset();
-  }
+  el.textContent = "Subscription only";
+  el.style.color = "";
+  el.removeAttribute("hidden");
 }
 
 function resetAllSubscriptionHintsHidden() {
-  document.querySelectorAll(".interest-gate.financial-login-hint").forEach(resetInterestGate);
+  document.querySelectorAll(".financial-login-hint").forEach(function (el) {
+    el.textContent = "Subscription only";
+    el.style.color = "";
+    el.setAttribute("hidden", "");
+  });
 }
 
 function showAddLatestFinancialsSubscriptionHint() {
