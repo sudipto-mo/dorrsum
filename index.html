@@ -313,6 +313,9 @@
     html[data-theme="light"] .header-print-btn:hover {
       background: var(--navy-mid);
     }
+    html:not(.full-report-unlocked) .header-print-btn {
+      display: none !important;
+    }
     .theme-toggle {
       display: inline-flex;
       align-items: center;
