@@ -177,6 +177,10 @@
       border: 1px solid rgba(0,0,0,0.08);
       transition: background 0.15s, transform 0.1s;
     }
+    /* Author `display: inline-flex` wins over the HTML hidden attribute otherwise */
+    .btn-linkedin[hidden] {
+      display: none !important;
+    }
     .btn-linkedin:hover {
       background: #004182;
       color: #fff !important;
@@ -1803,7 +1807,7 @@
           <strong>Full report</strong> — Latest financials, analyst notes, review actions, and conclusion tools are gated behind LinkedIn sign-in (demo). Use <strong>Sign in for full report</strong> in the header.
         </div>
         <div id="full-report-panel-on" hidden>
-          <strong>Full report (demo)</strong> — You are signed in with LinkedIn. Gated actions below show a production-style message instead of “Subscription only”.
+          <strong>Full report (demo)</strong> — You are signed in with LinkedIn. Gated actions below show a production-style message instead of “Subscription only”. Use <strong>Sign out</strong> in the header to end this session.
         </div>
         <div id="full-report-panel-noserver" hidden>
           <strong>Full report</strong> — LinkedIn sign-in is served by <code style="font-size:11px;">/api/auth</code> on the deployed app (<strong>Vercel</strong>) or <code style="font-size:11px;">vercel dev</code>. A plain static server (e.g. port 8080) will not run OAuth here.
