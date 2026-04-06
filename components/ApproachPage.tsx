@@ -52,9 +52,9 @@ export function ApproachPage() {
             </h2>
             <p className="text-slate-300 leading-relaxed text-base sm:text-lg max-w-3xl mx-auto m-0">
               AI is a high-performance engine, but it requires a &apos;Master Driver&apos;. While screening a global
-              Packaging prospect, a generic AI misidentified &apos;Bills Payable&apos; as standard A/P. To a machine,
-              it&apos;s a generic liability; to a Senior Banker, it is Bank Debt that triggers a covenant breach. I use
-              AI to surface the truth in the data so you can focus on Structuring and Covenants, not data entry.
+              Packaging prospect, a generic AI misidentified &apos;Bills Payable&apos; as standard Accounts Payable. To a machine,
+              it&apos;s a generic liability; to a Senior Banker, it is Bank Debt that triggers a covenant breach. As the Master
+              Driver, I hardwire this credit judgment into the engine to deliver true structuring alpha.
             </p>
           </div>
         </div>

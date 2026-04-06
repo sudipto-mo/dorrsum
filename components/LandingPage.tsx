@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Lock, Activity, Database, ShieldCheck, ArrowRight } from "lucide-react";
+import { Activity, Database, ShieldCheck, ArrowRight, FileText } from "lucide-react";
 
 export default function LandingPage() {
   return (
@@ -35,34 +35,47 @@ export default function LandingPage() {
               href="/approach"
               className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold text-base transition-all border border-slate-700 no-underline"
             >
-              Appraoch
+              Approach
             </Link>
           </div>
-          <p className="mt-4 text-xs text-slate-500 font-medium tracking-wide">
-            ON-DEMAND CREDIT STRUCTURING & DEAL SCREENING.
-          </p>
         </div>
 
         <div className="w-full lg:w-1/2 relative">
           <div className="absolute inset-0 bg-blue-600/10 blur-[100px] rounded-full pointer-events-none" />
           <div className="relative rounded-2xl border border-slate-700/50 bg-slate-900/80 backdrop-blur-xl p-2 shadow-2xl transition-all duration-300 ease-out hover:border-slate-600/60 hover:shadow-[0_28px_90px_-18px_rgba(0,0,0,0.55)]">
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-800 bg-slate-950/50 rounded-t-xl">
-              <div className="w-3 h-3 rounded-full bg-slate-700" />
-              <div className="w-3 h-3 rounded-full bg-slate-700" />
-              <div className="w-3 h-3 rounded-full bg-slate-700" />
-              <div className="ml-4 text-xs font-mono text-slate-500">principalai.pro/research/helios-towers</div>
-            </div>
+            <Link
+              href="/research/helios-towers"
+              className="flex items-center gap-2 rounded-t-lg px-4 py-3 border-b border-slate-800 bg-slate-950/50 no-underline transition-colors hover:bg-slate-900/70"
+            >
+              <div className="w-3 h-3 rounded-full bg-slate-700 shrink-0" aria-hidden />
+              <div className="w-3 h-3 rounded-full bg-slate-700 shrink-0" aria-hidden />
+              <div className="w-3 h-3 rounded-full bg-slate-700 shrink-0" aria-hidden />
+              <span className="ml-2 truncate text-xs font-mono text-blue-400/95 sm:ml-4">
+                principalai.pro/research/helios-towers
+              </span>
+            </Link>
 
-            <div className="relative flex h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-b-xl bg-slate-950 px-6 text-center">
+            <div className="relative flex min-h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-b-xl bg-slate-950 px-6 py-10 text-center">
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-blue-400/30 bg-blue-600/20 shadow-lg shadow-blue-950/40">
-                <Lock className="h-6 w-6 text-blue-300" aria-hidden />
+                <FileText className="h-6 w-6 text-blue-300" aria-hidden />
               </div>
-              <h3 className="mb-6 text-xl font-bold tracking-tight text-white">Report Locked</h3>
+              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">Sample credit brief</p>
+              <h3 className="mb-2 text-xl font-bold tracking-tight text-white">Helios Towers plc</h3>
+              <p className="mb-6 max-w-sm text-sm leading-relaxed text-slate-400">
+                Indicative credit profile, covenant parameters, and debt capacity. Full financial reconstructions require
+                client access.
+              </p>
+              <Link
+                href="/research/helios-towers"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_0_20px_rgba(37,99,235,0.25)] transition-colors hover:bg-blue-700 no-underline"
+              >
+                View public excerpt →
+              </Link>
               <Link
                 href="/login"
-                className="text-sm font-medium px-4 py-2 rounded-md border border-slate-700 text-slate-300 hover:bg-slate-800 transition-colors no-underline shrink-0"
+                className="mt-4 text-xs font-medium text-slate-500 hover:text-slate-400 no-underline underline-offset-2 hover:underline"
               >
-                Access Research
+                Full institutional brief — client login
               </Link>
             </div>
           </div>

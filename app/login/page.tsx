@@ -69,6 +69,11 @@ export default async function LoginPage() {
           </a>
         </div>
 
+        <div className="mt-6 flex items-center justify-center gap-2 text-xs font-medium text-slate-400/80">
+          <ShieldCheck size={14} className="shrink-0 text-slate-500" aria-hidden />
+          <span>Secure institutional portal. No third-party data access.</span>
+        </div>
+
         <p className="text-xs text-slate-500 text-center mt-8 mb-0 leading-relaxed">
           After a successful sign-in you&apos;ll go straight to the Institutional Credit Desk on this domain.
         </p>

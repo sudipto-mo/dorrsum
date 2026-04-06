@@ -27,6 +27,12 @@ export default function SiteNavbar() {
             Approach
           </Link>
           <Link
+            href="/research/helios-towers"
+            className="text-sm font-medium text-slate-300 hover:text-white transition-colors no-underline"
+          >
+            Sample brief
+          </Link>
+          <Link
             href="/contact"
             className="text-sm font-medium text-slate-300 hover:text-white transition-colors no-underline"
           >
