@@ -444,6 +444,17 @@
     .header-pdf-btn:disabled {
       opacity: 0.5;
       cursor: not-allowed;
+      pointer-events: none;
+    }
+    html[data-theme="light"] .header-pdf-btn:disabled {
+      background: rgba(241, 245, 249, 0.5);
+      color: #94a3b8;
+      border-color: rgba(203, 213, 225, 0.5);
+    }
+    html[data-theme="dark"] .header-pdf-btn:disabled {
+      background: rgba(30, 41, 59, 0.5);
+      color: #94a3b8;
+      border-color: rgba(51, 65, 85, 0.5);
     }
     .header-pdf-btn .ui-svg {
       width: 14px;
@@ -1692,10 +1703,18 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--teal);
-      background: color-mix(in srgb, var(--teal) 12%, transparent);
-      border: 1px solid color-mix(in srgb, var(--teal) 32%, var(--border));
+      border: 1px solid transparent;
       border-radius: 999px;
       vertical-align: middle;
+    }
+    /* Plain rgba — html2canvas throws on color-mix() (serialized as color() in computed styles). */
+    html[data-theme="dark"] .rec-option-badge {
+      background: rgba(148, 163, 184, 0.12);
+      border-color: rgba(148, 163, 184, 0.32);
+    }
+    html[data-theme="light"] .rec-option-badge {
+      background: rgba(30, 58, 95, 0.12);
+      border-color: rgba(30, 58, 95, 0.22);
     }
 
     /* Light theme: data surfaces (tabs, tables) — Screening inputs styled above */
@@ -1864,92 +1883,6 @@
       color: var(--text);
     }
 
-    /* Print / Save as PDF — exact colors, hide chrome, avoid awkward breaks */
-    @media print {
-      @page {
-        margin: 1cm;
-      }
-      html,
-      body,
-      * {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
-      .no-print {
-        display: none !important;
-      }
-      /* Keep on-screen theme colors/backgrounds (score strips, tables, cards) */
-      body {
-        background: var(--navy) !important;
-        color: var(--text) !important;
-      }
-      main.container {
-        max-width: 100% !important;
-        padding: 12px 16px !important;
-      }
-      #output {
-        display: block !important;
-      }
-      .draft-shell {
-        display: block !important;
-      }
-      .draft-main {
-        min-width: 0 !important;
-      }
-      a[href^="#"] {
-        color: inherit !important;
-        text-decoration: none !important;
-      }
-      .nwa-table {
-        font-size: 10px !important;
-      }
-      .nwa-table th,
-      .nwa-table td {
-        padding: 4px 6px !important;
-      }
-      .draft-section {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-      .score-banner,
-      .rec-box,
-      .analyst-judgement,
-      .review-banner,
-      .nwa-table-wrap,
-      .bm-grid,
-      .bm-col,
-      .metrics-grid,
-      .ca-panel,
-      .deck-placeholder,
-      .rec-risk-panel .panel {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-      table.nwa-table {
-        break-inside: auto;
-        page-break-inside: auto;
-      }
-      .nwa-table thead {
-        display: table-header-group;
-      }
-      .nwa-table tr {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-      button {
-        display: none !important;
-      }
-      .ca-tablist {
-        display: none !important;
-      }
-      .ca-panel[hidden] {
-        display: none !important;
-      }
-      .ca-panel:not([hidden]) {
-        display: block !important;
-      }
-    }
-
     /* Responsive */
     @media (max-width: 768px) {
       .form-grid { grid-template-columns: 1fr; }
@@ -2002,16 +1935,15 @@
       id="header-export-brief"
       class="header-pdf-btn no-print"
       disabled
-      onclick="window.print()"
-      title="Generate a credit brief first, then use Save as PDF in the print dialog"
-      aria-label="Save brief as PDF via print dialog"
+      title="PDF export is temporarily unavailable while we improve rendering"
+      aria-label="Brief pack PDF — coming soon"
     >
       <span class="ui-svg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
           <polyline points="7 10 12 15 17 10" />
           <line x1="12" y1="15" x2="12" y2="3" />
       </svg></span>
-      Brief pack PDF
+      Brief Pack PDF (Coming Soon)
     </button>
     <div class="theme-toggle" role="group" aria-label="Appearance">
       <span class="theme-toggle-label" id="theme-toggle-heading">Appearance</span>
@@ -2074,11 +2006,12 @@
 </div>
 
 <main id="main" class="container desk-main" tabindex="-1">
+  <div class="brief-workbench-root">
   <div class="page-title">Indicative Credit Brief</div>
   <div class="page-sub">This layout structures data from the selected issuer’s materials. The analyst verifies, adjusts, and signs off. Section order follows a <strong>standard credit brief / committee deck</strong> layout; this page shows summary exhibits and placeholders where the full pack carries additional narrative.</div>
 
   <!-- Input Panel -->
-  <div class="input-panel no-print">
+  <div class="input-panel">
     <div class="panel-title panel-title--with-icon">
       <span class="panel-title-icon" aria-hidden="true"><span class="ui-svg"><svg viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6"/><path d="M9 16h6"/><path d="M9 8h2"/></svg></span></span>
       Screening Criteria
@@ -2906,7 +2839,8 @@
     </div><!-- .draft-main -->
   </div><!-- .draft-shell -->
 
-  </div>
+  </div><!-- #output -->
+  </div><!-- .brief-workbench-root -->
 </main>
 
 <button type="button" id="draft-back-top" class="draft-back-top no-print" hidden onclick="scrollDraftTop()" aria-label="Back to top of draft">
@@ -4556,8 +4490,6 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 })();
 
 async function runAnalysis() {
-  var exportBriefBtn = document.getElementById("header-export-brief");
-  if (exportBriefBtn) exportBriefBtn.disabled = true;
   document.getElementById("output").style.display = "none";
   updateDraftBackTop();
   const loading = document.getElementById("loading");
@@ -4579,14 +4511,6 @@ async function runAnalysis() {
   await sleep(500);
   loading.style.display = "none";
   document.getElementById("output").style.display = "block";
-  var exportBriefBtnDone = document.getElementById("header-export-brief");
-  if (exportBriefBtnDone) {
-    exportBriefBtnDone.disabled = false;
-    exportBriefBtnDone.setAttribute(
-      "title",
-      "Opens the print dialog — choose Save as PDF to export the on-screen brief"
-    );
-  }
   document.getElementById("approved-tag").style.display = "none";
   document.querySelector(".approve-btn").style.display = "inline-block";
   var approveSubHint = document.getElementById("approve-draft-subscription-hint");

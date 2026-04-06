@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Desk UI lives in public/credit-workbench/index.html (single compact header + export).
- */
 export default function CreditWorkbenchClient() {
   return (
     <iframe
