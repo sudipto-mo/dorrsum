@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <!-- draft-revision: professional-svg-icons-2026-03-31 -->
-  <title>Principal AI | The Credit Professional's Workbench</title>
+  <title>Principal AI | Institutional Credit Desk</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
@@ -12,45 +12,49 @@
     (function () {
       try {
         var t = localStorage.getItem("credit-draft-theme");
-        if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+        if (t === "dark" || t === "light") {
+          document.documentElement.setAttribute("data-theme", t);
+          document.documentElement.classList.toggle("dark", t === "dark");
+        }
       } catch (e) {}
     })();
   </script>
   <style>
+    /* Dark: same root as landing bg-[#0B0F19]; surfaces use slate-900/40 + slate-800 borders */
     html[data-theme="dark"] {
-      --navy: #0a1628;
-      --navy-light: #112240;
-      --navy-mid: #1a3a5c;
+      --navy: #0b0f19;
+      --navy-light: #0b0f19;
+      --navy-mid: #1e293b;
       --blue: #5b9fd8;
       --blue-accent: #64b5f6;
-      --teal: #8ab4d9;
+      --teal: #94a3b8;
       --green: #4fc3a0;
-      --amber: #e6a23c;
+      --amber: #f59e0b;
       --red: #e57373;
-      --text: #e8eef5;
-      --text-dim: #9eb0c8;
-      --border: rgba(255,255,255,0.09);
-      --card: rgba(255,255,255,0.04);
-      --chart-grid: rgba(255,255,255,0.10);
-      --approve-btn-text: #0a1628;
+      --text: #cbd5e1;
+      --text-dim: #94a3b8;
+      --border: rgba(51, 65, 85, 0.65);
+      --card: rgba(15, 23, 42, 0.5);
+      --chart-grid: rgba(255, 255, 255, 0.1);
+      --approve-btn-text: #0b0f19;
       --font-body: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-    /* Light: Morningstar / institutional research — warm paper, navy headings, restrained accent */
+    /* Light: CapIQ-adjacent white surfaces on slate-50 */
     html[data-theme="light"] {
-      --navy: #f3f2ef;
+      --navy: #f8fafc;
       --navy-light: #ffffff;
-      --navy-mid: #ebe9e4;
+      --navy-mid: #f1f5f9;
       --blue: #1e3a5f;
       --blue-accent: #2563eb;
-      --teal: #1a365d;
+      --teal: #1e3a5f;
       --green: #166534;
       --amber: #92400e;
       --red: #991b1b;
-      --text: #1c1917;
-      --text-dim: #57534e;
-      --border: #d6d3cd;
+      --text: #0f172a;
+      --text-dim: #475569;
+      --border: #e2e8f0;
       --card: #ffffff;
-      --chart-grid: rgba(28, 25, 23, 0.09);
+      --chart-grid: rgba(15, 23, 42, 0.09);
       --approve-btn-text: #ffffff;
       --font-body: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
@@ -63,6 +67,7 @@
       background: var(--navy);
       color: var(--text);
       min-height: 100vh;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
 
     /* Inline UI icons (stroke, finance-app style — no emoji) */
@@ -153,6 +158,11 @@
       font-weight: 600;
       letter-spacing: 0.4px;
       color: var(--teal);
+    }
+    html[data-theme="dark"] .badge-hitl {
+      background: #1e293b;
+      color: #cbd5e1;
+      border: 1px solid #334155;
     }
 
     .header-auth {
@@ -494,19 +504,32 @@
       color: var(--teal);
     }
 
-    /* ── DISCLAIMER BANNER ── */
+    /* ── DISCLAIMER BANNER (subtle; mirrors Tailwind amber-50 / dark:amber-950/30) ── */
     .disclaimer-banner {
-      background: rgba(255,179,0,0.08);
-      border-bottom: 1px solid rgba(255,179,0,0.2);
       padding: 8px 32px;
       font-size: 11px;
-      color: var(--amber);
+      font-weight: 500;
       display: flex;
       align-items: center;
       gap: 8px;
     }
+    html[data-theme="light"] .disclaimer-banner {
+      background: #fffbeb;
+      color: #92400e;
+      border-bottom: 1px solid #fde68a;
+    }
+    html[data-theme="light"] .disclaimer-banner-icon {
+      color: #92400e;
+    }
+    html[data-theme="dark"] .disclaimer-banner {
+      background: rgba(120, 53, 15, 0.1);
+      color: #f59e0b;
+      border-bottom: 1px solid rgba(120, 53, 15, 0.3);
+    }
+    html[data-theme="dark"] .disclaimer-banner-icon {
+      color: #f59e0b;
+    }
     .disclaimer-banner-icon {
-      color: var(--amber);
       flex-shrink: 0;
     }
     .disclaimer-banner-icon .ui-svg {
@@ -514,11 +537,14 @@
       height: 14px;
     }
 
-    /* ── MAIN LAYOUT ── */
+    /* ── MAIN LAYOUT (page bg = body --navy: slate-50 light / #0B0F19 dark) ── */
     .container {
       max-width: 1060px;
       margin: 0 auto;
       padding: 32px 24px;
+    }
+    main.container.desk-main {
+      transition: color 0.2s ease;
     }
     .page-title {
       font-size: 22px; font-weight: 700; margin-bottom: 4px;
@@ -527,18 +553,33 @@
       font-size: 13px; color: var(--text-dim); margin-bottom: 28px;
     }
 
-    /* ── INPUT PANEL ── */
+    /* ── INPUT PANEL (CapIQ-style light / landing-aligned dark) ── */
     .input-panel {
-      background: var(--navy-light);
-      border: 1px solid var(--border);
       border-radius: 12px;
       padding: 24px;
       margin-bottom: 24px;
+    }
+    html[data-theme="light"] .input-panel {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.05);
+    }
+    html[data-theme="dark"] .input-panel {
+      background: rgba(15, 23, 42, 0.4);
+      border: 1px solid rgba(51, 65, 85, 0.5);
+      box-shadow: none;
     }
     .panel-title {
       font-size: 12px; font-weight: 600; letter-spacing: 1px;
       text-transform: uppercase; color: var(--teal);
       margin-bottom: 18px;
+    }
+    html[data-theme="dark"] .panel-title {
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+    html[data-theme="dark"] .panel-title-icon {
+      color: #cbd5e1;
     }
     .panel-title--with-icon {
       display: flex;
@@ -573,13 +614,30 @@
     }
     .form-group input {
       width: 100%;
-      background: var(--navy);
-      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 8px;
       padding: 10px 14px;
-      color: var(--text);
       font-size: 13px;
       outline: none;
+      font-family: inherit;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    html[data-theme="light"] .form-group input {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #0f172a;
+    }
+    html[data-theme="light"] .form-group input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 1px #2563eb;
+    }
+    html[data-theme="dark"] .form-group input {
+      background: #0b0f19;
+      border: 1px solid #1e293b;
+      color: #e2e8f0;
+    }
+    html[data-theme="dark"] .form-group input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.45);
     }
     .financial-toolbar {
       display: flex;
@@ -592,19 +650,31 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(0,188,212,0.08);
-      border: 1px solid rgba(0,188,212,0.35);
       border-radius: 8px;
       padding: 10px 16px;
-      color: var(--teal);
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
+      font-family: inherit;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
     }
-    .btn-secondary:hover {
-      background: rgba(0,188,212,0.14);
-      border-color: rgba(0,188,212,0.5);
+    html[data-theme="light"] .btn-secondary {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+    }
+    html[data-theme="light"] .btn-secondary:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+    html[data-theme="dark"] .btn-secondary {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid #334155;
+      color: #cbd5e1;
+    }
+    html[data-theme="dark"] .btn-secondary:hover {
+      background: #1e293b;
+      border-color: #334155;
     }
     .btn-secondary:focus-visible {
       outline: 2px solid var(--teal);
@@ -675,8 +745,19 @@
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
-      transition: opacity 0.2s, transform 0.1s;
+      transition: background 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, transform 0.1s ease;
       letter-spacing: 0.3px;
+    }
+    html[data-theme="dark"] .run-btn {
+      background: #2563eb;
+      border: 1px solid transparent;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -2px rgba(0, 0, 0, 0.12);
+    }
+    html[data-theme="dark"] .run-btn:hover {
+      background: #1d4ed8;
+      opacity: 1;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.2);
     }
     .run-btn:hover { opacity: 0.9; transform: translateY(-1px); }
     .run-btn:active { transform: translateY(0); }
@@ -1599,12 +1680,7 @@
       vertical-align: middle;
     }
 
-    /* Light theme: inputs & data surfaces (tabs, tables) */
-    html[data-theme="light"] .form-group input {
-      background: #ffffff;
-      border-color: rgba(15, 23, 42, 0.12);
-      color: var(--text);
-    }
+    /* Light theme: data surfaces (tabs, tables) — Screening inputs styled above */
     html[data-theme="light"] .draft-toc-select {
       background: #ffffff;
       border-color: rgba(15, 23, 42, 0.12);
@@ -1678,10 +1754,18 @@
     }
     html[data-theme="light"] .metric-card,
     html[data-theme="light"] .bm-col,
-    html[data-theme="light"] .draft-toc,
-    html[data-theme="light"] .input-panel,
-    html[data-theme="light"] #loading {
+    html[data-theme="light"] .draft-toc {
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    html[data-theme="light"] #loading {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.05);
+    }
+    html[data-theme="dark"] #loading {
+      background: rgba(15, 23, 42, 0.4);
+      border: 1px solid rgba(51, 65, 85, 0.5);
+      box-shadow: none;
     }
     html[data-theme="light"] .metric-source {
       color: rgba(87, 83, 78, 0.88);
@@ -1749,15 +1833,6 @@
     html[data-theme="light"] .conclusion-regen-btn:hover:not(:disabled) {
       background: rgba(26, 54, 93, 0.11);
       border-color: rgba(26, 54, 93, 0.4);
-    }
-    html[data-theme="light"] .btn-secondary {
-      color: var(--teal);
-      background: rgba(26, 54, 93, 0.06);
-      border-color: rgba(26, 54, 93, 0.3);
-    }
-    html[data-theme="light"] .btn-secondary:hover {
-      background: rgba(26, 54, 93, 0.11);
-      border-color: rgba(26, 54, 93, 0.45);
     }
     html[data-theme="light"] .wf-bar-wrap {
       background: #e8e6e1;
@@ -1849,7 +1924,7 @@
     </div>
     <div>
       <div class="logo-text">Principal AI</div>
-      <div class="logo-sub">The Credit Professional's Workbench</div>
+      <div class="logo-sub">Institutional Credit Desk</div>
     </div>
   </div>
   <div class="header-actions no-print">
@@ -1865,7 +1940,7 @@
             Google
           </a>
         </div>
-        <span class="header-auth-hint" id="header-auth-unconfigured" hidden>Sign-in is not configured on this host (use the deployed site or <code style="font-size:10px;">vercel dev</code>).</span>
+        <span class="header-auth-hint" id="header-auth-unconfigured" hidden>Client sign-in is not available in this environment.</span>
       </div>
       <div class="header-auth-logged-in" id="header-auth-in" hidden>
         <span class="header-auth-user" id="header-auth-user-label"></span>
@@ -1883,13 +1958,13 @@
         <button type="button" id="theme-dark" aria-pressed="false">Dark</button>
       </div>
     </div>
-    <div class="badge-hitl">👤 Human-in-the-Loop · Analyst Verified</div>
+    <div class="badge-hitl">👤 Audit Trail: Analyst Override</div>
   </div>
 </header>
 
 <div class="disclaimer-banner no-print">
   <span class="disclaimer-banner-icon" aria-hidden="true"><span class="ui-svg"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span></span>
-  <span>Figures are illustrative and sourced from public filings where noted in the draft. On-screen brief text is <strong>AI-assisted draft material</strong> — analyst review and verification required before use.</span>
+  <span>Indicative quantitative output. Analyst verification required prior to committee submission.</span>
 </div>
 
 <div class="auth-flash no-print" id="auth-flash" hidden role="status"></div>
@@ -1906,13 +1981,13 @@
     <button type="button" class="access-modal-close" id="access-invite-close" aria-label="Close">
       &times;
     </button>
-    <h2 class="access-modal-title" id="access-invite-title">Access the professional Credit Workbench</h2>
+    <h2 class="access-modal-title" id="access-invite-title">Access the Institutional Credit Desk</h2>
     <p class="access-modal-lead">
       I built this to close the <strong style="color: var(--text); font-weight: 700">data-to-decision</strong> gap I kept
-      hitting over 16 years in credit. Sign in to see how domain expertise and modern tooling change the workflow—not
+      hitting over 16 years in credit. Sign in to see how domain expertise and modern tooling change credit preparation—not
       as a marketing gate, but as a colleague would share a desk tool.
     </p>
-    <p class="access-modal-kicker">Inside the Helios Towers brief (demo)</p>
+    <p class="access-modal-kicker">Inside the Helios Towers brief</p>
     <ul class="access-modal-list">
       <li><strong style="color: var(--text)">The automated draft</strong> — five years of historicals and FY2025-style projections.</li>
       <li><strong style="color: var(--text)">Structural recommendations</strong> — suggested covenants and FX mitigants to stress-test.</li>
@@ -1936,15 +2011,15 @@
   </div>
 </div>
 
-<main id="main" class="container" tabindex="-1">
-  <div class="page-title">Principal AI | Draft (demo)</div>
-  <div class="page-sub">The workflow structures data from the selected issuer’s materials. The analyst verifies, adjusts, and signs off. Section order follows a <strong>standard credit brief / committee deck</strong> layout; this page shows summary exhibits and placeholders where the full pack carries additional narrative.</div>
+<main id="main" class="container desk-main" tabindex="-1">
+  <div class="page-title">Indicative Credit Brief</div>
+  <div class="page-sub">This layout structures data from the selected issuer’s materials. The analyst verifies, adjusts, and signs off. Section order follows a <strong>standard credit brief / committee deck</strong> layout; this page shows summary exhibits and placeholders where the full pack carries additional narrative.</div>
 
   <!-- Input Panel -->
   <div class="input-panel no-print">
     <div class="panel-title panel-title--with-icon">
       <span class="panel-title-icon" aria-hidden="true"><span class="ui-svg"><svg viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6"/><path d="M9 16h6"/><path d="M9 8h2"/></svg></span></span>
-      Analysis Parameters
+      Screening Criteria
     </div>
     <div class="form-grid">
       <div class="form-group">
@@ -1961,28 +2036,28 @@
         <label>Financials</label>
         <input type="text" id="financials-range" value="Public filings · FY 2019 – FY 2024" readonly />
         <div class="financial-toolbar">
-          <button type="button" class="btn-secondary" onclick="showAddLatestFinancialsSubscriptionHint()"><span class="btn-sec-icon" aria-hidden="true"><span class="ui-svg"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></span> Add latest financials</button>
+          <button type="button" class="btn-secondary" onclick="showAddLatestFinancialsSubscriptionHint()"><span class="btn-sec-icon" aria-hidden="true"><span class="ui-svg"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></span> Import Latest Filings</button>
           <span id="financial-subscription-hint" class="financial-login-hint" hidden>Coming Soon</span>
         </div>
       </div>
     </div>
     <div class="analyst-note">
       <span class="analyst-note-icon" aria-hidden="true"><span class="ui-svg"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></span></span>
-      <span>The workflow extracts and structures data from public filings. The analyst reviews outputs, overrides where needed, and should confirm figures against filings before treating the draft as authoritative.</span>
+      <span>This screen extracts and structures data from public filings. The analyst reviews outputs, overrides where needed, and should confirm figures against filings before treating the brief as authoritative.</span>
     </div>
     <div class="demo-banner" role="note">
       <span class="demo-banner-icon" aria-hidden="true"><span class="ui-svg"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span></span>
-      <span><strong>Demo:</strong> Sample brief text is <strong>AI-assisted</strong>. <strong>Run draft workflow</strong> plays a fixed animation only (no live engine and no use of your data). Not for production credit decisions.</span>
+      <span><strong>Note:</strong> Brief text is <strong>AI-assisted</strong>. <strong>Generate Credit Brief</strong> runs a fixed on-screen sequence in this environment and does not ingest proprietary inputs. Confirm all figures against source filings before committee use.</span>
     </div>
     <button type="button" class="run-btn" onclick="runAnalysis()">
       <span class="run-btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><polygon points="8 5 19 12 8 19 8 5" fill="currentColor" stroke="none"/></svg></span>
-      Run draft workflow
+      Generate Credit Brief
     </button>
   </div>
 
   <!-- Loading -->
   <div id="loading" class="no-print">
-    <div style="font-size:15px;font-weight:600;">Running draft workflow…</div>
+    <div style="font-size:15px;font-weight:600;">Generating Credit Brief…</div>
     <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">Automated steps · Analyst review · Human verification</div>
     <div class="loading-steps" id="steps">
       <div class="step-item" id="s1">
@@ -2364,7 +2439,7 @@
               <div class="conclusion-panel-head">
                 <h3 class="conclusion-panel-title" id="ca-concl-heading">Conclusion</h3>
                 <div class="conclusion-regen-toolbar">
-                  <button type="button" class="conclusion-regen-btn" data-conclusion-context="current-asset" aria-describedby="ca-concl-heading" aria-label="Regenerate conclusion (demo)">
+                  <button type="button" class="conclusion-regen-btn" data-conclusion-context="current-asset" aria-describedby="ca-concl-heading" aria-label="Regenerate conclusion">
                     <span class="ui-svg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4M22 5h-4M4 17v2M5 19H3"/></svg></span>
                     Regenerate
                   </button>
@@ -2475,7 +2550,7 @@
               <div class="conclusion-panel-head">
                 <h3 class="conclusion-panel-title" id="fa-concl-heading">Conclusion</h3>
                 <div class="conclusion-regen-toolbar">
-                  <button type="button" class="conclusion-regen-btn" data-conclusion-context="fixed-asset" aria-describedby="fa-concl-heading" aria-label="Regenerate conclusion (demo)">
+                  <button type="button" class="conclusion-regen-btn" data-conclusion-context="fixed-asset" aria-describedby="fa-concl-heading" aria-label="Regenerate conclusion">
                     <span class="ui-svg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4M22 5h-4M4 17v2M5 19H3"/></svg></span>
                     Regenerate
                   </button>
@@ -2583,7 +2658,7 @@
           <div class="conclusion-panel-head">
             <h3 class="conclusion-panel-title" id="sp-concl-heading">Conclusion</h3>
             <div class="conclusion-regen-toolbar">
-              <button type="button" class="conclusion-regen-btn" data-conclusion-context="sales-profitability" aria-describedby="sp-concl-heading" aria-label="Regenerate conclusion (demo)">
+              <button type="button" class="conclusion-regen-btn" data-conclusion-context="sales-profitability" aria-describedby="sp-concl-heading" aria-label="Regenerate conclusion">
                 <span class="ui-svg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4M22 5h-4M4 17v2M5 19H3"/></svg></span>
                 Regenerate
               </button>
@@ -2746,7 +2821,7 @@
           <div class="conclusion-panel-head">
             <h3 class="conclusion-panel-title" id="solv-concl-heading">Conclusion</h3>
             <div class="conclusion-regen-toolbar">
-              <button type="button" class="conclusion-regen-btn" data-conclusion-context="solvency" aria-describedby="solv-concl-heading" aria-label="Regenerate conclusion (demo)">
+              <button type="button" class="conclusion-regen-btn" data-conclusion-context="solvency" aria-describedby="solv-concl-heading" aria-label="Regenerate conclusion">
                 <span class="ui-svg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4M22 5h-4M4 17v2M5 19H3"/></svg></span>
                 Regenerate
               </button>
@@ -3073,6 +3148,7 @@ function draftPositionRowTooltip(tooltip, rowRect) {
   function apply(theme) {
     var t = theme === "dark" ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", t);
+    document.documentElement.classList.toggle("dark", t === "dark");
     try {
       localStorage.setItem(KEY, t);
     } catch (e) {}
@@ -3099,7 +3175,7 @@ function scrollDraftTop() {
   if (t) t.scrollIntoView({ behavior: scrollBehaviorOpt(), block: "start" });
 }
 
-var FULL_REPORT_UNLOCK_MSG = "Full report (demo): would run in production.";
+var FULL_REPORT_UNLOCK_MSG = "This action is available in your production configuration.";
 
 var accessInviteModalPrevFocus = null;
 
@@ -3233,8 +3309,7 @@ async function refreshFullReportSession() {
   const out = document.getElementById("header-auth-out");
   const inn = document.getElementById("header-auth-in");
   const userLabel = document.getElementById("header-auth-user-label");
-  var unconfDefaultHtml =
-    'Sign-in is not configured on this host (use the deployed site or <code style="font-size:10px;">vercel dev</code>).';
+  var unconfDefaultHtml = "Client sign-in is not available in this environment.";
 
   try {
     const r = await fetch("/api/auth/session", { credentials: "include" });
@@ -3246,26 +3321,7 @@ async function refreshFullReportSession() {
     if (unconf) {
       unconf.hidden = !!data.configured;
       if (!data.configured) {
-        var parts = [];
-        if (data.linkedinMissingKeys && data.linkedinMissingKeys.length) {
-          parts.push(
-            "LinkedIn: <code style=\"font-size:10px;\">" + data.linkedinMissingKeys.join(", ") + "</code>"
-          );
-        }
-        if (data.googleMissingKeys && data.googleMissingKeys.length) {
-          parts.push(
-            "Google: <code style=\"font-size:10px;\">" + data.googleMissingKeys.join(", ") + "</code>"
-          );
-        }
-        if (parts.length) {
-          unconf.innerHTML =
-            "Add in Vercel (Production), then redeploy — " + parts.join(" · ") + ' · <code style="font-size:10px;">.env.example</code>';
-        } else {
-          unconf.innerHTML =
-            'OAuth is not set. Add <code style="font-size:10px;">AUTH_SECRET</code> and LinkedIn and/or Google OAuth vars.';
-        }
-      } else {
-        unconf.innerHTML = unconfDefaultHtml;
+        unconf.textContent = unconfDefaultHtml;
       }
     }
     /* Show both OAuth entry points whenever the host has any provider configured.
@@ -3289,7 +3345,7 @@ async function refreshFullReportSession() {
     root.classList.remove("full-report-unlocked");
     if (unconf) {
       unconf.hidden = false;
-      unconf.innerHTML = unconfDefaultHtml;
+      unconf.textContent = unconfDefaultHtml;
     }
     if (signinLinkedIn) signinLinkedIn.hidden = true;
     if (signinGoogle) signinGoogle.hidden = true;
@@ -3303,14 +3359,22 @@ async function refreshFullReportSession() {
 }
 
 function showOAuthAuthFlashFromQuery() {
-  const flash = document.getElementById("auth-flash");
-  if (!flash) return;
   const params = new URLSearchParams(window.location.search);
   const mode = params.get("oauth_auth") || params.get("linkedin_auth");
   if (!mode) return;
   if (mode === "success") {
-    flash.textContent = "Signed in. Full report actions are unlocked (demo).";
-  } else if (mode === "missing_config") {
+    try {
+      const u = new URL(window.location.href);
+      u.searchParams.delete("oauth_auth");
+      u.searchParams.delete("linkedin_auth");
+      u.searchParams.delete("reason");
+      window.history.replaceState({}, "", u.pathname + u.search + u.hash);
+    } catch (err) {}
+    return;
+  }
+  const flash = document.getElementById("auth-flash");
+  if (!flash) return;
+  if (mode === "missing_config") {
     flash.textContent =
       "Sign-in is not configured: add AUTH_SECRET plus LinkedIn (LINKEDIN_*) and/or Google (GOOGLE_*) in Production env — see .env.example — then redeploy.";
   } else if (mode === "error") {

@@ -70,7 +70,7 @@ export default async function LoginPage() {
         </div>
 
         <p className="text-xs text-slate-500 text-center mt-8 mb-0 leading-relaxed">
-          After a successful sign-in you&apos;ll go straight to the credit professional&apos;s workbench on this domain.
+          After a successful sign-in you&apos;ll go straight to the Institutional Credit Desk on this domain.
         </p>
 
         <div className="text-center mt-6">

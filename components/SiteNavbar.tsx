@@ -34,6 +34,8 @@ export default function SiteNavbar() {
           </Link>
           <Link
             href="/login"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-sm font-medium px-4 py-2 rounded-md border border-slate-700 text-slate-300 hover:bg-slate-800 transition-colors no-underline shrink-0"
           >
             Client Login

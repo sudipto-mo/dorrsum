@@ -12,7 +12,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Principal AI",
-  description: "Credit and portfolio tooling for institutional workflows.",
+  description: "Credit and portfolio tooling for institutional capital markets desks.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

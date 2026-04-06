@@ -35,7 +35,7 @@ export default function LandingPage() {
               href="/approach"
               className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold text-base transition-all border border-slate-700 no-underline"
             >
-              Our Approach
+              Appraoch
             </Link>
           </div>
           <p className="mt-4 text-xs text-slate-500 font-medium tracking-wide">

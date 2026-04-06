@@ -37,7 +37,7 @@ export function ApproachPage() {
           <div>
             <h3 className="text-lg font-semibold text-white tracking-tight mb-3 m-0">The Virtual Deal Team</h3>
             <p className="text-slate-300 leading-relaxed text-base m-0">
-              An agentic hierarchy mirroring a classic deal team. A &apos;Deal Coordinator&apos; manages the workflow
+              An agentic hierarchy mirroring a classic deal team. A &apos;Deal Coordinator&apos; orchestrates the workstream
               for IC memos, while &apos;Specialist Agents&apos; handle high-fidelity OCR extraction and instant modeling
               of Cash Flow Conversion and Leverage.
             </p>
