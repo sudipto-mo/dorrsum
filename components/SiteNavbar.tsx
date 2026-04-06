@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-const LINKEDIN_OAUTH_HREF = "/api/auth/linkedin/authorize";
-
 export default function SiteNavbar() {
   return (
     <nav
@@ -34,12 +32,12 @@ export default function SiteNavbar() {
           >
             Contact
           </Link>
-          <a
-            href={LINKEDIN_OAUTH_HREF}
-            className="text-sm font-medium px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-md border border-slate-700 transition-colors no-underline shrink-0"
+          <Link
+            href="/login"
+            className="text-sm font-medium px-4 py-2 rounded-md border border-slate-700 text-slate-300 hover:bg-slate-800 transition-colors no-underline shrink-0"
           >
             Client Login
-          </a>
+          </Link>
         </div>
       </div>
     </nav>

@@ -23,7 +23,7 @@ export default function CreditWorkbenchProductPage() {
       <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 mb-8">
         <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3 m-0">Sign-in</h2>
         <p className="text-slate-300 leading-relaxed text-sm m-0">
-          Full-report actions use LinkedIn OAuth where configured. API routes live under{" "}
+          Full-report actions use LinkedIn and/or Google OAuth where configured. API routes live under{" "}
           <code className="text-slate-400 bg-slate-950/60 px-1.5 py-0.5 rounded text-xs border border-slate-800">
             /api/auth/
           </code>{" "}

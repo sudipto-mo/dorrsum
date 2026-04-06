@@ -1,29 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
   SESSION_COOKIE,
-  STATE_COOKIE,
+  GOOGLE_STATE_COOKIE,
   getCookieHeader,
   signSession,
   buildSetCookie,
 } from "@/lib/linkedin-session";
-import { logLinkedInSignIn } from "@/lib/supabase-signin-log";
-import { decodeJwtPayload, queryFromUrl, trimEnv, protoSecure } from "@/lib/oauth-query";
+import { logGoogleSignIn } from "@/lib/supabase-signin-log";
+import { queryFromUrl, trimEnv, protoSecure } from "@/lib/oauth-query";
 import { redirectToWorkbench } from "@/lib/workbench-redirect";
+import { googleOAuthReady } from "@/lib/auth-oauth-config";
 
 export async function GET(request: NextRequest) {
-  const clientId = trimEnv(process.env.LINKEDIN_CLIENT_ID);
-  const clientSecret = trimEnv(process.env.LINKEDIN_CLIENT_SECRET);
-  const redirectUri = trimEnv(process.env.LINKEDIN_REDIRECT_URI);
+  const clientId = trimEnv(process.env.GOOGLE_CLIENT_ID);
+  const clientSecret = trimEnv(process.env.GOOGLE_CLIENT_SECRET);
+  const redirectUri = trimEnv(process.env.GOOGLE_REDIRECT_URI);
   const authSecret = trimEnv(process.env.AUTH_SECRET);
   const secure = protoSecure(request);
-  const clearState = buildSetCookie(STATE_COOKIE, "", { maxAge: 0, secure });
+  const clearState = buildSetCookie(GOOGLE_STATE_COOKIE, "", { maxAge: 0, secure });
 
   function withClear(redirect: NextResponse): NextResponse {
     redirect.headers.append("Set-Cookie", clearState);
     return redirect;
   }
 
-  if (!clientId || !clientSecret || !redirectUri || !authSecret) {
+  if (!googleOAuthReady()) {
     return withClear(redirectToWorkbench(request, { oauth_auth: "missing_config" }));
   }
 
@@ -31,21 +32,19 @@ export async function GET(request: NextRequest) {
 
   if (q.error) {
     const msg = typeof q.error_description === "string" ? q.error_description : String(q.error);
-    return withClear(
-      redirectToWorkbench(request, { oauth_auth: "error", reason: msg.slice(0, 200) })
-    );
+    return withClear(redirectToWorkbench(request, { oauth_auth: "error", reason: msg.slice(0, 200) }));
   }
 
   const code = q.code;
   const state = q.state;
-  const saved = getCookieHeader(request.headers.get("cookie"), STATE_COOKIE);
+  const saved = getCookieHeader(request.headers.get("cookie"), GOOGLE_STATE_COOKIE);
 
   if (!code || !state || !saved || state !== saved) {
     return withClear(
       redirectToWorkbench(request, {
         oauth_auth: "error",
         reason:
-          "Invalid OAuth state (cookie missing or mismatch). Common fix: use one site URL (www OR apex), match LINKEDIN_REDIRECT_URI + LinkedIn redirect, or set SESSION_COOKIE_DOMAIN=yourdomain.com in Vercel.",
+          "Invalid OAuth state (cookie missing or mismatch). Use one canonical site URL, match GOOGLE_REDIRECT_URI in Google Cloud Console, or set SESSION_COOKIE_DOMAIN.",
       })
     );
   }
@@ -59,15 +58,13 @@ export async function GET(request: NextRequest) {
       client_id: clientId,
       client_secret: clientSecret,
     });
-    tokenRes = await fetch("https://www.linkedin.com/oauth/v2/accessToken", {
+    tokenRes = await fetch("https://oauth2.googleapis.com/token", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: body.toString(),
     });
   } catch {
-    return withClear(
-      redirectToWorkbench(request, { oauth_auth: "error", reason: "Token request failed" })
-    );
+    return withClear(redirectToWorkbench(request, { oauth_auth: "error", reason: "Token request failed" }));
   }
 
   const tokenText = await tokenRes.text();
@@ -79,18 +76,18 @@ export async function GET(request: NextRequest) {
   }
 
   if (!tokenRes.ok || !tokenJson.access_token) {
-    const liErr =
+    const gErr =
       trimEnv(String(tokenJson.error_description || "")) ||
       trimEnv(String(tokenJson.error || "")) ||
       tokenText.replace(/\s+/g, " ").slice(0, 280).trim() ||
       "Token exchange failed";
-    return withClear(redirectToWorkbench(request, { oauth_auth: "error", reason: liErr }));
+    return withClear(redirectToWorkbench(request, { oauth_auth: "error", reason: gErr }));
   }
 
   let profile: Record<string, unknown> = {};
   let profileRes: Response | undefined;
   try {
-    profileRes = await fetch("https://api.linkedin.com/v2/userinfo", {
+    profileRes = await fetch("https://openidconnect.googleapis.com/v1/userinfo", {
       headers: { Authorization: "Bearer " + String(tokenJson.access_token) },
     });
     const profileText = await profileRes.text();
@@ -103,16 +100,9 @@ export async function GET(request: NextRequest) {
     profile = {};
   }
 
-  if (!profile.sub && typeof tokenJson.id_token === "string") {
-    const claims = decodeJwtPayload(tokenJson.id_token);
-    if (claims && claims.sub) profile = claims;
-  }
-
   if (!profile.sub) {
     const detail =
-      profileRes && !profileRes.ok
-        ? "userinfo " + profileRes.status + " (enable OpenID product + openid profile email scopes)"
-        : "No subject in profile or id_token";
+      profileRes && !profileRes.ok ? "userinfo " + profileRes.status : "No sub in Google userinfo";
     return withClear(redirectToWorkbench(request, { oauth_auth: "error", reason: detail }));
   }
 
@@ -122,14 +112,14 @@ export async function GET(request: NextRequest) {
     sub: String(profile.sub),
     name: typeof profile.name === "string" ? profile.name : "",
     email: typeof profile.email === "string" ? profile.email : "",
-    provider: "linkedin",
+    provider: "google",
     iat: now,
     exp: exp,
   };
 
   const fwdFor = trimEnv(request.headers.get("x-forwarded-for") || undefined);
   const clientIp = fwdFor ? fwdFor.split(",")[0].trim() : trimEnv(request.headers.get("x-real-ip") || undefined);
-  await logLinkedInSignIn({
+  await logGoogleSignIn({
     sub: payload.sub,
     email: payload.email,
     name: payload.name,

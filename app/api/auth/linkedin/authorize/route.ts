@@ -1,17 +1,17 @@
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { STATE_COOKIE, buildSetCookie } from "@/lib/linkedin-session";
+import { linkedinOAuthReady } from "@/lib/auth-oauth-config";
 import { redirectToWorkbench } from "@/lib/workbench-redirect";
-import { protoSecure } from "@/lib/oauth-query";
+import { trimEnv, protoSecure } from "@/lib/oauth-query";
 
 export async function GET(request: NextRequest) {
-  const clientId = (process.env.LINKEDIN_CLIENT_ID || "").trim();
-  const redirectUri = (process.env.LINKEDIN_REDIRECT_URI || "").trim();
-  const authSecret = (process.env.AUTH_SECRET || "").trim();
-
-  if (!clientId || !redirectUri || !authSecret) {
-    return redirectToWorkbench(request, { linkedin_auth: "missing_config" });
+  if (!linkedinOAuthReady()) {
+    return redirectToWorkbench(request, { oauth_auth: "missing_config" });
   }
+
+  const clientId = trimEnv(process.env.LINKEDIN_CLIENT_ID);
+  const redirectUri = trimEnv(process.env.LINKEDIN_REDIRECT_URI);
 
   const state = crypto.randomBytes(24).toString("hex");
   const secure = protoSecure(request);

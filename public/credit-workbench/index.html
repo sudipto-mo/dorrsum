@@ -202,6 +202,38 @@
       height: 16px;
       flex-shrink: 0;
     }
+    .btn-google {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      color: #3c4043 !important;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid #dadce0;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+    }
+    .btn-google[hidden] {
+      display: none !important;
+    }
+    .btn-google:hover {
+      background: #f8f9fa;
+      color: #3c4043 !important;
+      box-shadow: 0 1px 2px rgba(60, 64, 67, 0.15);
+    }
+    .btn-google:focus-visible {
+      outline: 2px solid var(--teal);
+      outline-offset: 2px;
+    }
+    .btn-google svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
     .header-signin-row {
       display: flex;
       align-items: center;
@@ -1828,6 +1860,10 @@
             <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             LinkedIn
           </a>
+          <a href="/api/auth/google/authorize" class="btn-google header-signin-btn" id="header-google-signin">
+            <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            Google
+          </a>
         </div>
         <span class="header-auth-hint" id="header-auth-unconfigured" hidden>Sign-in is not configured on this host (use the deployed site or <code style="font-size:10px;">vercel dev</code>).</span>
       </div>
@@ -1882,7 +1918,7 @@
       <li><strong style="color: var(--text)">Structural recommendations</strong> — suggested covenants and FX mitigants to stress-test.</li>
       <li><strong style="color: var(--text)">The judgment layer</strong> — the verification path I use before treating AI-assisted output as committee-ready.</li>
     </ul>
-    <div class="access-modal-actions">
+    <div class="access-modal-actions" style="display:flex;flex-direction:column;align-items:stretch;gap:10px;">
       <a href="/api/auth/linkedin/authorize" class="btn-linkedin header-signin-btn" id="access-modal-linkedin">
         <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="18" height="18">
           <path
@@ -1890,6 +1926,10 @@
           />
         </svg>
         Sign in with LinkedIn to explore
+      </a>
+      <a href="/api/auth/google/authorize" class="btn-google header-signin-btn" id="access-modal-google">
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Sign in with Google to explore
       </a>
       <p id="access-modal-unconfigured" class="access-modal-unconfigured" hidden></p>
     </div>
@@ -3069,23 +3109,34 @@ function isFullReportUnlocked() {
 
 function syncAccessInviteModalAuthUi() {
   var signinLinkedIn = document.getElementById("header-linkedin-signin");
+  var signinGoogle = document.getElementById("header-google-signin");
   var unconf = document.getElementById("header-auth-unconfigured");
   var mLi = document.getElementById("access-modal-linkedin");
+  var mGo = document.getElementById("access-modal-google");
   var mUn = document.getElementById("access-modal-unconfigured");
   if (!mLi || !mUn) return;
   if (isFullReportUnlocked()) {
     mLi.hidden = true;
+    if (mGo) mGo.hidden = true;
     mUn.hidden = true;
     return;
   }
-  if (!signinLinkedIn) {
+  if (!signinLinkedIn && !signinGoogle) {
     mLi.hidden = true;
+    if (mGo) mGo.hidden = true;
     mUn.hidden = false;
     if (unconf) mUn.innerHTML = unconf.innerHTML;
     return;
   }
-  mLi.hidden = signinLinkedIn.hidden;
-  mUn.hidden = !signinLinkedIn.hidden;
+  if (signinLinkedIn) mLi.hidden = signinLinkedIn.hidden;
+  else mLi.hidden = true;
+  if (mGo) {
+    if (signinGoogle) mGo.hidden = signinGoogle.hidden;
+    else mGo.hidden = true;
+  }
+  var liVis = signinLinkedIn && !signinLinkedIn.hidden;
+  var goVis = signinGoogle && !signinGoogle.hidden;
+  mUn.hidden = !!(liVis || goVis);
   if (!mUn.hidden && unconf) mUn.innerHTML = unconf.innerHTML;
 }
 
@@ -3178,6 +3229,7 @@ async function refreshFullReportSession() {
   const root = document.documentElement;
   const unconf = document.getElementById("header-auth-unconfigured");
   const signinLinkedIn = document.getElementById("header-linkedin-signin");
+  const signinGoogle = document.getElementById("header-google-signin");
   const out = document.getElementById("header-auth-out");
   const inn = document.getElementById("header-auth-in");
   const userLabel = document.getElementById("header-auth-user-label");
@@ -3189,6 +3241,7 @@ async function refreshFullReportSession() {
     if (!r.ok) throw new Error("bad status");
     const data = await r.json();
     const liOk = !!data.linkedinConfigured;
+    const gOk = !!data.googleConfigured;
     root.classList.toggle("full-report-unlocked", !!data.authenticated);
     if (unconf) {
       unconf.hidden = !!data.configured;
@@ -3199,18 +3252,26 @@ async function refreshFullReportSession() {
             "LinkedIn: <code style=\"font-size:10px;\">" + data.linkedinMissingKeys.join(", ") + "</code>"
           );
         }
+        if (data.googleMissingKeys && data.googleMissingKeys.length) {
+          parts.push(
+            "Google: <code style=\"font-size:10px;\">" + data.googleMissingKeys.join(", ") + "</code>"
+          );
+        }
         if (parts.length) {
           unconf.innerHTML =
             "Add in Vercel (Production), then redeploy — " + parts.join(" · ") + ' · <code style="font-size:10px;">.env.example</code>';
         } else {
           unconf.innerHTML =
-            'OAuth is not set. Add <code style="font-size:10px;">LINKEDIN_*</code> and <code style="font-size:10px;">AUTH_SECRET</code>.';
+            'OAuth is not set. Add <code style="font-size:10px;">AUTH_SECRET</code> and LinkedIn and/or Google OAuth vars.';
         }
       } else {
         unconf.innerHTML = unconfDefaultHtml;
       }
     }
-    if (signinLinkedIn) signinLinkedIn.hidden = !liOk;
+    /* Show both OAuth entry points whenever the host has any provider configured.
+       (Hiding per-provider made Google disappear until all GOOGLE_* vars were set — confusing.) */
+    if (signinLinkedIn) signinLinkedIn.hidden = !data.configured;
+    if (signinGoogle) signinGoogle.hidden = !data.configured;
     syncAccessInviteModalAuthUi();
     if (out) out.classList.toggle("header-auth-out--disabled", !data.configured);
     if (data.authenticated) {
@@ -3231,6 +3292,7 @@ async function refreshFullReportSession() {
       unconf.innerHTML = unconfDefaultHtml;
     }
     if (signinLinkedIn) signinLinkedIn.hidden = true;
+    if (signinGoogle) signinGoogle.hidden = true;
     syncAccessInviteModalAuthUi();
     if (out) {
       out.classList.add("header-auth-out--disabled");
@@ -3244,16 +3306,15 @@ function showOAuthAuthFlashFromQuery() {
   const flash = document.getElementById("auth-flash");
   if (!flash) return;
   const params = new URLSearchParams(window.location.search);
-  const li = params.get("linkedin_auth");
-  const mode = li || null;
+  const mode = params.get("oauth_auth") || params.get("linkedin_auth");
   if (!mode) return;
   if (mode === "success") {
-    flash.textContent = "Signed in with LinkedIn. Full report actions are unlocked (demo).";
+    flash.textContent = "Signed in. Full report actions are unlocked (demo).";
   } else if (mode === "missing_config") {
     flash.textContent =
-      "LinkedIn sign-in is not configured: Vercel is missing LINKEDIN_CLIENT_ID, LINKEDIN_REDIRECT_URI, or AUTH_SECRET (check Production env + redeploy).";
+      "Sign-in is not configured: add AUTH_SECRET plus LinkedIn (LINKEDIN_*) and/or Google (GOOGLE_*) in Production env — see .env.example — then redeploy.";
   } else if (mode === "error") {
-    flash.textContent = "LinkedIn sign-in did not complete: " + (params.get("reason") || "unknown error") + ".";
+    flash.textContent = "Sign-in did not complete: " + (params.get("reason") || "unknown error") + ".";
   } else return;
   flash.hidden = false;
   flash.classList.remove("auth-flash--warn", "auth-flash--err");
@@ -3261,6 +3322,7 @@ function showOAuthAuthFlashFromQuery() {
   else if (mode === "error") flash.classList.add("auth-flash--err");
   try {
     const u = new URL(window.location.href);
+    u.searchParams.delete("oauth_auth");
     u.searchParams.delete("linkedin_auth");
     u.searchParams.delete("reason");
     window.history.replaceState({}, "", u.pathname + u.search + u.hash);

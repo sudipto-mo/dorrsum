@@ -5,7 +5,10 @@
 import crypto from "crypto";
 
 export const SESSION_COOKIE = "pa_full_report";
+/** CSRF state for LinkedIn authorization. */
 export const STATE_COOKIE = "pa_linkedin_oauth_state";
+/** CSRF state for Google authorization (separate cookie so both flows never clash). */
+export const GOOGLE_STATE_COOKIE = "pa_google_oauth_state";
 
 export function getCookieHeader(cookieHeader: string | null, name: string): string {
   const raw = cookieHeader;
