@@ -1625,6 +1625,25 @@
       color: var(--teal);
       line-height: 1.25;
     }
+    .rec-section-title .rec-section-qualifier {
+      text-transform: none;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+    .rec-summary-risk {
+      margin: 12px 0 5px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--teal);
+    }
+    .rec-summary-risk:first-of-type {
+      margin-top: 6px;
+    }
+    .rec-summary-risk strong {
+      font-weight: 700;
+      color: inherit;
+    }
     .rec-section p {
       margin: 0 0 3px;
       font-size: 14px;
@@ -2162,40 +2181,27 @@
       </div>
     </div>
     <div class="rec-box">
-      <div class="rec-header"><span class="rec-header-icon" aria-hidden="true"><span class="ui-svg"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg></span></span>Draft credit recommendation — verify against sources before use</div>
       <div class="rec-text">
         <div class="rec-section">
-          <h3 class="rec-section-title">Credit Profile</h3>
-          <p>Sub-investment grade credit (implied BB+)</p>
-          <p>Contracted tower-lease business model with top-tier MNO counterparties across Sub-Saharan Africa</p>
-        </div>
-        <div class="rec-section">
-          <h3 class="rec-section-title">Business Strengths</h3>
-          <p>~52% Adjusted EBITDA margin reflects structural strength of TowerCo model</p>
-        </div>
-        <div class="rec-section">
-          <h3 class="rec-section-title">Credit Concerns</h3>
-          <ul>
-            <li>Elevated leverage (~4.5x Debt/EBITDA FY2024; verify Net Debt/Adj. EBITDA per draft tables)</li>
-            <li>FX mismatch: USD-denominated debt vs. local currency revenues</li>
-            <li>Refinancing profile requires close monitoring</li>
-          </ul>
-        </div>
-        <div class="rec-section">
-          <h3 class="rec-section-title">Recommended Decision</h3>
-          <p><strong>Proceed with Conditions</strong></p>
-        </div>
-        <div class="rec-section">
-          <h3 class="rec-section-title">Suggested Covenant Package</h3>
-          <ul>
-            <li>Net leverage step-down to 5.0x by FY2026</li>
-            <li>Mandatory FX hedging on ≥70% of USD obligations</li>
-            <li>Cash sweep mechanism triggered above 6.0x leverage</li>
-          </ul>
-        </div>
-        <div class="rec-section">
-          <h3 class="rec-section-title">Debt Capacity</h3>
-          <p>Estimated headroom for additional debt: USD ~140m at 5.0x covenant level (on current EBITDA base)</p>
+          <h3 class="rec-section-title">
+            Summary <span class="rec-section-qualifier">( Illustrative )</span>
+          </h3>
+          <p class="rec-summary-risk"><strong>Financial Risk: Moderate</strong></p>
+          <p>
+            Liquidity is strong; while cash flow generation has improved, enabling Helios to easily cover investment and
+            debt servicing. It is targeting debt reduction; any significant reduction may prove difficult to achieve in the
+            short term unless it sees further tenancy/margin improvement given the planned CAPEX.
+          </p>
+          <p class="rec-summary-risk"><strong>Equity Risk: High</strong></p>
+          <p>
+            Given the low level of permanent equity and the lack of share price performance. Doubtful of its attractiveness
+            to investors, thus equity refinancing is unlikely in short term.
+          </p>
+          <p class="rec-summary-risk"><strong>Refinancing Risk: Medium</strong></p>
+          <p>
+            The $300M convertible bond maturing in 2027 requires a clear plan. If the stock price doesn&apos;t rise enough
+            for investors to convert to shares, Helios must find cash or new loans.
+          </p>
         </div>
         <span class="rec-text-footnote">⚠ This is an AI-assisted draft. Verify all figures against source documents and apply professional judgement before relying on this output for any credit decision.</span>
       </div>

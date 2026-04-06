@@ -5,7 +5,7 @@ import { FileText, Lock } from "lucide-react";
 export const metadata: Metadata = {
   title: "Helios Towers — Indicative Credit Brief (Teaser) | Principal AI",
   description:
-    "Preview a rating-style credit summary: profile, strengths, concerns, committee-style decision, covenant package, and debt capacity. Full briefs for commissioned clients.",
+    "Public excerpt: illustrative summary (financial, equity, and refinancing risk). Full institutional briefs for commissioned clients.",
   openGraph: {
     title: "Helios Towers — Indicative Credit Brief (Teaser)",
     description:
@@ -13,10 +13,8 @@ export const metadata: Metadata = {
   },
 };
 
-const sectionLabel = "mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500";
-const sectionBody = "text-[15px] leading-relaxed text-slate-300 sm:text-base sm:leading-7";
-const bulletList =
-  "list-disc list-inside space-y-2 text-[15px] leading-relaxed text-slate-300 marker:text-slate-500 sm:text-base sm:leading-7";
+const body = "text-[15px] leading-relaxed text-slate-300 sm:text-base sm:leading-7";
+const riskLabel = "text-sm font-bold text-cyan-500/95 sm:text-[15px]";
 
 export default function HeliosTowersResearchTeaserPage() {
   return (
@@ -35,74 +33,44 @@ export default function HeliosTowersResearchTeaserPage() {
           <p className="text-sm text-slate-500">London · March 2026 · Excerpt for qualified counterparties only</p>
         </header>
 
-        <div className="space-y-8">
-          <div className="mb-2 flex items-center gap-2">
-            <FileText className="h-5 w-5 shrink-0 text-blue-400/90" aria-hidden />
-            <h2 className="text-lg font-bold uppercase tracking-wide text-slate-100 sm:text-xl">Rating Summary</h2>
-          </div>
-
-          <section aria-labelledby="credit-profile-label">
-            <p id="credit-profile-label" className={sectionLabel}>
-              Credit profile
-            </p>
-            <p className={sectionBody}>
-              Sub-investment grade credit (implied BB+). Contracted tower-lease business model with top-tier MNO
-              counterparties across Sub-Saharan Africa.
-            </p>
-          </section>
-
-          <section aria-labelledby="business-strengths-label">
-            <p id="business-strengths-label" className={sectionLabel}>
-              Business strengths
-            </p>
-            <p className={sectionBody}>
-              ~52% Adjusted EBITDA margin reflects structural strength of TowerCo model.
-            </p>
-          </section>
-
-          <section aria-labelledby="credit-concerns-label">
-            <p id="credit-concerns-label" className={sectionLabel}>
-              Credit concerns
-            </p>
-            <ul className={`${bulletList} pl-0.5`} aria-label="Credit concerns">
-              <li>
-                Elevated leverage (~4.5× Debt/EBITDA FY2024; verify Net Debt/Adj. EBITDA per draft tables)
-              </li>
-              <li>FX mismatch: USD-denominated debt vs. local currency revenues</li>
-              <li>Refinancing profile requires close monitoring</li>
-            </ul>
-          </section>
-
-          <section aria-labelledby="recommended-decision-label">
-            <p id="recommended-decision-label" className={sectionLabel}>
-              Recommended decision
-            </p>
-            <p className={`${sectionBody} font-semibold text-white`}>Proceed with Conditions</p>
-          </section>
-
-          <section aria-labelledby="covenant-package-label">
-            <p id="covenant-package-label" className={sectionLabel}>
-              Suggested covenant package
-            </p>
-            <ul className={`${bulletList} pl-0.5`} aria-label="Suggested covenant package">
-              <li>Net leverage step-down to 5.0× by FY2026</li>
-              <li>Mandatory FX hedging on ≥70% of USD obligations</li>
-              <li>Cash sweep mechanism triggered above 6.0× leverage</li>
-            </ul>
-          </section>
-
-          <section aria-labelledby="debt-capacity-label" className="pb-2">
-            <p id="debt-capacity-label" className={sectionLabel}>
-              Debt capacity
-            </p>
-            <p className={sectionBody}>
-              Estimated headroom for additional debt: USD ~140m at 5.0× covenant level (on current EBITDA base).
-            </p>
-          </section>
+        <div className="mb-2 flex flex-wrap items-center gap-2">
+          <FileText className="h-5 w-5 shrink-0 text-cyan-500/90" aria-hidden />
+          <h2
+            id="teaser-summary-heading"
+            className="m-0 text-lg font-extrabold uppercase tracking-[0.14em] text-slate-100 sm:text-xl"
+          >
+            Summary{" "}
+            <span className="normal-case font-extrabold tracking-[0.06em] text-slate-400">( Illustrative )</span>
+          </h2>
         </div>
+
+        <section aria-labelledby="teaser-summary-heading" className="pb-2">
+          <p className={`${riskLabel} mt-3`}>
+            <strong className="font-bold">Financial Risk: Moderate</strong>
+          </p>
+          <p className={body}>
+            Liquidity is strong; while cash flow generation has improved, enabling Helios to easily cover investment and
+            debt servicing. It is targeting debt reduction; any significant reduction may prove difficult to achieve in the
+            short term unless it sees further tenancy/margin improvement given the planned CAPEX.
+          </p>
+          <p className={`${riskLabel} mt-6`}>
+            <strong className="font-bold">Equity Risk: High</strong>
+          </p>
+          <p className={body}>
+            Given the low level of permanent equity and the lack of share price performance. Doubtful of its attractiveness
+            to investors, thus equity refinancing is unlikely in short term.
+          </p>
+          <p className={`${riskLabel} mt-6`}>
+            <strong className="font-bold">Refinancing Risk: Medium</strong>
+          </p>
+          <p className={body}>
+            The $300M convertible bond maturing in 2027 requires a clear plan. If the stock price doesn&apos;t rise enough
+            for investors to convert to shares, Helios must find cash or new loans.
+          </p>
+        </section>
       </article>
 
-      {/* Paywall band: gradient + glass card — immediately after Rating Summary / Debt capacity */}
+      {/* Paywall band: gradient + glass card — immediately after summary */}
       <div className="relative mx-auto max-w-3xl px-5 pb-20 sm:px-8 sm:pb-28">
         <div
           aria-hidden

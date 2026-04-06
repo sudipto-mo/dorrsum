@@ -62,7 +62,7 @@ export default function LandingPage() {
               <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">Sample credit brief</p>
               <h3 className="mb-2 text-xl font-bold tracking-tight text-white">Helios Towers plc</h3>
               <p className="mb-6 max-w-sm text-sm leading-relaxed text-slate-400">
-                Indicative credit profile, covenant parameters, and debt capacity. Full financial reconstructions require
+                Illustrative summary: financial, equity, and refinancing risk. Full institutional brief and models require
                 client access.
               </p>
               <Link
