@@ -268,12 +268,6 @@
       color: var(--text);
       border-color: rgba(0,188,212,0.35);
     }
-    .header-auth-hint {
-      font-size: 11px;
-      color: var(--text-dim);
-      max-width: 220px;
-      line-height: 1.35;
-    }
     .header-auth-out--disabled .header-signin-btn {
       display: none;
     }
@@ -408,45 +402,56 @@
       flex-wrap: wrap;
       justify-content: flex-end;
     }
-    .header-print-btn {
+    /* Single export control — premium secondary (Tailwind slate-aligned) */
+    a.header-pdf-btn {
+      flex-shrink: 0;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       appearance: none;
-      border: 1px solid var(--border);
-      background: var(--navy-light);
-      color: var(--teal);
+      border: 1px solid #cbd5e1;
+      background: transparent;
+      color: #334155;
       font-family: inherit;
       font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       padding: 8px 14px;
       border-radius: 8px;
       cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      text-decoration: none;
+      box-sizing: border-box;
     }
-    .header-print-btn:hover {
-      background: var(--navy-mid);
-      border-color: rgba(26, 54, 93, 0.35);
+    a.header-pdf-btn:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+      color: #1e293b;
     }
-    .header-print-btn:focus-visible {
-      outline: 2px solid var(--teal);
+    a.header-pdf-btn:focus-visible {
+      outline: 2px solid #64748b;
       outline-offset: 2px;
     }
-    .header-print-btn .ui-svg {
-      width: 15px;
-      height: 15px;
+    a.header-pdf-btn .ui-svg {
+      width: 16px;
+      height: 16px;
     }
-    html[data-theme="light"] .header-print-btn {
-      background: #ffffff;
-      border-color: var(--border);
+    a.header-pdf-btn .ui-svg svg {
+      stroke-width: 2px;
     }
-    html[data-theme="light"] .header-print-btn:hover {
-      background: var(--navy-mid);
+    html[data-theme="dark"] a.header-pdf-btn {
+      border-color: #334155;
+      color: #cbd5e1;
+      background: transparent;
     }
-    html:not(.full-report-unlocked) .header-print-btn {
-      display: none !important;
+    html[data-theme="dark"] a.header-pdf-btn:hover {
+      background: #1e293b;
+      border-color: #475569;
+      color: #e2e8f0;
+    }
+    html[data-theme="dark"] a.header-pdf-btn:focus-visible {
+      outline-color: #94a3b8;
     }
     .theme-toggle {
       display: inline-flex;
@@ -1909,7 +1914,8 @@
       .container { padding: 24px 16px; }
       header { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
       .disclaimer-banner { padding: 8px 16px; }
-      .header-actions { width: 100%; justify-content: space-between; }
+      /* PDF + Print first in DOM; anchor row to start so they stay visible on wrap */
+      .header-actions { width: 100%; justify-content: flex-start; gap: 8px; }
     }
   </style>
 </head>
@@ -1928,6 +1934,21 @@
     </div>
   </div>
   <div class="header-actions no-print">
+    <a
+      href="/Principal_AI_Strategic_Briefing.pdf"
+      class="header-pdf-btn no-print"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Download the strategic briefing PDF pack"
+      aria-label="Download strategic briefing PDF pack"
+    >
+      <span class="ui-svg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+      </svg></span>
+      Brief pack PDF
+    </a>
     <div class="header-auth" id="header-auth" aria-label="Full report sign-in">
       <div class="header-auth-logged-out" id="header-auth-out">
         <div class="header-signin-row">
@@ -1940,17 +1961,12 @@
             Google
           </a>
         </div>
-        <span class="header-auth-hint" id="header-auth-unconfigured" hidden>Client sign-in is not available in this environment.</span>
       </div>
       <div class="header-auth-logged-in" id="header-auth-in" hidden>
         <span class="header-auth-user" id="header-auth-user-label"></span>
         <button type="button" class="header-logout-btn" id="header-linkedin-logout">Sign out</button>
       </div>
     </div>
-    <button type="button" class="header-print-btn" onclick="draftPrintReport()" title="Opens the print dialog — choose Save as PDF to download" aria-label="Print or save draft as PDF">
-      <span class="ui-svg" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8" rx="1"/></svg></span>
-      Print report
-    </button>
     <div class="theme-toggle" role="group" aria-label="Appearance">
       <span class="theme-toggle-label" id="theme-toggle-heading">Appearance</span>
       <div class="theme-toggle-group" role="toolbar" aria-labelledby="theme-toggle-heading">
@@ -3183,10 +3199,11 @@ function isFullReportUnlocked() {
   return document.documentElement.classList.contains("full-report-unlocked");
 }
 
+var ACCESS_MODAL_SIGNIN_UNAVAILABLE = "Sign-in is not available on this site.";
+
 function syncAccessInviteModalAuthUi() {
   var signinLinkedIn = document.getElementById("header-linkedin-signin");
   var signinGoogle = document.getElementById("header-google-signin");
-  var unconf = document.getElementById("header-auth-unconfigured");
   var mLi = document.getElementById("access-modal-linkedin");
   var mGo = document.getElementById("access-modal-google");
   var mUn = document.getElementById("access-modal-unconfigured");
@@ -3201,7 +3218,7 @@ function syncAccessInviteModalAuthUi() {
     mLi.hidden = true;
     if (mGo) mGo.hidden = true;
     mUn.hidden = false;
-    if (unconf) mUn.innerHTML = unconf.innerHTML;
+    mUn.textContent = ACCESS_MODAL_SIGNIN_UNAVAILABLE;
     return;
   }
   if (signinLinkedIn) mLi.hidden = signinLinkedIn.hidden;
@@ -3213,7 +3230,9 @@ function syncAccessInviteModalAuthUi() {
   var liVis = signinLinkedIn && !signinLinkedIn.hidden;
   var goVis = signinGoogle && !signinGoogle.hidden;
   mUn.hidden = !!(liVis || goVis);
-  if (!mUn.hidden && unconf) mUn.innerHTML = unconf.innerHTML;
+  if (!mUn.hidden) {
+    mUn.textContent = ACCESS_MODAL_SIGNIN_UNAVAILABLE;
+  }
 }
 
 function openAccessInviteModal() {
@@ -3303,27 +3322,17 @@ function showApproveDraftSubscriptionHint() {
 
 async function refreshFullReportSession() {
   const root = document.documentElement;
-  const unconf = document.getElementById("header-auth-unconfigured");
   const signinLinkedIn = document.getElementById("header-linkedin-signin");
   const signinGoogle = document.getElementById("header-google-signin");
   const out = document.getElementById("header-auth-out");
   const inn = document.getElementById("header-auth-in");
   const userLabel = document.getElementById("header-auth-user-label");
-  var unconfDefaultHtml = "Client sign-in is not available in this environment.";
 
   try {
     const r = await fetch("/api/auth/session", { credentials: "include" });
     if (!r.ok) throw new Error("bad status");
     const data = await r.json();
-    const liOk = !!data.linkedinConfigured;
-    const gOk = !!data.googleConfigured;
     root.classList.toggle("full-report-unlocked", !!data.authenticated);
-    if (unconf) {
-      unconf.hidden = !!data.configured;
-      if (!data.configured) {
-        unconf.textContent = unconfDefaultHtml;
-      }
-    }
     /* Show both OAuth entry points whenever the host has any provider configured.
        (Hiding per-provider made Google disappear until all GOOGLE_* vars were set — confusing.) */
     if (signinLinkedIn) signinLinkedIn.hidden = !data.configured;
@@ -3343,10 +3352,6 @@ async function refreshFullReportSession() {
     }
   } catch (e) {
     root.classList.remove("full-report-unlocked");
-    if (unconf) {
-      unconf.hidden = false;
-      unconf.textContent = unconfDefaultHtml;
-    }
     if (signinLinkedIn) signinLinkedIn.hidden = true;
     if (signinGoogle) signinGoogle.hidden = true;
     syncAccessInviteModalAuthUi();
@@ -3372,18 +3377,24 @@ function showOAuthAuthFlashFromQuery() {
     } catch (err) {}
     return;
   }
+  if (mode === "missing_config") {
+    try {
+      const u = new URL(window.location.href);
+      u.searchParams.delete("oauth_auth");
+      u.searchParams.delete("linkedin_auth");
+      u.searchParams.delete("reason");
+      window.history.replaceState({}, "", u.pathname + u.search + u.hash);
+    } catch (err) {}
+    return;
+  }
   const flash = document.getElementById("auth-flash");
   if (!flash) return;
-  if (mode === "missing_config") {
-    flash.textContent =
-      "Sign-in is not configured: add AUTH_SECRET plus LinkedIn (LINKEDIN_*) and/or Google (GOOGLE_*) in Production env — see .env.example — then redeploy.";
-  } else if (mode === "error") {
+  if (mode === "error") {
     flash.textContent = "Sign-in did not complete: " + (params.get("reason") || "unknown error") + ".";
   } else return;
   flash.hidden = false;
   flash.classList.remove("auth-flash--warn", "auth-flash--err");
-  if (mode === "missing_config") flash.classList.add("auth-flash--warn");
-  else if (mode === "error") flash.classList.add("auth-flash--err");
+  flash.classList.add("auth-flash--err");
   try {
     const u = new URL(window.location.href);
     u.searchParams.delete("oauth_auth");
@@ -4543,10 +4554,6 @@ async function runAnalysis() {
       updateDraftBackTop();
     });
   });
-}
-
-function draftPrintReport() {
-  window.print();
 }
 
 (function setupDraftPrintExpandTabPanels() {

@@ -17,10 +17,16 @@ function GlobalOAuthFlashInner() {
         kind: "ok",
       });
     } else if (mode === "missing_config") {
-      setMessage({
-        text: "Sign-in isn’t fully configured on this host. Add AUTH_SECRET and provider keys (see .env.example), then redeploy.",
-        kind: "warn",
-      });
+      try {
+        const u = new URL(window.location.href);
+        u.searchParams.delete("oauth_auth");
+        u.searchParams.delete("linkedin_auth");
+        u.searchParams.delete("reason");
+        window.history.replaceState({}, "", u.pathname + u.search + u.hash);
+      } catch {
+        /* ignore */
+      }
+      return;
     } else if (mode === "error") {
       const reason = searchParams.get("reason") || "Unknown error";
       setMessage({ text: `Sign-in did not complete: ${reason}`, kind: "err" });
