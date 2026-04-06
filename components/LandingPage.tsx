@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Lock, Activity, Database, ShieldCheck, ArrowRight } from "lucide-react";
 
@@ -54,38 +53,17 @@ export default function LandingPage() {
               <div className="ml-4 text-xs font-mono text-slate-500">principalai.pro/research/helios-towers</div>
             </div>
 
-            <div className="relative bg-slate-900 rounded-b-xl h-[400px] overflow-hidden">
-              {/* Dashboard glimpse: real run, heavily blurred + tinted — add /public/helios-teaser.png */}
-              <div className="absolute inset-0" aria-hidden>
-                <Image
-                  src="/helios-teaser.png"
-                  alt=""
-                  fill
-                  className="object-cover object-top scale-[1.15] blur-lg saturate-[0.9] contrast-[1.05]"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  priority
-                />
+            <div className="relative flex h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-b-xl bg-slate-950 px-6 text-center">
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-blue-400/30 bg-blue-600/20 shadow-lg shadow-blue-950/40">
+                <Lock className="h-6 w-6 text-blue-300" aria-hidden />
               </div>
-              <div className="absolute inset-0 bg-slate-950/40 pointer-events-none" aria-hidden />
-              <div
-                className="absolute inset-0 bg-gradient-to-t from-slate-950/65 via-transparent to-slate-950/25 pointer-events-none"
-                aria-hidden
-              />
-
-              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center">
-                <div className="w-14 h-14 bg-blue-600/25 border border-blue-400/35 rounded-2xl flex items-center justify-center mb-4 shadow-lg shadow-slate-950/40 ring-1 ring-white/10 backdrop-blur-[2px] transition-transform duration-300 ease-out">
-                  <Lock className="w-6 h-6 text-blue-300 drop-shadow-sm" aria-hidden />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-6 tracking-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.65)]">
-                  Report Locked
-                </h3>
-                <Link
-                  href="/login"
-                  className="text-sm font-medium px-4 py-2 rounded-md border border-slate-700 text-slate-300 hover:bg-slate-800 transition-colors no-underline shrink-0"
-                >
-                  Access Research
-                </Link>
-              </div>
+              <h3 className="mb-6 text-xl font-bold tracking-tight text-white">Report Locked</h3>
+              <Link
+                href="/login"
+                className="text-sm font-medium px-4 py-2 rounded-md border border-slate-700 text-slate-300 hover:bg-slate-800 transition-colors no-underline shrink-0"
+              >
+                Access Research
+              </Link>
             </div>
           </div>
         </div>
