@@ -10,11 +10,12 @@ import { logGoogleSignIn } from "@/lib/supabase-signin-log";
 import { queryFromUrl, trimEnv, protoSecure } from "@/lib/oauth-query";
 import { redirectToWorkbench } from "@/lib/workbench-redirect";
 import { googleOAuthReady } from "@/lib/auth-oauth-config";
+import { googleClientId, googleClientSecret, googleRedirectUri } from "@/lib/google-oauth-env";
 
 export async function GET(request: NextRequest) {
-  const clientId = trimEnv(process.env.GOOGLE_CLIENT_ID);
-  const clientSecret = trimEnv(process.env.GOOGLE_CLIENT_SECRET);
-  const redirectUri = trimEnv(process.env.GOOGLE_REDIRECT_URI);
+  const clientId = googleClientId();
+  const clientSecret = googleClientSecret();
+  const redirectUri = googleRedirectUri(request.url);
   const authSecret = trimEnv(process.env.AUTH_SECRET);
   const secure = protoSecure(request);
   const clearState = buildSetCookie(GOOGLE_STATE_COOKIE, "", { maxAge: 0, secure });
@@ -25,6 +26,10 @@ export async function GET(request: NextRequest) {
   }
 
   if (!googleOAuthReady()) {
+    return withClear(redirectToWorkbench(request, { oauth_auth: "missing_config" }));
+  }
+
+  if (!redirectUri) {
     return withClear(redirectToWorkbench(request, { oauth_auth: "missing_config" }));
   }
 

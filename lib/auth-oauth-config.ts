@@ -1,4 +1,5 @@
 import { trimEnv } from "@/lib/oauth-query";
+import { googleClientId, googleClientSecret } from "@/lib/google-oauth-env";
 
 export function authSecretMissingKeys(): string[] {
   return trimEnv(process.env.AUTH_SECRET) ? [] : ["AUTH_SECRET"];
@@ -14,9 +15,8 @@ export function linkedinProviderMissingKeys(): string[] {
 
 export function googleProviderMissingKeys(): string[] {
   const m: string[] = [];
-  if (!trimEnv(process.env.GOOGLE_CLIENT_ID)) m.push("GOOGLE_CLIENT_ID");
-  if (!trimEnv(process.env.GOOGLE_CLIENT_SECRET)) m.push("GOOGLE_CLIENT_SECRET");
-  if (!trimEnv(process.env.GOOGLE_REDIRECT_URI)) m.push("GOOGLE_REDIRECT_URI");
+  if (!googleClientId()) m.push("GOOGLE_CLIENT_ID");
+  if (!googleClientSecret()) m.push("GOOGLE_CLIENT_SECRET");
   return m;
 }
 

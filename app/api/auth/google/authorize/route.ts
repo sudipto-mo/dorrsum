@@ -3,15 +3,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { GOOGLE_STATE_COOKIE, buildSetCookie } from "@/lib/linkedin-session";
 import { googleOAuthReady } from "@/lib/auth-oauth-config";
 import { redirectToWorkbench } from "@/lib/workbench-redirect";
-import { trimEnv, protoSecure } from "@/lib/oauth-query";
+import { protoSecure } from "@/lib/oauth-query";
+import { googleClientId, googleRedirectUri } from "@/lib/google-oauth-env";
 
 export async function GET(request: NextRequest) {
   if (!googleOAuthReady()) {
     return redirectToWorkbench(request, { oauth_auth: "missing_config" });
   }
 
-  const clientId = trimEnv(process.env.GOOGLE_CLIENT_ID);
-  const redirectUri = trimEnv(process.env.GOOGLE_REDIRECT_URI);
+  const clientId = googleClientId();
+  const redirectUri = googleRedirectUri(request.url);
+  if (!redirectUri) {
+    return redirectToWorkbench(request, { oauth_auth: "missing_config" });
+  }
 
   const state = crypto.randomBytes(24).toString("hex");
   const secure = protoSecure(request);
