@@ -60,7 +60,7 @@ function GlobalOAuthFlashInner() {
 
   return (
     <div
-      className={`mx-auto max-w-4xl px-6 pt-4 ${bar} border rounded-lg px-4 py-3 text-sm leading-relaxed`}
+      className={`mx-auto max-w-4xl px-6 pt-4 print:hidden ${bar} border rounded-lg px-4 py-3 text-sm leading-relaxed`}
       role="status"
     >
       {message.text}

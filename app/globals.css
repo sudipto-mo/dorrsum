@@ -360,3 +360,17 @@ html[data-theme="dark"] .btn-primary {
 .card p a {
   font-weight: 700;
 }
+
+/* Print: preserve authored colors/backgrounds; sane page margins.
+ * (Browser “headers and footers” with URL/date are not controllable from CSS — user must turn off in the print dialog.) */
+@media print {
+  @page {
+    margin: 1cm;
+  }
+
+  html,
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

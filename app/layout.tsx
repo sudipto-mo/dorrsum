@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import SiteNavbar from "@/components/SiteNavbar";
+import ConditionalSiteNavbar from "@/components/ConditionalSiteNavbar";
 import GlobalOAuthFlash from "@/components/GlobalOAuthFlash";
 import "./globals.css";
 
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${inter.className} min-h-screen antialiased bg-[#0B0F19] text-slate-50 font-sans flex flex-col`}
       >
-        <SiteNavbar />
+        <ConditionalSiteNavbar />
         <GlobalOAuthFlash />
         <div className="flex-1 w-full flex flex-col">{children}</div>
       </body>

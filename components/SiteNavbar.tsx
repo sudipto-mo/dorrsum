@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function SiteNavbar() {
   return (
     <nav
-      className="sticky top-0 z-50 border-b border-slate-800/80 bg-[#0B0F19]/90 backdrop-blur-md"
+      className="print:hidden sticky top-0 z-50 border-b border-slate-800/80 bg-[#0B0F19]/90 backdrop-blur-md"
       aria-label="Primary"
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
