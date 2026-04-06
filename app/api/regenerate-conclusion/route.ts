@@ -1,18 +1,8 @@
-/**
- * Vercel Serverless: POST /api/regenerate-conclusion
- * Body: { context: string, sourceText: string }
- *
- * Local (e.g. vercel dev + .env.local):
- *   ENABLE_CONCLUSION_REGEN=true
- *   PERPLEXITY_API_KEY=pplx-...
- *
- * Public production (GitHub / Vercel): omit both → 403 { code: "subscription_only" }
- * (no Perplexity call, no token spend).
- *
- * Docs: https://docs.perplexity.ai/api-reference/chat-completions-post
- */
+import { NextResponse } from "next/server";
 
-function extractJsonObject(text) {
+export const maxDuration = 60;
+
+function extractJsonObject(text: string | null | undefined): { items?: unknown[] } | null {
   if (!text || typeof text !== "string") return null;
   const trimmed = text.trim();
   const fence = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/);
@@ -21,43 +11,41 @@ function extractJsonObject(text) {
   const end = candidate.lastIndexOf("}");
   if (start === -1 || end === -1) return null;
   try {
-    return JSON.parse(candidate.slice(start, end + 1));
+    return JSON.parse(candidate.slice(start, end + 1)) as { items?: unknown[] };
   } catch {
     return null;
   }
 }
 
-const SECTION_TITLES = {
+const SECTION_TITLES: Record<string, string> = {
   "current-asset": "Current asset / adjusted working capital",
   "fixed-asset": "Fixed asset / CAPEX and efficiency",
   "sales-profitability": "Sales and profitability",
   solvency: "Solvency and financial risk",
 };
 
-module.exports = async (req, res) => {
-  res.setHeader("Content-Type", "application/json");
-
-  if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
-    return res.status(405).json({ error: "Method not allowed" });
-  }
-
+export async function POST(request: Request) {
   const regenEnabled =
     process.env.ENABLE_CONCLUSION_REGEN === "true" || process.env.ENABLE_CONCLUSION_REGEN === "1";
   const apiKey = process.env.PERPLEXITY_API_KEY;
 
   if (!regenEnabled || !apiKey) {
-    return res.status(403).json({
-      error: "Subscription only",
-      code: "subscription_only",
-    });
+    return NextResponse.json({ error: "Subscription only", code: "subscription_only" }, { status: 403 });
   }
 
-  const body = req.body || {};
-  const { context, sourceText } = body;
+  let body: { context?: string; sourceText?: string };
+  try {
+    body = (await request.json()) as { context?: string; sourceText?: string };
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
 
+  const { context, sourceText } = body;
   if (!context || typeof sourceText !== "string") {
-    return res.status(400).json({ error: "Expected JSON: { context: string, sourceText: string }" });
+    return NextResponse.json(
+      { error: "Expected JSON: { context: string, sourceText: string }" },
+      { status: 400 }
+    );
   }
 
   const sectionTitle = SECTION_TITLES[context] || context;
@@ -77,7 +65,7 @@ Return ONLY valid JSON with this exact shape:
 {"items":[{"label":"Short label ending with colon: ","body":"One to three sentences of analysis."}]}
 Use between 4 and 7 items unless the source clearly needs fewer.`;
 
-  let pplxRes;
+  let pplxRes: Response;
   try {
     pplxRes = await fetch("https://api.perplexity.ai/v1/sonar", {
       method: "POST",
@@ -96,24 +84,28 @@ Use between 4 and 7 items unless the source clearly needs fewer.`;
         ],
       }),
     });
-  } catch (e) {
-    return res.status(502).json({ error: "Failed to reach Perplexity API", detail: String(e.message || e) });
+  } catch (e: unknown) {
+    const msg = e instanceof Error ? e.message : String(e);
+    return NextResponse.json({ error: "Failed to reach Perplexity API", detail: msg }, { status: 502 });
   }
 
   const rawText = await pplxRes.text();
   if (!pplxRes.ok) {
-    return res.status(502).json({
-      error: "Perplexity API returned an error",
-      status: pplxRes.status,
-      detail: rawText.slice(0, 800),
-    });
+    return NextResponse.json(
+      {
+        error: "Perplexity API returned an error",
+        status: pplxRes.status,
+        detail: rawText.slice(0, 800),
+      },
+      { status: 502 }
+    );
   }
 
-  let data;
+  let data: { choices?: { message?: { content?: unknown } }[] };
   try {
-    data = JSON.parse(rawText);
+    data = JSON.parse(rawText) as typeof data;
   } catch {
-    return res.status(502).json({ error: "Invalid JSON from Perplexity" });
+    return NextResponse.json({ error: "Invalid JSON from Perplexity" }, { status: 502 });
   }
 
   const content = data.choices?.[0]?.message?.content;
@@ -121,18 +113,19 @@ Use between 4 and 7 items unless the source clearly needs fewer.`;
   const parsed = extractJsonObject(text);
 
   if (!parsed || !Array.isArray(parsed.items)) {
-    return res.status(502).json({
-      error: "Model did not return usable JSON",
-      preview: text.slice(0, 600),
-    });
+    return NextResponse.json(
+      { error: "Model did not return usable JSON", preview: text.slice(0, 600) },
+      { status: 502 }
+    );
   }
 
-  const items = parsed.items.filter(function (x) {
-    return x && (x.label || x.body);
+  const items = parsed.items.filter((x: unknown) => {
+    const o = x as { label?: string; body?: string };
+    return o && (o.label || o.body);
   });
   if (!items.length) {
-    return res.status(502).json({ error: "Model returned empty items" });
+    return NextResponse.json({ error: "Model returned empty items" }, { status: 502 });
   }
 
-  return res.status(200).json({ items: items });
-};
+  return NextResponse.json({ items });
+}

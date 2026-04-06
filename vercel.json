@@ -1,7 +1,1 @@
-{
-  "functions": {
-    "api/regenerate-conclusion.js": {
-      "maxDuration": 60
-    }
-  }
-}
+{}

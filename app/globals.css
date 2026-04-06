@@ -1,0 +1,362 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Light theme aligned with Credit Workbench / institutional research (warm paper, navy type).
+ * Dark available via html[data-theme="dark"] when you add a toggle later.
+ */
+:root,
+html[data-theme="light"] {
+  /* Mirrors public/credit-workbench light tokens */
+  --pa-page: #f3f2ef;
+  --pa-surface: #ffffff;
+  --pa-band: #ebe9e4;
+  --pa-text: #1c1917;
+  --pa-muted: #57534e;
+  --pa-border: #d6d3cd;
+  --pa-navy: #1e3a5f;
+  --pa-navy-deep: #1a365d;
+  --pa-link: #1e3a5f;
+  --pa-link-hover: #2563eb;
+  --pa-accent: #2563eb;
+  --pa-focus: #1a365d;
+}
+
+html[data-theme="dark"] {
+  --pa-page: #0a1628;
+  --pa-surface: #112240;
+  --pa-band: #1a3a5c;
+  --pa-text: #e8eef5;
+  --pa-muted: #9eb0c8;
+  --pa-border: rgba(255, 255, 255, 0.09);
+  --pa-navy: #8ab4d9;
+  --pa-navy-deep: #64b5f6;
+  --pa-link: #8ab4d9;
+  --pa-link-hover: #64b5f6;
+  --pa-accent: #64b5f6;
+  --pa-focus: #8ab4d9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  /* font-family: Inter via next/font on <body> in app/layout.tsx */
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background: var(--pa-page);
+  color: var(--pa-text);
+  min-height: 100%;
+}
+
+a {
+  color: var(--pa-link);
+  text-decoration: none;
+  font-weight: 600;
+}
+a:hover {
+  color: var(--pa-link-hover);
+  text-decoration: underline;
+}
+
+.site-wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header: solid surface, no glass — matches workbench chrome */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 14px 32px;
+  background: var(--pa-surface);
+  border-bottom: 1px solid var(--pa-border);
+}
+
+.site-brand {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  color: var(--pa-text);
+  line-height: 1.2;
+}
+.site-brand:hover {
+  text-decoration: none;
+  color: var(--pa-navy-deep);
+}
+
+.site-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 22px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.site-links a {
+  color: var(--pa-muted);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.site-links a:hover {
+  color: var(--pa-navy-deep);
+  text-decoration: none;
+}
+
+.site-main {
+  flex: 1;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 36px 24px 72px;
+  width: 100%;
+}
+
+.site-footer {
+  padding: 18px 24px 28px;
+  margin-top: auto;
+  background: var(--pa-band);
+  border-top: 1px solid var(--pa-border);
+  font-size: 12px;
+  color: var(--pa-muted);
+  text-align: center;
+  line-height: 1.45;
+}
+
+/* Headlines: navy institutional, not marketing-black */
+h1 {
+  font-size: clamp(1.5rem, 3.2vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+  line-height: 1.2;
+  color: var(--pa-navy);
+}
+
+.lead {
+  font-size: 1.05rem;
+  color: var(--pa-muted);
+  margin: 0 0 28px;
+  line-height: 1.55;
+  max-width: 42rem;
+}
+
+.lead strong {
+  color: var(--pa-text);
+  font-weight: 700;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.home-origin {
+  margin-bottom: 22px;
+}
+
+.home-why {
+  margin: 0 0 32px;
+}
+
+.home-ps-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.home-ps-card {
+  background: var(--pa-surface);
+  border: 1px solid var(--pa-border);
+  border-radius: 12px;
+  padding: 20px 22px;
+}
+
+.home-ps-card .panel-kicker {
+  margin-bottom: 8px;
+}
+
+.home-ps-card p:last-child {
+  margin: 0;
+  font-size: 14px;
+  color: var(--pa-muted);
+  line-height: 1.55;
+}
+
+.home-ps-card strong {
+  color: var(--pa-text);
+  font-weight: 700;
+}
+
+.home-ps-card--accent {
+  border-color: color-mix(in srgb, var(--pa-navy) 28%, var(--pa-border));
+  box-shadow: 0 1px 0 rgba(28, 25, 23, 0.04);
+}
+
+html[data-theme="dark"] .home-ps-card--accent {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.home-features {
+  margin: 0 0 28px;
+  padding: 22px 24px;
+  background: var(--pa-surface);
+  border: 1px solid var(--pa-border);
+  border-radius: 12px;
+}
+
+.home-features-title {
+  margin: 0 0 14px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--pa-navy);
+  line-height: 1.3;
+}
+
+.home-feature-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--pa-muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.home-feature-list li {
+  margin-bottom: 12px;
+}
+
+.home-feature-list li:last-child {
+  margin-bottom: 0;
+}
+
+.home-feature-list strong {
+  color: var(--pa-text);
+  font-weight: 700;
+}
+
+.home-cta-lead {
+  margin: 0 0 14px;
+  font-size: 15px;
+  color: var(--pa-muted);
+  line-height: 1.5;
+  max-width: 42rem;
+}
+
+.home-cta-lead strong {
+  color: var(--pa-text);
+  font-weight: 700;
+}
+
+.card-grid {
+  display: grid;
+  gap: 18px;
+  margin-top: 28px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.card {
+  background: var(--pa-surface);
+  border: 1px solid var(--pa-border);
+  border-radius: 12px;
+  padding: 22px 24px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  border-color: color-mix(in srgb, var(--pa-navy) 22%, var(--pa-border));
+  box-shadow: 0 2px 12px rgba(28, 25, 23, 0.06);
+}
+
+html[data-theme="dark"] .card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.card h2 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--pa-navy);
+}
+
+/* Matches workbench panel-title — use on in-card section labels */
+.panel-kicker {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--pa-navy-deep);
+}
+
+html[data-theme="dark"] .panel-kicker {
+  color: var(--pa-navy);
+}
+
+.card p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--pa-muted);
+  line-height: 1.5;
+}
+
+.card a {
+  color: var(--pa-link);
+}
+
+/* Primary action: restrained navy (research product), not SaaS blue */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  background: linear-gradient(135deg, #1d6fa4, #1a365d);
+  color: #fff !important;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.06);
+  transition: opacity 0.15s ease, transform 0.1s ease;
+}
+.btn-primary:hover {
+  opacity: 0.94;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+html[data-theme="dark"] .btn-primary {
+  background: linear-gradient(135deg, #1d6fa4, #2563eb);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Inline text links inside cards — body tone */
+.card p a {
+  font-weight: 700;
+}

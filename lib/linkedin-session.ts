@@ -1,15 +1,14 @@
 /**
- * Signed session cookie for LinkedIn-authenticated "full report" demo gate.
- * Uses Node crypto only (no dependencies).
+ * Signed session cookie for OAuth "full report" demo gate. Node crypto only.
  */
 
-const crypto = require("crypto");
+import crypto from "crypto";
 
-const SESSION_COOKIE = "pa_full_report";
-const STATE_COOKIE = "pa_linkedin_oauth_state";
+export const SESSION_COOKIE = "pa_full_report";
+export const STATE_COOKIE = "pa_linkedin_oauth_state";
 
-function getCookie(req, name) {
-  const raw = req.headers.cookie;
+export function getCookieHeader(cookieHeader: string | null, name: string): string {
+  const raw = cookieHeader;
   if (!raw) return "";
   const parts = raw.split(";");
   for (let i = 0; i < parts.length; i++) {
@@ -29,13 +28,13 @@ function getCookie(req, name) {
   return "";
 }
 
-function signSession(payload, secret) {
+export function signSession(payload: Record<string, unknown>, secret: string): string {
   const data = Buffer.from(JSON.stringify(payload), "utf8").toString("base64url");
   const sig = crypto.createHmac("sha256", secret).update(data).digest("base64url");
   return data + "." + sig;
 }
 
-function verifySession(token, secret) {
+export function verifySession(token: string, secret: string): Record<string, unknown> | null {
   if (!token || typeof token !== "string") return null;
   const dot = token.indexOf(".");
   if (dot === -1) return null;
@@ -46,7 +45,7 @@ function verifySession(token, secret) {
   const b = Buffer.from(expected, "utf8");
   if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return null;
   try {
-    const payload = JSON.parse(Buffer.from(data, "base64url").toString("utf8"));
+    const payload = JSON.parse(Buffer.from(data, "base64url").toString("utf8")) as Record<string, unknown>;
     if (typeof payload.exp !== "number" || payload.exp < Date.now() / 1000) return null;
     return payload;
   } catch {
@@ -54,7 +53,7 @@ function verifySession(token, secret) {
   }
 }
 
-function buildSetCookie(name, value, opts) {
+export function buildSetCookie(name: string, value: string, opts: { maxAge?: number; secure?: boolean }): string {
   const enc = value === "" ? "" : encodeURIComponent(value);
   const parts = [`${name}=${enc}`, "Path=/", "HttpOnly", "SameSite=Lax"];
   if (opts.maxAge != null) parts.push("Max-Age=" + opts.maxAge);
@@ -65,12 +64,3 @@ function buildSetCookie(name, value, opts) {
   }
   return parts.join("; ");
 }
-
-module.exports = {
-  SESSION_COOKIE,
-  STATE_COOKIE,
-  getCookie,
-  signSession,
-  verifySession,
-  buildSetCookie,
-};
