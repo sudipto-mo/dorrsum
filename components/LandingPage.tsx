@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Activity, Database, ShieldCheck, ArrowRight, FileText } from "lucide-react";
+import { Activity, Database, ShieldCheck, ArrowRight } from "lucide-react";
+import TeaserWindow from "@/components/TeaserWindow";
 
 export default function LandingPage() {
   return (
@@ -42,43 +43,7 @@ export default function LandingPage() {
 
         <div className="w-full lg:w-1/2 relative">
           <div className="absolute inset-0 bg-blue-600/10 blur-[100px] rounded-full pointer-events-none" />
-          <div className="relative rounded-2xl border border-slate-700/50 bg-slate-900/80 backdrop-blur-xl p-2 shadow-2xl transition-all duration-300 ease-out hover:border-slate-600/60 hover:shadow-[0_28px_90px_-18px_rgba(0,0,0,0.55)]">
-            <Link
-              href="/research/helios-towers"
-              className="flex items-center gap-2 rounded-t-lg px-4 py-3 border-b border-slate-800 bg-slate-950/50 no-underline transition-colors hover:bg-slate-900/70"
-            >
-              <div className="w-3 h-3 rounded-full bg-slate-700 shrink-0" aria-hidden />
-              <div className="w-3 h-3 rounded-full bg-slate-700 shrink-0" aria-hidden />
-              <div className="w-3 h-3 rounded-full bg-slate-700 shrink-0" aria-hidden />
-              <span className="ml-2 truncate text-xs font-mono text-blue-400/95 sm:ml-4">
-                principalai.pro/research/helios-towers
-              </span>
-            </Link>
-
-            <div className="relative flex min-h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-b-xl bg-slate-950 px-6 py-10 text-center">
-              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-blue-400/30 bg-blue-600/20 shadow-lg shadow-blue-950/40">
-                <FileText className="h-6 w-6 text-blue-300" aria-hidden />
-              </div>
-              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">Sample credit brief</p>
-              <h3 className="mb-2 text-xl font-bold tracking-tight text-white">Helios Towers plc</h3>
-              <p className="mb-6 max-w-sm text-sm leading-relaxed text-slate-400">
-                Illustrative summary: financial, equity, and refinancing risk. Full institutional brief and models require
-                client access.
-              </p>
-              <Link
-                href="/research/helios-towers"
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_0_20px_rgba(37,99,235,0.25)] transition-colors hover:bg-blue-700 no-underline"
-              >
-                View public excerpt →
-              </Link>
-              <Link
-                href="/login"
-                className="mt-4 text-xs font-medium text-slate-500 hover:text-slate-400 no-underline underline-offset-2 hover:underline"
-              >
-                Full institutional brief — client login
-              </Link>
-            </div>
-          </div>
+          <TeaserWindow />
         </div>
       </section>
 

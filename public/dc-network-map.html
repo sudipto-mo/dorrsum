@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Infrastructure Network · Principal AI</title>
+<style>
+:root {
+  --bg:     #08080E;
+  --card:   #111118;
+  --border: #1C1C2C;
+  --t1:     #F1F5F9;
+  --t2:     #94A3B8;
+  --t3:     #475569;
+  --accent: #4F6EF7;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--t1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding: 44px 24px 60px;
+}
+.wrap { max-width: 920px; margin: 0 auto; }
+
+.eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+}
+h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+.sub {
+  font-size: 13px; color: var(--t2); line-height: 1.65; margin-bottom: 22px;
+  max-width: 600px;
+}
+
+/* Toggle */
+.toggle {
+  display: inline-flex; gap: 3px;
+  background: #0E0E18; border: 1px solid var(--border);
+  border-radius: 8px; padding: 3px; margin-bottom: 20px;
+}
+.tbtn {
+  padding: 7px 18px; font-size: 12px; font-weight: 600;
+  border-radius: 5px; border: none; background: transparent;
+  color: var(--t3); cursor: pointer; transition: all 0.18s;
+  letter-spacing: 0.025em;
+}
+.tbtn:hover { color: var(--t2); }
+.tbtn.on { background: var(--accent); color: #fff; }
+
+/* SVG shell */
+.svg-shell {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden; position: relative;
+}
+#net { width: 100%; display: block; }
+
+/* Node pulse */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.05; r: 36; }
+  50%       { opacity: 0.12; r: 40; }
+}
+.node-glow { animation: glow-pulse 3s ease-in-out infinite; }
+
+/* Tooltip */
+#tip {
+  position: absolute; background: #14142A;
+  border: 1px solid #26264A; border-radius: 10px;
+  padding: 12px 16px; max-width: 260px;
+  font-size: 12px; color: var(--t2); line-height: 1.55;
+  pointer-events: none; opacity: 0; transition: opacity 0.14s;
+  z-index: 20; box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+}
+#tip.on { opacity: 1; }
+.tip-name  { font-size: 13.5px; font-weight: 700; color: var(--t1); margin-bottom: 2px; }
+.tip-layer { font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em;
+             text-transform: uppercase; margin-bottom: 7px; }
+
+/* Legend + footer */
+.legend {
+  display: flex; flex-wrap: wrap; gap: 18px;
+  margin-top: 16px; padding: 0 2px;
+}
+.li { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--t3); }
+.li-line { width: 22px; height: 2px; border-radius: 1px; }
+.li-dot  { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.sep { width: 1px; background: var(--border); align-self: stretch; margin: 0 2px; }
+
+.copyright {
+  margin-top: 18px;
+  font-size: 10.5px; color: #2A3244;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 8px;
+  padding-top: 14px; border-top: 1px solid #12121E;
+}
+.cp-mark { font-weight: 700; letter-spacing: 0.05em; color: #323A52; }
+
+@media(max-width:600px) { h1 { font-size: 21px; } }
+
+/* Compact layout when embedded in site hero (iframe) */
+html.embed body { padding: 14px 12px 18px; }
+html.embed .wrap { max-width: none; }
+html.embed .copyright { display: none; }
+html.embed h1 { font-size: 17px; margin-bottom: 4px; }
+html.embed .eyebrow { margin-bottom: 8px; }
+html.embed .sub { font-size: 12px; margin-bottom: 12px; line-height: 1.5; }
+html.embed .sub br { display: none; }
+html.embed .sub span { display: block; margin-top: 4px; }
+html.embed .toggle { margin-bottom: 12px; }
+html.embed .legend { margin-top: 10px; gap: 12px; }
+</style>
+<script>
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get("embed") === "1") {
+      document.documentElement.classList.add("embed");
+    }
+  } catch (_) {}
+})();
+</script>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Principal AI · Data Centre Coverage</div>
+  <h1>The AI Infrastructure Network</h1>
+  <p class="sub">
+    The ecosystem is a web, not a chain — every capital decision touches multiple layers simultaneously.<br>
+    <span style="color:var(--t3)">Toggle to switch views · Hover any node to trace its connections</span>
+  </p>
+
+  <div class="toggle">
+    <button class="tbtn on" data-v="supply"  onclick="setView('supply')">Supply Chain</button>
+    <button class="tbtn"    data-v="finance" onclick="setView('finance')">Financing Flows</button>
+  </div>
+
+  <div class="svg-shell">
+    <svg id="net" viewBox="-10 -8 890 572" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div id="tip"></div>
+  </div>
+
+  <div class="legend">
+    <div class="li" id="l-supply"><div class="li-line" style="background:#4B5775;border-top:1px dashed #4B5775"></div>Supply chain</div>
+    <div class="li" id="l-finance" style="display:none"><div class="li-line" style="background:#4F6EF7"></div>Financing flow</div>
+    <div class="li"><div class="li-line" style="background:#22C55E"></div>Operational (lease / power)</div>
+    <div class="sep"></div>
+    <div class="li"><div class="li-dot" style="background:#4F6EF7"></div>Capital</div>
+    <div class="li"><div class="li-dot" style="background:#F59E0B"></div>Supply chain</div>
+    <div class="li"><div class="li-dot" style="background:#F97316"></div>Infrastructure</div>
+    <div class="li"><div class="li-dot" style="background:#A855F7"></div>Build</div>
+    <div class="li"><div class="li-dot" style="background:#22C55E"></div>Operate</div>
+    <div class="li"><div class="li-dot" style="background:#EC4899"></div>Demand</div>
+  </div>
+
+  <div class="copyright">
+    <span>© 2026 Principal AI. All rights reserved. Methodology, framework and content may not be reproduced without written attribution to Principal AI.</span>
+    <span class="cp-mark">PRINCIPAL AI</span>
+  </div>
+
+</div>
+
+<script>
+// ── Cluster colours ──────────────────────────────────────────────
+const CC = {
+  capital:'#4F6EF7', supply:'#F59E0B',
+  infra:'#F97316',   build:'#A855F7',
+  operate:'#22C55E', demand:'#EC4899'
+};
+
+// ── Nodes ────────────────────────────────────────────────────────
+const NODES = [
+  { id:'banks',  lines:['Banks'],            sub:'JPMorgan · Barclays · HSBC',        cl:'capital', x:190, y:64  },
+  { id:'pc',     lines:['Private','Credit'],  sub:'Blue Owl · Apollo · Ares · PIMCO',  cl:'capital', x:355, y:46  },
+  { id:'pe',     lines:['PE &','Infra'],      sub:'Blackstone · KKR · Brookfield',     cl:'capital', x:510, y:64  },
+  { id:'reits',  lines:['REITs'],             sub:'Digital Realty · Iron Mountain',    cl:'capital', x:660, y:46  },
+  { id:'sil',    lines:['Silicon'],           sub:'NVIDIA · AMD · TSMC',               cl:'supply',  x:66,  y:178 },
+  { id:'hw',     lines:['Hardware'],          sub:'Dell · HPE · Supermicro · Arista',  cl:'supply',  x:66,  y:300 },
+  { id:'cool',   lines:['Cooling &','Power'], sub:'Vertiv · Schneider · Eaton',        cl:'supply',  x:66,  y:412 },
+  { id:'pwr',    lines:['Power','Grid ⚠'],   sub:'Utilities · Renewables · PPAs',     cl:'infra',   x:212, y:240 },
+  { id:'land',   lines:['Land &','Site'],     sub:'RE developers · Landowners',        cl:'infra',   x:212, y:352 },
+  { id:'fibre',  lines:['Connec-','tivity'],  sub:'Fibre · Subsea cables',             cl:'infra',   x:212, y:455 },
+  { id:'devs',   lines:['DC','Developers'],   sub:'Vantage · Tract · QTS · NTT',      cl:'build',   x:385, y:300 },
+  { id:'ctors',  lines:['Contrac-','tors'],   sub:'Mortenson · Turner · Holder',       cl:'build',   x:385, y:420 },
+  { id:'colo',   lines:['Colocation'],        sub:'Equinix · Digital Realty · NTT',   cl:'operate', x:550, y:240 },
+  { id:'hyper',  lines:['Hyper-','scalers'],  sub:'AWS · Azure · Google · Meta',       cl:'operate', x:550, y:380 },
+  { id:'ai',     lines:['AI Cos'],            sub:'OpenAI · Anthropic · xAI',          cl:'demand',  x:730, y:248 },
+  { id:'ent',    lines:['Enter-','prise'],     sub:'Fortune 500 · cloud consumers',    cl:'demand',  x:730, y:362 },
+  { id:'sov',    lines:['Sovereign','AI'],    sub:'Govts · national AI projects',      cl:'demand',  x:730, y:468 },
+];
+
+const INFO = {
+  banks: { layer:'Capital',    desc:'Construction loans, syndicated debt, PPA project finance. Balance sheet constraints cap ticket size above ~$5B — private credit has filled this gap.' },
+  pc:    { layer:'Capital',    desc:'Whole loans, SPV structures, mezzanine. The Meta / Blue Owl deal ($29B, 2025) proved private credit can operate at hyperscale. Morgan Stanley estimates $800B needed by 2028.' },
+  pe:    { layer:'Capital',    desc:'Equity JVs, platform builds, sale-leaseback. $61B in DC M&A in 2025. PE is benchmarking data centre assets against core infrastructure, not tech.' },
+  reits: { layer:'Capital',    desc:'Long-term equity via sale-leaseback. Equinix and Digital Realty operate REIT structures. Hyperscaler-leased assets are natural REIT collateral.' },
+  sil:   { layer:'Layer 0',   desc:'NVIDIA controls ~80% of AI GPU market. Supply is allocated, not purchased — 9–12 month lead times. GPU availability determines fit-out timelines downstream.' },
+  hw:    { layer:'Layer 1',   desc:'Server OEMs and networking vendors for AI-optimised racks. Liquid cooling transition adds 12–18 month procurement lead times on critical components.' },
+  cool:  { layer:'Layer 1',   desc:'AI racks run at 30–100kW vs 5–10kW historically. Liquid cooling supply chain is immature — the hidden construction bottleneck most finance models miss.' },
+  pwr:   { layer:'Layer 2 ⚠', desc:'The binding constraint. Grid interconnection queues of 5–7 years in PJM, Northern Virginia, UK, Netherlands. Where most development-stage projects actually die.' },
+  land:  { layer:'Layer 2',   desc:'Viable sites require power proximity, fibre, water, and planning precedent. Not a commodity — sites with all four attributes command significant premiums.' },
+  fibre: { layer:'Layer 2',   desc:'Connectivity underpins colocation value. Subsea cable capacity is an emerging constraint in Singapore, West Africa, and select European markets.' },
+  devs:  { layer:'Layer 3',   desc:'DC developers building campus-scale assets. Construction costs up 30–40% since 2022. Commissioning engineers are the scarcest resource in the build chain.' },
+  ctors: { layer:'Layer 3',   desc:'Specialist contractors with AI-optimised build capability. Pipeline depth is creating capacity constraints — experienced teams booked 18–24 months ahead.' },
+  colo:  { layer:'Layer 4',   desc:'Multi-tenant operators. Long-term hyperscaler leases transform risk to near investment-grade. Colocation vs. hyperscaler-leased are not the same risk.' },
+  hyper: { layer:'Layer 4',   desc:'Both lease from colo operators and build/own directly via SPV structures. Hyperscaler-owned DCs projected to reach 40% of market by 2031.' },
+  ai:    { layer:'Layer 5',   desc:'OpenAI, Anthropic, xAI consume GPU clusters via hyperscaler APIs or direct DC leases. Inference scaling creates sustained, compounding demand.' },
+  ent:   { layer:'Layer 5',   desc:'Enterprise cloud migration underpins long-run hyperscaler utilisation and data centre revenue forecasts.' },
+  sov:   { layer:'Layer 5',   desc:'National AI infrastructure programmes are creating direct DC demand, bypassing public cloud in some jurisdictions.' },
+};
+
+// ── Edges ────────────────────────────────────────────────────────
+const EDGES = [
+  { f:'sil',   t:'hw',    type:'supply', dur:5.0, lbl:'Chip supply' },
+  { f:'hw',    t:'devs',  type:'supply', dur:4.5, lbl:'Server & rack fit-out' },
+  { f:'cool',  t:'devs',  type:'supply', dur:4.8, lbl:'Cooling systems' },
+  { f:'cool',  t:'colo',  type:'supply', dur:5.2, lbl:'Cooling for operators' },
+  { f:'ctors', t:'devs',  type:'supply', dur:4.2, lbl:'Construction' },
+  { f:'pwr',   t:'devs',  type:'supply', dur:4.0, lbl:'Power supply' },
+  { f:'land',  t:'devs',  type:'supply', dur:4.6, lbl:'Site development' },
+  { f:'pwr',   t:'colo',  type:'ops',    dur:3.0, lbl:'Power supply' },
+  { f:'pwr',   t:'hyper', type:'ops',    dur:3.2, lbl:'Direct power' },
+  { f:'fibre', t:'colo',  type:'ops',    dur:2.8, lbl:'Connectivity' },
+  { f:'fibre', t:'hyper', type:'ops',    dur:3.1, lbl:'Connectivity' },
+  { f:'devs',  t:'colo',  type:'ops',    dur:2.6, lbl:'Built & operated' },
+  { f:'devs',  t:'hyper', type:'ops',    dur:2.9, lbl:'Owned campus' },
+  { f:'colo',  t:'hyper', type:'ops',    dur:2.4, lbl:'Long-term lease' },
+  { f:'hyper', t:'ai',    type:'ops',    dur:2.2, lbl:'Compute capacity' },
+  { f:'hyper', t:'ent',   type:'ops',    dur:2.5, lbl:'Cloud services' },
+  { f:'hyper', t:'sov',   type:'ops',    dur:2.8, lbl:'Sovereign cloud' },
+  { f:'banks', t:'devs',  type:'finance', dur:3.8, lbl:'Construction loans' },
+  { f:'banks', t:'colo',  type:'finance', dur:3.5, lbl:'Term loans' },
+  { f:'banks', t:'pwr',   type:'finance', dur:3.2, lbl:'PPA / project finance' },
+  { f:'pc',    t:'devs',  type:'finance', dur:3.4, lbl:'Whole loans' },
+  { f:'pc',    t:'hyper', type:'finance', dur:3.6, lbl:'SPV / JV  (Meta model)' },
+  { f:'pc',    t:'colo',  type:'finance', dur:3.3, lbl:'Direct lending' },
+  { f:'pe',    t:'devs',  type:'finance', dur:3.7, lbl:'Development equity' },
+  { f:'pe',    t:'colo',  type:'finance', dur:3.5, lbl:'Equity JV' },
+  { f:'reits', t:'colo',  type:'finance', dur:3.9, lbl:'Sale-leaseback' },
+  { f:'reits', t:'devs',  type:'finance', dur:4.1, lbl:'Equity' },
+];
+
+// ── State ────────────────────────────────────────────────────────
+let view = 'supply';
+const nMap = {};
+NODES.forEach(n => nMap[n.id] = n);
+const NS = 'http://www.w3.org/2000/svg';
+const XL = 'http://www.w3.org/1999/xlink';
+
+function el(tag, attrs) {
+  const e = document.createElementNS(NS, tag);
+  Object.entries(attrs).forEach(([k,v]) => e.setAttribute(k, String(v)));
+  return e;
+}
+
+// ── Path ─────────────────────────────────────────────────────────
+const R = 27, ARR = 8;
+
+function makePath(x1,y1,x2,y2) {
+  const dx=x2-x1, dy=y2-y1, len=Math.sqrt(dx*dx+dy*dy)||1;
+  const sx=x1+dx/len*R,    sy=y1+dy/len*R;
+  const ex=x2-dx/len*(R+ARR), ey=y2-dy/len*(R+ARR);
+  const mx=(sx+ex)/2, my=(sy+ey)/2;
+  const ddx=ex-sx, ddy=ey-sy, ll=Math.sqrt(ddx*ddx+ddy*ddy)||1;
+  const bend=18, px=-ddy/ll*bend, py=ddx/ll*bend;
+  return `M ${sx} ${sy} Q ${mx+px} ${my+py} ${ex} ${ey}`;
+}
+
+// ── Colours/visibility ───────────────────────────────────────────
+function eColor(t){ return t==='finance'?'#4F6EF7':t==='ops'?'#22C55E':'#4B5775'; }
+function eVisible(e){ return view==='supply'?(e.type==='supply'||e.type==='ops'):(e.type==='finance'||e.type==='ops'); }
+function eOpacity(e){ return e.type==='ops'?0.40:0.55; }
+
+// ── Render ───────────────────────────────────────────────────────
+function render(){
+  const svg = document.getElementById('net');
+  svg.innerHTML = '';
+
+  // ── Defs: arrowheads ─────────────────────────────────────────
+  const defs = el('defs',{});
+  ['supply','finance','ops'].forEach(t => {
+    const m = el('marker',{id:'a'+t, markerWidth:7, markerHeight:7, refX:6, refY:3, orient:'auto'});
+    m.appendChild(el('path',{d:'M0,0 L0,6 L7,3 z', fill:eColor(t)}));
+    defs.appendChild(m);
+  });
+  svg.appendChild(defs);
+
+  // ── Background cluster zones ──────────────────────────────────
+  const zones = el('g',{});
+  [
+    {x:-8,y:20,w:890,h:82,o:0.018},
+    {x:-8,y:145,w:245,h:308,o:0.014},
+    {x:168,y:200,w:104,h:288,o:0.014},
+    {x:340,y:256,w:102,h:192,o:0.014},
+    {x:505,y:196,w:102,h:214,o:0.014},
+    {x:688,y:205,w:100,h:290,o:0.014},
+  ].forEach(b => zones.appendChild(el('rect',{x:b.x,y:b.y,width:b.w,height:b.h,rx:10,fill:'#fff',opacity:b.o})));
+  svg.appendChild(zones);
+
+  // ── Edges ─────────────────────────────────────────────────────
+  const eg = el('g',{id:'edges'});
+  EDGES.forEach((e,i) => {
+    const n1=nMap[e.f], n2=nMap[e.t];
+    if(!n1||!n2) return;
+    const vis = eVisible(e);
+    eg.appendChild(el('path',{
+      id:'e'+i, d:makePath(n1.x,n1.y,n2.x,n2.y),
+      stroke:eColor(e.type), 'stroke-width':1.5, fill:'none',
+      opacity: vis ? eOpacity(e) : 0,
+      'stroke-dasharray': e.type==='supply'?'5 3':'none',
+      'marker-end': vis?`url(#a${e.type})`:'',
+    }));
+  });
+  svg.appendChild(eg);
+
+  // ── Particles ─────────────────────────────────────────────────
+  // Animated dots that travel along each edge path
+  const pg = el('g',{id:'particles'});
+  EDGES.forEach((e,i) => {
+    const n1=nMap[e.f], n2=nMap[e.t];
+    if(!n1||!n2) return;
+    const vis = eVisible(e);
+    const color = eColor(e.type);
+    const dur = e.dur;
+    const pGroup = el('g',{id:'p'+i, opacity: vis?'1':'0'});
+
+    // 2 particles per edge, staggered by half the duration
+    [0, 1].forEach(j => {
+      const dot = el('circle',{r:'2.8', fill:color, opacity:'0.82'});
+      const anim = document.createElementNS(NS,'animateMotion');
+      anim.setAttribute('dur', dur+'s');
+      anim.setAttribute('begin', (j * dur / 2)+'s');
+      anim.setAttribute('repeatCount','indefinite');
+      // mpath references the edge path by ID
+      const mpath = document.createElementNS(NS,'mpath');
+      mpath.setAttributeNS(XL,'href','#e'+i);
+      mpath.setAttribute('href','#e'+i);
+      anim.appendChild(mpath);
+      dot.appendChild(anim);
+      pGroup.appendChild(dot);
+    });
+    pg.appendChild(pGroup);
+  });
+  svg.appendChild(pg);
+
+  // ── Nodes ─────────────────────────────────────────────────────
+  const ng = el('g',{id:'nodes'});
+  NODES.forEach((n,ni) => {
+    const c = CC[n.cl];
+    const g = el('g',{id:'n'+n.id, cursor:'pointer', transform:`translate(${n.x},${n.y})`});
+
+    // Pulsing glow — stagger delay per node so they don't all pulse together
+    const glow = el('circle',{r:36, fill:c, opacity:0.05,
+      style:`animation:glow-pulse 3s ease-in-out infinite;animation-delay:${ni*0.18}s`});
+    g.appendChild(glow);
+
+    // Circle
+    g.appendChild(el('circle',{r:R, fill:'#11111C', stroke:c, 'stroke-width':1.6}));
+
+    // Label
+    const lh=13, total=n.lines.length*lh;
+    n.lines.forEach((line,li) => {
+      const t = el('text',{
+        x:0, y:-total/2+li*lh+lh*0.75,
+        'text-anchor':'middle', fill:'#ECF0F6',
+        'font-size': n.lines.length>1 ? '9.5':'10.5', 'font-weight':700,
+        'font-family':'-apple-system,BlinkMacSystemFont,Inter,sans-serif'
+      });
+      t.textContent = line;
+      g.appendChild(t);
+    });
+
+    // Sub-label
+    const s = el('text',{
+      x:0, y:R+13, 'text-anchor':'middle', fill:'#3A4A60',
+      'font-size':7.8,
+      'font-family':'-apple-system,BlinkMacSystemFont,Inter,sans-serif'
+    });
+    s.textContent = n.sub;
+    g.appendChild(s);
+
+    g.addEventListener('mouseenter', ev => onEnter(n,ev));
+    g.addEventListener('mousemove',  ev => moveTip(ev));
+    g.addEventListener('mouseleave', onLeave);
+    ng.appendChild(g);
+  });
+  svg.appendChild(ng);
+
+  // ── Copyright watermark inside SVG ────────────────────────────
+  const cp = el('text',{
+    x:858, y:558, 'text-anchor':'end', fill:'#1E2236',
+    'font-size':8, 'font-weight':600, 'letter-spacing':'0.04em',
+    'font-family':'-apple-system,BlinkMacSystemFont,Inter,sans-serif'
+  });
+  cp.textContent = '© 2026 Principal AI — principalai.pro — All rights reserved';
+  svg.appendChild(cp);
+}
+
+// ── Hover ─────────────────────────────────────────────────────────
+function connected(id){
+  const s = new Set([id]);
+  EDGES.forEach(e => {
+    if(!eVisible(e)) return;
+    if(e.f===id) s.add(e.t);
+    if(e.t===id) s.add(e.f);
+  });
+  return s;
+}
+
+function onEnter(n,ev){
+  const c = connected(n.id);
+
+  // Dim/highlight nodes
+  NODES.forEach(nd => {
+    const g = document.getElementById('n'+nd.id);
+    if(g) g.style.opacity = c.has(nd.id) ? '1' : '0.08';
+  });
+
+  // Dim/highlight edges and particles
+  EDGES.forEach((e,i) => {
+    const ep = document.getElementById('e'+i);
+    const pp = document.getElementById('p'+i);
+    if(!ep) return;
+    const vis = eVisible(e);
+    const hit = e.f===n.id || e.t===n.id;
+    if(!vis){
+      ep.style.opacity='0';
+      if(pp) pp.style.opacity='0';
+      return;
+    }
+    ep.style.opacity   = hit ? (e.type==='ops'?'0.9':'1') : '0.04';
+    ep.setAttribute('stroke-width', hit ? '2.2' : '1.5');
+    if(pp) pp.style.opacity = hit ? '1' : '0.03';
+  });
+
+  showTip(n,ev);
+}
+
+function onLeave(){
+  NODES.forEach(nd => {
+    const g = document.getElementById('n'+nd.id);
+    if(g) g.style.opacity = '1';
+  });
+  resetEdges();
+  hideTip();
+}
+
+// ── Toggle ────────────────────────────────────────────────────────
+function setView(v){
+  view = v;
+  document.querySelectorAll('.tbtn').forEach(b => b.classList.toggle('on', b.dataset.v===v));
+  document.getElementById('l-supply').style.display  = v==='supply'  ? 'flex':'none';
+  document.getElementById('l-finance').style.display = v==='finance' ? 'flex':'none';
+  resetEdges();
+}
+
+function resetEdges(){
+  EDGES.forEach((e,i) => {
+    const ep = document.getElementById('e'+i);
+    const pp = document.getElementById('p'+i);
+    if(!ep) return;
+    const vis = eVisible(e);
+    ep.style.opacity = vis ? String(eOpacity(e)) : '0';
+    ep.setAttribute('stroke-width','1.5');
+    ep.setAttribute('marker-end', vis ? `url(#a${e.type})` : '');
+    if(pp) pp.style.opacity = vis ? '1' : '0';
+  });
+}
+
+// ── Tooltip ───────────────────────────────────────────────────────
+function showTip(n,ev){
+  const info = INFO[n.id]||{};
+  const c    = CC[n.cl];
+  const tip  = document.getElementById('tip');
+  tip.innerHTML = `
+    <div class="tip-name">${n.lines.join(' ')}</div>
+    <div class="tip-layer" style="color:${c}">${info.layer||n.cl}</div>
+    <div>${info.desc||''}</div>`;
+  tip.classList.add('on');
+  moveTip(ev);
+}
+function moveTip(ev){
+  const tip = document.getElementById('tip');
+  const box = tip.parentElement.getBoundingClientRect();
+  let x = ev.clientX-box.left+14, y = ev.clientY-box.top+14;
+  if(x+265 > box.width)  x = ev.clientX-box.left-272;
+  if(y+165 > box.height) y = ev.clientY-box.top-172;
+  tip.style.left = x+'px';
+  tip.style.top  = y+'px';
+}
+function hideTip(){ document.getElementById('tip').classList.remove('on'); }
+
+// ── Init ──────────────────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>

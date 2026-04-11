@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FileText, Lock } from "lucide-react";
+import BottomNav from "@/components/BottomNav";
 
 export const metadata: Metadata = {
   title: "Helios Towers — Indicative Credit Brief (Teaser) | Principal AI",
@@ -106,6 +107,12 @@ export default function HeliosTowersResearchTeaserPage() {
           </div>
         </div>
       </div>
+
+      <BottomNav
+        nextHref="/contact"
+        nextLabel="Commission a mandate"
+        nextDescription="Scope institutional credit research on your timeline"
+      />
     </div>
   );
 }
