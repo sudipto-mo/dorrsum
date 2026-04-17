@@ -9,6 +9,8 @@ export interface BottomNavProps {
   subText?: string;
   prevDescription?: string;
   nextDescription?: string;
+  /** Post-login return path (passed as `/login?returnTo=…`). Defaults to Helios research teaser. */
+  loginHref?: string;
 }
 
 function splitInstitutionalLine(text: string): { left: string; right: string } {
@@ -22,6 +24,8 @@ function splitInstitutionalLine(text: string): { left: string; right: string } {
   };
 }
 
+const DEFAULT_LOGIN_HREF = "/login?returnTo=" + encodeURIComponent("/research/helios-towers");
+
 export default function BottomNav({
   prevLabel = "AI infrastructure network",
   prevHref = "/dc-network-map.html",
@@ -30,6 +34,7 @@ export default function BottomNav({
   subText = "Full institutional research — client login",
   prevDescription = "Return to ecosystem overview",
   nextDescription = "Explore deeper models & covenants",
+  loginHref = DEFAULT_LOGIN_HREF,
 }: BottomNavProps) {
   const { left, right } = splitInstitutionalLine(subText);
 
@@ -57,7 +62,7 @@ export default function BottomNav({
         <p className="text-[11px] uppercase tracking-[0.2em] text-slate-600">
           {left}
           {" — "}
-          <Link href="/login" className="ml-1 text-blue-600 transition-colors hover:text-blue-400">
+          <Link href={loginHref} className="ml-1 text-blue-600 transition-colors hover:text-blue-400">
             {right}
           </Link>
         </p>

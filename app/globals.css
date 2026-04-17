@@ -362,3 +362,57 @@ html[data-theme="dark"] .btn-primary {
 }
 
 /* Workbench UI lives in public/credit-workbench/index.html (iframe); this file does not style that surface. */
+
+@layer components {
+  .prose-research h1 {
+    @apply text-2xl font-bold text-white mt-10 mb-4;
+  }
+  .prose-research h2 {
+    @apply text-xl font-semibold text-slate-100 mt-10 mb-3 border-b border-slate-800 pb-2;
+  }
+  .prose-research h3 {
+    @apply text-base font-semibold text-slate-200 mt-6 mb-2;
+  }
+  .prose-research p {
+    @apply text-[15px] leading-relaxed text-slate-300 mb-4 sm:text-base sm:leading-7;
+  }
+  .prose-research ul {
+    @apply list-disc list-outside pl-5 text-slate-300 text-[15px] mb-4 space-y-1;
+  }
+  .prose-research ol {
+    @apply list-decimal list-outside pl-5 text-slate-300 text-[15px] mb-4 space-y-1;
+  }
+  .prose-research li {
+    @apply leading-relaxed;
+  }
+  .prose-research table {
+    @apply w-full border-collapse text-sm text-slate-300 mb-6;
+  }
+  .prose-research th {
+    @apply text-left text-xs font-semibold uppercase tracking-wider text-slate-400 border-b border-slate-700 pb-2 pr-4;
+  }
+  .prose-research td {
+    @apply py-2 pr-4 border-b border-slate-800/60 align-top;
+  }
+  .prose-research pre {
+    @apply bg-slate-900 border border-slate-800 rounded-lg p-4 overflow-x-auto text-sm text-slate-300 mb-4 font-mono;
+  }
+  .prose-research code {
+    @apply bg-slate-800 text-cyan-400 rounded px-1 py-0.5 text-sm font-mono;
+  }
+  .prose-research pre code {
+    @apply bg-transparent text-slate-300 p-0;
+  }
+  .prose-research a {
+    @apply text-blue-400 hover:text-blue-300 underline underline-offset-2;
+  }
+  .prose-research blockquote {
+    @apply border-l-2 border-slate-700 pl-4 text-slate-400 italic;
+  }
+  .prose-research hr {
+    @apply border-slate-800 my-8;
+  }
+  .prose-research strong {
+    @apply text-slate-100 font-semibold;
+  }
+}

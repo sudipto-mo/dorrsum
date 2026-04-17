@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Principal AI — Origination Radar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    html, body { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    body { background: #0B0F19; color: #fff; }
+    .bg-page { background: radial-gradient(ellipse 1200px 600px at 85% -10%, rgba(59,130,246,0.08), transparent 60%), radial-gradient(ellipse 800px 400px at 10% 100%, rgba(59,130,246,0.04), transparent 60%), #0B0F19; }
+    .bg-card { background: rgba(17, 24, 39, 0.55); }
+    .bg-card-strong { background: #0a0f1c; }
+    .border-subtle { border-color: rgba(255,255,255,0.08); }
+    .border-subtler { border-color: rgba(255,255,255,0.05); }
+    .text-muted { color: #6b7280; }
+    .scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .scrollbar::-webkit-scrollbar-thumb { background: #2a3142; border-radius: 3px; }
+    .chip { @apply px-3 py-1.5 text-xs rounded-full border; }
+    .pulse-dot { animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+    details > summary { list-style: none; cursor: pointer; }
+    details > summary::-webkit-details-marker { display: none; }
+  </style>
+</head>
+<body class="bg-page min-h-screen">
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- PAGE TITLE + MANDATE CHIP BAR                                          -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <section class="border-b border-subtle">
+    <div class="max-w-[1400px] mx-auto px-6 py-8">
+      <div class="flex items-start justify-between gap-6 flex-wrap">
+        <div>
+          <h1 class="text-4xl font-bold tracking-tight">Deal Radar</h1>
+          <p class="text-sm text-gray-400 mt-2">Live signal scan across <span class="text-white font-medium">47 APAC DI public companies</span> · Last refreshed 2 min ago</p>
+        </div>
+        <div class="flex gap-1 bg-gray-900/60 border border-subtle rounded-lg p-1">
+          <button class="px-4 py-1.5 text-xs bg-gray-800 rounded-md text-white">Deal Radar</button>
+          <button class="px-4 py-1.5 text-xs text-gray-400 hover:text-gray-200 rounded-md transition">Sponsor Radar</button>
+          <button class="px-4 py-1.5 text-xs text-gray-400 hover:text-gray-200 rounded-md transition">Watchlist</button>
+        </div>
+      </div>
+
+      <!-- Mandate chip bar -->
+      <div class="flex items-center gap-2 mt-6 text-xs flex-wrap">
+        <span class="text-[10px] uppercase tracking-wider text-gray-500 mr-2">Your mandate:</span>
+        <span class="px-3 py-1.5 bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>Commercial Banker
+        </span>
+        <span class="px-3 py-1.5 bg-gray-800/60 border border-subtler rounded-full text-gray-300">DC · Tower · Fiber · REIT</span>
+        <span class="px-3 py-1.5 bg-gray-800/60 border border-subtler rounded-full text-gray-300">$100M — $500M</span>
+        <span class="px-3 py-1.5 bg-gray-800/60 border border-subtler rounded-full text-gray-300">Leverage ≤ 5.5x</span>
+        <span class="px-3 py-1.5 bg-gray-800/60 border border-subtler rounded-full text-gray-300">TLB · Club · Green · SLL</span>
+        <span class="px-3 py-1.5 bg-gray-800/60 border border-subtler rounded-full text-gray-300">APAC ex-Japan</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- MAIN: LEFT RAIL + DEAL CARDS                                           -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <main class="max-w-[1400px] mx-auto px-6 py-8 flex gap-8">
+
+    <!-- ─── Left Rail ─────────────────────────────────────────────────── -->
+    <aside class="w-60 flex-shrink-0 sticky top-24 self-start">
+      <div>
+        <div class="text-[10px] uppercase tracking-wider text-gray-500 mb-3 font-semibold">Heat</div>
+        <div class="space-y-2">
+          <button class="w-full text-left px-3 py-2.5 bg-red-500/10 border border-red-500/30 rounded-md flex items-center justify-between hover:bg-red-500/15 transition">
+            <span class="text-sm text-red-300 flex items-center gap-2"><span class="w-2 h-2 bg-red-500 rounded-full pulse-dot"></span>HOT</span>
+            <span class="text-xs text-gray-400">3</span>
+          </button>
+          <button class="w-full text-left px-3 py-2.5 bg-amber-500/10 border border-amber-500/30 rounded-md flex items-center justify-between hover:bg-amber-500/15 transition">
+            <span class="text-sm text-amber-300 flex items-center gap-2"><span class="w-2 h-2 bg-amber-500 rounded-full"></span>WARM</span>
+            <span class="text-xs text-gray-400">11</span>
+          </button>
+          <button class="w-full text-left px-3 py-2.5 bg-emerald-500/10 border border-emerald-500/30 rounded-md flex items-center justify-between hover:bg-emerald-500/15 transition">
+            <span class="text-sm text-emerald-300 flex items-center gap-2"><span class="w-2 h-2 bg-emerald-500 rounded-full"></span>COLD</span>
+            <span class="text-xs text-gray-400">18</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <div class="text-[10px] uppercase tracking-wider text-gray-500 mb-3 font-semibold">Sub-sector</div>
+        <div class="space-y-2 text-sm">
+          <label class="flex items-center gap-2 text-gray-300 cursor-pointer hover:text-white"><input type="checkbox" checked class="accent-blue-500 rounded" /> Data Centers <span class="text-gray-600 text-xs ml-auto">14</span></label>
+          <label class="flex items-center gap-2 text-gray-300 cursor-pointer hover:text-white"><input type="checkbox" checked class="accent-blue-500 rounded" /> Towers <span class="text-gray-600 text-xs ml-auto">9</span></label>
+          <label class="flex items-center gap-2 text-gray-300 cursor-pointer hover:text-white"><input type="checkbox" checked class="accent-blue-500 rounded" /> Fiber / FTTx <span class="text-gray-600 text-xs ml-auto">11</span></label>
+          <label class="flex items-center gap-2 text-gray-300 cursor-pointer hover:text-white"><input type="checkbox" checked class="accent-blue-500 rounded" /> REITs <span class="text-gray-600 text-xs ml-auto">8</span></label>
+          <label class="flex items-center gap-2 text-gray-300 cursor-pointer hover:text-white"><input type="checkbox" class="accent-blue-500 rounded" /> Submarine cables <span class="text-gray-600 text-xs ml-auto">5</span></label>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <div class="text-[10px] uppercase tracking-wider text-gray-500 mb-3 font-semibold">Trigger type</div>
+        <div class="space-y-2 text-sm">
+          <label class="flex items-center gap-2 text-gray-300 cursor-pointer hover:text-white"><input type="checkbox" checked class="accent-blue-500 rounded" /> Maturity wall</label>
+          <label class="flex items-center gap-2 text-gray-300 cursor-pointer hover:text-white"><input type="checkbox" checked class="accent-blue-500 rounded" /> CapEx acceleration</label>
+          <label class="flex items-center gap-2 text-gray-300 cursor-pointer hover:text-white"><input type="checkbox" checked class="accent-blue-500 rounded" /> Sponsor exit window</label>
+          <label class="flex items-center gap-2 text-gray-300 cursor-pointer hover:text-white"><input type="checkbox" class="accent-blue-500 rounded" /> CFO / Treasurer change</label>
+          <label class="flex items-center gap-2 text-gray-300 cursor-pointer hover:text-white"><input type="checkbox" class="accent-blue-500 rounded" /> Rating migration</label>
+          <label class="flex items-center gap-2 text-gray-300 cursor-pointer hover:text-white"><input type="checkbox" class="accent-blue-500 rounded" /> Peer refi momentum</label>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <div class="text-[10px] uppercase tracking-wider text-gray-500 mb-3 font-semibold">Position</div>
+        <div class="space-y-2 text-sm">
+          <label class="flex items-center gap-2 text-gray-300 cursor-pointer hover:text-white"><input type="checkbox" checked class="accent-blue-500 rounded" /> Incumbent</label>
+          <label class="flex items-center gap-2 text-gray-300 cursor-pointer hover:text-white"><input type="checkbox" checked class="accent-blue-500 rounded" /> Challenger</label>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ─── Deal Cards ────────────────────────────────────────────────── -->
+    <section class="flex-1 min-w-0 space-y-10">
+
+      <!-- ══ HOT ══ -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-sm font-semibold text-red-300 flex items-center gap-2 uppercase tracking-wider">
+            <span class="w-2 h-2 bg-red-500 rounded-full pulse-dot"></span>
+            HOT — Action window open now
+          </h2>
+          <span class="text-xs text-gray-500">3 targets · sorted by score</span>
+        </div>
+
+        <div class="space-y-3">
+
+          <!-- ╔═══ GDS HOLDINGS ═══╗ -->
+          <article onclick="openBrief('gds')" class="bg-card border border-subtle rounded-xl p-5 cursor-pointer hover:border-blue-500/40 hover:bg-gray-900/70 transition group">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-semibold text-white text-base">GDS Holdings</span>
+                  <span class="text-xs text-gray-500 font-mono">HKEX 9698 · NASDAQ GDS</span>
+                  <span class="text-[10px] px-1.5 py-0.5 bg-purple-500/15 text-purple-300 rounded border border-purple-500/20">Sponsor-owned</span>
+                </div>
+                <div class="text-xs text-gray-500 mt-1">Data Center · Majority held by ST Telemedia · China + SE Asia footprint</div>
+              </div>
+              <div class="text-right flex items-center gap-4">
+                <div>
+                  <div class="text-[10px] uppercase tracking-wider text-gray-500">Fit Score</div>
+                  <div class="text-3xl font-bold text-white leading-none mt-0.5">87</div>
+                </div>
+                <svg class="w-5 h-5 text-gray-600 group-hover:text-blue-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </div>
+            </div>
+
+            <div class="space-y-3 mb-4">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-md bg-amber-500/15 text-amber-400 flex items-center justify-center flex-shrink-0 text-xs">⚡</div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="text-[10px] uppercase tracking-wider text-amber-400 font-semibold">Trigger</span>
+                  </div>
+                  <div class="text-sm text-gray-100 mt-0.5">$580M USD bond matures <span class="text-white font-semibold">14 Dec 2026</span> · refi window <span class="text-amber-300 font-medium">open now</span></div>
+                  <div class="text-xs text-gray-500 mt-1">CapEx guidance raised 32% on Q4'25 call (15 Mar) → ~$350M incremental funding need. Total addressable: <span class="text-gray-300">~$900M</span></div>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-md bg-red-500/15 text-red-400 flex items-center justify-center flex-shrink-0 text-xs">🚨</div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="text-[10px] uppercase tracking-wider text-red-400 font-semibold">Competitive Threat</span>
+                    <span class="text-[10px] px-1.5 py-0.5 bg-red-500/15 text-red-300 rounded border border-red-500/25">HIGH confidence</span>
+                  </div>
+                  <div class="text-sm text-gray-100 mt-0.5"><span class="font-semibold">MUFG · DBS · StanChart</span> likely in dialogue</div>
+                  <div class="text-xs text-gray-500 mt-1">Basis: 2024 bookrunners + ST Telemedia bank affiliations + 3 IR meetings logged Feb–Mar 2026</div>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-md bg-emerald-500/15 text-emerald-400 flex items-center justify-center flex-shrink-0 text-xs">✓</div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="text-[10px] uppercase tracking-wider text-emerald-400 font-semibold">Your Edge</span>
+                  </div>
+                  <div class="text-sm text-gray-100 mt-0.5">Incumbent on 2023 green loan · SGD structuring capability</div>
+                  <div class="text-xs text-gray-500 mt-1">Pitch angle: Pre-empt with SLL upsize before DCM syndicate forms — position as lead on sustainability tranche</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-4 border-t border-subtler">
+              <div class="flex gap-3 text-xs text-gray-500">
+                <span class="flex items-center gap-1.5"><span class="w-1 h-1 bg-gray-500 rounded-full"></span>241 days to wall</span>
+                <span class="flex items-center gap-1.5"><span class="w-1 h-1 bg-gray-500 rounded-full"></span>$900M addressable</span>
+                <span class="flex items-center gap-1.5"><span class="w-1 h-1 bg-gray-500 rounded-full"></span>5.4x lev · BB / Baa3</span>
+              </div>
+              <div class="flex gap-2">
+                <button onclick="event.stopPropagation(); openBrief('gds')" class="px-3.5 py-1.5 text-xs bg-blue-600 hover:bg-blue-500 rounded-md font-medium transition">Open brief</button>
+                <button onclick="event.stopPropagation();" class="px-3.5 py-1.5 text-xs border border-gray-700 text-gray-300 hover:bg-gray-800 rounded-md transition">Draft outreach</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ╔═══ MITRATEL ═══╗ -->
+          <article onclick="openBrief('mitratel')" class="bg-card border border-subtle rounded-xl p-5 cursor-pointer hover:border-blue-500/40 hover:bg-gray-900/70 transition group">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-semibold text-white text-base">Mitratel (Dayamitra Telekomunikasi)</span>
+                  <span class="text-xs text-gray-500 font-mono">IDX MTEL</span>
+                  <span class="text-[10px] px-1.5 py-0.5 bg-purple-500/15 text-purple-300 rounded border border-purple-500/20">SOE-affiliated</span>
+                </div>
+                <div class="text-xs text-gray-500 mt-1">Tower · Majority owned by Telkom Indonesia · ~38k towers</div>
+              </div>
+              <div class="text-right flex items-center gap-4">
+                <div>
+                  <div class="text-[10px] uppercase tracking-wider text-gray-500">Fit Score</div>
+                  <div class="text-3xl font-bold text-white leading-none mt-0.5">81</div>
+                </div>
+                <svg class="w-5 h-5 text-gray-600 group-hover:text-blue-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </div>
+            </div>
+
+            <div class="space-y-3 mb-4">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-md bg-amber-500/15 text-amber-400 flex items-center justify-center flex-shrink-0 text-xs">⚡</div>
+                <div class="flex-1 min-w-0">
+                  <span class="text-[10px] uppercase tracking-wider text-amber-400 font-semibold">Trigger</span>
+                  <div class="text-sm text-gray-100 mt-0.5">Bond spread widened <span class="text-white font-semibold">+22bps over 30d</span> + Telkom parent reviewing capital allocation (Bloomberg · 10 Apr)</div>
+                  <div class="text-xs text-gray-500 mt-1">Tower rental rate renegotiations with Telkom → likely capital recycle event in Q3–Q4 2026</div>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-md bg-red-500/15 text-red-400 flex items-center justify-center flex-shrink-0 text-xs">🚨</div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="text-[10px] uppercase tracking-wider text-red-400 font-semibold">Competitive Threat</span>
+                    <span class="text-[10px] px-1.5 py-0.5 bg-amber-500/15 text-amber-300 rounded border border-amber-500/25">MEDIUM confidence</span>
+                  </div>
+                  <div class="text-sm text-gray-100 mt-0.5"><span class="font-semibold">BCA · Mandiri · BNI</span> domestic incumbents · offshore lane is open</div>
+                  <div class="text-xs text-gray-500 mt-1">Basis: Prior IDR facility bookrunners · no known USD/SGD tranche on last deal</div>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-md bg-emerald-500/15 text-emerald-400 flex items-center justify-center flex-shrink-0 text-xs">✓</div>
+                <div class="flex-1 min-w-0">
+                  <span class="text-[10px] uppercase tracking-wider text-emerald-400 font-semibold">Your Edge</span>
+                  <div class="text-sm text-gray-100 mt-0.5">USD pricing advantage · cross-border structuring · sukuk capability</div>
+                  <div class="text-xs text-gray-500 mt-1">Pitch angle: Offshore USD-IDR dual-tranche to diversify investor base + hedge FX exposure on Telkom dividend flows</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-4 border-t border-subtler">
+              <div class="flex gap-3 text-xs text-gray-500">
+                <span class="flex items-center gap-1.5"><span class="w-1 h-1 bg-gray-500 rounded-full"></span>Event window Q3-Q4'26</span>
+                <span class="flex items-center gap-1.5"><span class="w-1 h-1 bg-gray-500 rounded-full"></span>~$450M addressable</span>
+                <span class="flex items-center gap-1.5"><span class="w-1 h-1 bg-gray-500 rounded-full"></span>2.8x lev · BBB-</span>
+              </div>
+              <div class="flex gap-2">
+                <button onclick="event.stopPropagation(); openBrief('mitratel')" class="px-3.5 py-1.5 text-xs bg-blue-600 hover:bg-blue-500 rounded-md font-medium transition">Open brief</button>
+                <button onclick="event.stopPropagation();" class="px-3.5 py-1.5 text-xs border border-gray-700 text-gray-300 hover:bg-gray-800 rounded-md transition">Draft outreach</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ╔═══ NEXTDC ═══╗ -->
+          <article onclick="openBrief('nextdc')" class="bg-card border border-subtle rounded-xl p-5 cursor-pointer hover:border-blue-500/40 hover:bg-gray-900/70 transition group">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-semibold text-white text-base">NextDC</span>
+                  <span class="text-xs text-gray-500 font-mono">ASX NXT</span>
+                  <span class="text-[10px] px-1.5 py-0.5 bg-gray-500/15 text-gray-300 rounded border border-gray-500/20">Independent</span>
+                </div>
+                <div class="text-xs text-gray-500 mt-1">Data Center · Australia hyperscale · ASX 100 constituent</div>
+              </div>
+              <div class="text-right flex items-center gap-4">
+                <div>
+                  <div class="text-[10px] uppercase tracking-wider text-gray-500">Fit Score</div>
+                  <div class="text-3xl font-bold text-white leading-none mt-0.5">79</div>
+                </div>
+                <svg class="w-5 h-5 text-gray-600 group-hover:text-blue-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </div>
+            </div>
+
+            <div class="space-y-3 mb-4">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-md bg-amber-500/15 text-amber-400 flex items-center justify-center flex-shrink-0 text-xs">⚡</div>
+                <div class="flex-1 min-w-0">
+                  <span class="text-[10px] uppercase tracking-wider text-amber-400 font-semibold">Trigger</span>
+                  <div class="text-sm text-gray-100 mt-0.5"><span class="text-white font-semibold">A$800M CapEx funding gap</span> per Q3'26 guidance · S3/S4/M3 fit-out acceleration</div>
+                  <div class="text-xs text-gray-500 mt-1">Hyperscaler pre-commits pulling forward 2027 deployments into 2026 → financing must close within 6 months</div>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-md bg-red-500/15 text-red-400 flex items-center justify-center flex-shrink-0 text-xs">🚨</div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="text-[10px] uppercase tracking-wider text-red-400 font-semibold">Competitive Threat</span>
+                    <span class="text-[10px] px-1.5 py-0.5 bg-red-500/15 text-red-300 rounded border border-red-500/25">HIGH confidence</span>
+                  </div>
+                  <div class="text-sm text-gray-100 mt-0.5"><span class="font-semibold">ANZ · CBA · MUFG</span> have dominated last 3 rounds (2023, 2024, 2025)</div>
+                  <div class="text-xs text-gray-500 mt-1">Basis: Consecutive bookrunner appointments · ANZ global coordinator on 2024 SLL</div>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-md bg-emerald-500/15 text-emerald-400 flex items-center justify-center flex-shrink-0 text-xs">✓</div>
+                <div class="flex-1 min-w-0">
+                  <span class="text-[10px] uppercase tracking-wider text-emerald-400 font-semibold">Your Edge</span>
+                  <div class="text-sm text-gray-100 mt-0.5">Sustainability-linked structuring · ESG KPI calibration expertise</div>
+                  <div class="text-xs text-gray-500 mt-1">Pitch angle: Break into the syndicate via a dedicated SLL tranche with physical PPA integration — incumbents weaker on this</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-4 border-t border-subtler">
+              <div class="flex gap-3 text-xs text-gray-500">
+                <span class="flex items-center gap-1.5"><span class="w-1 h-1 bg-gray-500 rounded-full"></span>Close window ≤ 6 months</span>
+                <span class="flex items-center gap-1.5"><span class="w-1 h-1 bg-gray-500 rounded-full"></span>A$800M addressable</span>
+                <span class="flex items-center gap-1.5"><span class="w-1 h-1 bg-gray-500 rounded-full"></span>4.8x lev · BBB-</span>
+              </div>
+              <div class="flex gap-2">
+                <button onclick="event.stopPropagation(); openBrief('nextdc')" class="px-3.5 py-1.5 text-xs bg-blue-600 hover:bg-blue-500 rounded-md font-medium transition">Open brief</button>
+                <button onclick="event.stopPropagation();" class="px-3.5 py-1.5 text-xs border border-gray-700 text-gray-300 hover:bg-gray-800 rounded-md transition">Draft outreach</button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ══ WARM ══ -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-sm font-semibold text-amber-300 flex items-center gap-2 uppercase tracking-wider">
+            <span class="w-2 h-2 bg-amber-500 rounded-full"></span>
+            WARM — Window opens in 3–12 months
+          </h2>
+          <span class="text-xs text-gray-500">11 targets · showing top 2</span>
+        </div>
+
+        <div class="space-y-3">
+
+          <!-- Keppel DC REIT -->
+          <article onclick="openBrief('keppel')" class="bg-card border border-subtle rounded-xl p-5 cursor-pointer hover:border-blue-500/40 hover:bg-gray-900/70 transition group">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-semibold text-white text-base">Keppel DC REIT</span>
+                  <span class="text-xs text-gray-500 font-mono">SGX AJBU</span>
+                  <span class="text-[10px] px-1.5 py-0.5 bg-blue-500/15 text-blue-300 rounded border border-blue-500/20">REIT</span>
+                </div>
+                <div class="text-xs text-gray-500 mt-1">DC REIT · Sponsored by Keppel Corporation · 24 DCs across APAC + EU</div>
+              </div>
+              <div class="text-right flex items-center gap-4">
+                <div>
+                  <div class="text-[10px] uppercase tracking-wider text-gray-500">Fit Score</div>
+                  <div class="text-3xl font-bold text-white leading-none mt-0.5">68</div>
+                </div>
+                <svg class="w-5 h-5 text-gray-600 group-hover:text-blue-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </div>
+            </div>
+            <div class="space-y-2.5 mb-4">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-md bg-amber-500/15 text-amber-400 flex items-center justify-center flex-shrink-0 text-xs">⚡</div>
+                <div class="flex-1 text-sm text-gray-200">
+                  <span class="text-[10px] uppercase tracking-wider text-amber-400 font-semibold">Trigger</span>
+                  <div>S$500M MTN matures <span class="text-white font-medium">Q1 2027</span> + active acquisition pipeline (Tokyo, Seoul DCs evaluated)</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-md bg-red-500/15 text-red-400 flex items-center justify-center flex-shrink-0 text-xs">🚨</div>
+                <div class="flex-1 text-sm text-gray-200">
+                  <span class="text-[10px] uppercase tracking-wider text-red-400 font-semibold">Threat</span>
+                  <span class="ml-2 text-[10px] px-1.5 py-0.5 bg-amber-500/15 text-amber-300 rounded border border-amber-500/25">MEDIUM</span>
+                  <div>DBS · OCBC · UOB tight incumbent club — hard to displace on SGD tranches</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-md bg-emerald-500/15 text-emerald-400 flex items-center justify-center flex-shrink-0 text-xs">✓</div>
+                <div class="flex-1 text-sm text-gray-200">
+                  <span class="text-[10px] uppercase tracking-wider text-emerald-400 font-semibold">Edge</span>
+                  <div>Cross-border SGD-USD swap · EUR tranche capability for European DC acquisitions</div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-4 border-t border-subtler">
+              <div class="flex gap-3 text-xs text-gray-500">
+                <span>~280 days to wall</span>
+                <span>·</span>
+                <span>S$500M + M&A upside</span>
+                <span>·</span>
+                <span>35% aggregate leverage · BBB</span>
+              </div>
+              <div class="flex gap-2">
+                <button onclick="event.stopPropagation(); openBrief('keppel')" class="px-3.5 py-1.5 text-xs bg-blue-600 hover:bg-blue-500 rounded-md font-medium transition">Open brief</button>
+                <button onclick="event.stopPropagation();" class="px-3.5 py-1.5 text-xs border border-gray-700 text-gray-300 hover:bg-gray-800 rounded-md transition">Draft outreach</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- HKBN -->
+          <article onclick="openBrief('hkbn')" class="bg-card border border-subtle rounded-xl p-5 cursor-pointer hover:border-blue-500/40 hover:bg-gray-900/70 transition group">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-semibold text-white text-base">HKBN (Hong Kong Broadband Network)</span>
+                  <span class="text-xs text-gray-500 font-mono">HKEX 1310</span>
+                  <span class="text-[10px] px-1.5 py-0.5 bg-purple-500/15 text-purple-300 rounded border border-purple-500/20">Sponsor-owned</span>
+                </div>
+                <div class="text-xs text-gray-500 mt-1">Fiber / FTTx · MBK Partners sponsor · HK fixed broadband #2</div>
+              </div>
+              <div class="text-right flex items-center gap-4">
+                <div>
+                  <div class="text-[10px] uppercase tracking-wider text-gray-500">Fit Score</div>
+                  <div class="text-3xl font-bold text-white leading-none mt-0.5">64</div>
+                </div>
+                <svg class="w-5 h-5 text-gray-600 group-hover:text-blue-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </div>
+            </div>
+            <div class="space-y-2.5 mb-4">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-md bg-amber-500/15 text-amber-400 flex items-center justify-center flex-shrink-0 text-xs">⚡</div>
+                <div class="flex-1 text-sm text-gray-200">
+                  <span class="text-[10px] uppercase tracking-wider text-amber-400 font-semibold">Trigger</span>
+                  <div>MBK 5-year hold mark approaches <span class="text-white font-medium">Dec 2026</span> · I Squared reportedly in talks (trade press, 2 Apr)</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-md bg-red-500/15 text-red-400 flex items-center justify-center flex-shrink-0 text-xs">🚨</div>
+                <div class="flex-1 text-sm text-gray-200">
+                  <span class="text-[10px] uppercase tracking-wider text-red-400 font-semibold">Threat</span>
+                  <span class="ml-2 text-[10px] px-1.5 py-0.5 bg-emerald-500/15 text-emerald-300 rounded border border-emerald-500/25">LOW</span>
+                  <div>Financing sponsor TBD until new owner confirmed — open field for take-private debt package</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-md bg-emerald-500/15 text-emerald-400 flex items-center justify-center flex-shrink-0 text-xs">✓</div>
+                <div class="flex-1 text-sm text-gray-200">
+                  <span class="text-[10px] uppercase tracking-wider text-emerald-400 font-semibold">Edge</span>
+                  <div>Take-private financing capability · HK dollar lending · existing I Squared relationship</div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-4 border-t border-subtler">
+              <div class="flex gap-3 text-xs text-gray-500">
+                <span>Sponsor exit 6–18 months</span>
+                <span>·</span>
+                <span>~$1.5B EV potential</span>
+                <span>·</span>
+                <span>5.8x lev · unrated</span>
+              </div>
+              <div class="flex gap-2">
+                <button onclick="event.stopPropagation(); openBrief('hkbn')" class="px-3.5 py-1.5 text-xs bg-blue-600 hover:bg-blue-500 rounded-md font-medium transition">Open brief</button>
+                <button onclick="event.stopPropagation();" class="px-3.5 py-1.5 text-xs border border-gray-700 text-gray-300 hover:bg-gray-800 rounded-md transition">Draft outreach</button>
+              </div>
+            </div>
+          </article>
+
+          <button class="w-full py-3 border border-dashed border-gray-700 rounded-xl text-sm text-gray-500 hover:text-gray-300 hover:border-gray-600 transition">
+            + Show 9 more WARM targets
+          </button>
+        </div>
+      </div>
+
+      <!-- ══ COLD ══ -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-sm font-semibold text-emerald-300 flex items-center gap-2 uppercase tracking-wider">
+            <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+            COLD — On the radar, no immediate trigger
+          </h2>
+          <span class="text-xs text-gray-500">18 targets · sector thesis only</span>
+        </div>
+        <button class="w-full py-4 border border-dashed border-gray-700 rounded-xl text-sm text-gray-500 hover:text-gray-300 hover:border-gray-600 transition">
+          Expand COLD targets
+        </button>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Footer disclaimer -->
+  <footer class="border-t border-subtle mt-16">
+    <div class="max-w-[1400px] mx-auto px-6 py-6 text-xs text-gray-500 flex items-center justify-between flex-wrap gap-2">
+      <div>Illustrative demo data. Threat attribution inferred from public signals — directionally indicative, not confirmed. Confidence labels reflect signal strength.</div>
+      <div class="text-gray-600">Principal AI · APAC Digital Infrastructure Advisory</div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- OVERLAY                                                                -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <div id="overlay" onclick="closeAll()" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-40 transition-opacity"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- BRIEF PANEL (GDS in full fidelity; others reuse as template)          -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <aside id="brief-panel" class="hidden fixed right-0 top-0 h-screen w-[820px] max-w-[95vw] bg-card-strong border-l border-subtle z-50 overflow-y-auto scrollbar">
+    <!-- Brief Header -->
+    <div class="sticky top-0 bg-card-strong border-b border-subtle px-6 py-4 flex items-center justify-between z-10">
+      <div class="flex items-center gap-3">
+        <button onclick="closeAll()" class="w-8 h-8 rounded-md hover:bg-gray-800 flex items-center justify-center transition">
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 id="brief-company" class="font-semibold text-white">GDS Holdings</h2>
+            <span id="brief-ticker" class="text-xs text-gray-500 font-mono">HKEX 9698 · NASDAQ GDS</span>
+          </div>
+          <div class="text-xs text-gray-500">Origination Brief · Generated 17 Apr 2026 · 09:42 SGT</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 mr-3">
+          <span class="text-[10px] uppercase tracking-wider text-gray-500">Score</span>
+          <span class="text-xl font-bold text-white">87</span>
+        </div>
+        <button class="px-3 py-1.5 text-xs border border-gray-700 rounded-md hover:bg-gray-800 transition">Export PDF</button>
+        <button class="px-3 py-1.5 text-xs bg-blue-600 hover:bg-blue-500 rounded-md font-medium transition">Draft outreach</button>
+      </div>
+    </div>
+
+    <!-- Brief Body -->
+    <div class="p-6 space-y-6">
+
+      <!-- 1. SNAPSHOT -->
+      <section>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-6 h-6 rounded bg-blue-600/20 text-blue-400 flex items-center justify-center text-xs font-semibold">1</div>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-300">Snapshot</h3>
+        </div>
+        <div class="bg-gray-900/40 border border-subtler rounded-lg p-5">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+            <div>
+              <div class="text-[10px] uppercase tracking-wider text-gray-500">Sector</div>
+              <div class="text-sm font-medium text-white mt-1">Data Center</div>
+              <div class="text-xs text-gray-500">Tier 1/2 China + SE Asia</div>
+            </div>
+            <div>
+              <div class="text-[10px] uppercase tracking-wider text-gray-500">Revenue (LTM)</div>
+              <div class="text-sm font-medium text-white mt-1">RMB 10.8B</div>
+              <div class="text-xs text-gray-500">+14% YoY</div>
+            </div>
+            <div>
+              <div class="text-[10px] uppercase tracking-wider text-gray-500">EBITDA</div>
+              <div class="text-sm font-medium text-white mt-1">RMB 4.9B</div>
+              <div class="text-xs text-gray-500">45.4% margin</div>
+            </div>
+            <div>
+              <div class="text-[10px] uppercase tracking-wider text-gray-500">Net Leverage</div>
+              <div class="text-sm font-medium text-white mt-1">5.4x</div>
+              <div class="text-xs text-amber-400">vs. 5.5x mandate cap</div>
+            </div>
+            <div>
+              <div class="text-[10px] uppercase tracking-wider text-gray-500">Rating</div>
+              <div class="text-sm font-medium text-white mt-1">BB / Baa3</div>
+              <div class="text-xs text-gray-500">S&P / Moody's</div>
+            </div>
+            <div>
+              <div class="text-[10px] uppercase tracking-wider text-gray-500">Majority holder</div>
+              <div class="text-sm font-medium text-white mt-1">ST Telemedia</div>
+              <div class="text-xs text-gray-500">~35% stake</div>
+            </div>
+            <div>
+              <div class="text-[10px] uppercase tracking-wider text-gray-500">IT capacity</div>
+              <div class="text-sm font-medium text-white mt-1">655 MW operational</div>
+              <div class="text-xs text-gray-500">~90% utilization</div>
+            </div>
+            <div>
+              <div class="text-[10px] uppercase tracking-wider text-gray-500">CEO tenure</div>
+              <div class="text-sm font-medium text-white mt-1">William Huang (Founder)</div>
+              <div class="text-xs text-gray-500">Since 2001</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. CAPITAL STRUCTURE -->
+      <section>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-6 h-6 rounded bg-blue-600/20 text-blue-400 flex items-center justify-center text-xs font-semibold">2</div>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-300">Capital Structure</h3>
+        </div>
+        <div class="bg-gray-900/40 border border-subtler rounded-lg overflow-hidden">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-900/60 text-[10px] uppercase tracking-wider text-gray-400">
+              <tr>
+                <th class="px-4 py-3 text-left font-medium">Facility</th>
+                <th class="px-4 py-3 text-left font-medium">Size</th>
+                <th class="px-4 py-3 text-left font-medium">Maturity</th>
+                <th class="px-4 py-3 text-left font-medium">Pricing</th>
+                <th class="px-4 py-3 text-left font-medium">Bookrunners</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-subtler">
+              <tr class="bg-amber-500/5">
+                <td class="px-4 py-3"><span class="font-medium text-amber-300">USD senior notes</span> <span class="text-[10px] ml-1 px-1.5 py-0.5 bg-amber-500/20 text-amber-300 rounded">FOCUS</span></td>
+                <td class="px-4 py-3 text-white">$580M</td>
+                <td class="px-4 py-3 text-amber-300">14 Dec 2026</td>
+                <td class="px-4 py-3 text-gray-400">T+325</td>
+                <td class="px-4 py-3 text-gray-400">MUFG, DBS</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 text-gray-200">Onshore RMB TL</td>
+                <td class="px-4 py-3 text-white">RMB 4.8B</td>
+                <td class="px-4 py-3 text-gray-400">Mar 2028</td>
+                <td class="px-4 py-3 text-gray-400">LPR+120</td>
+                <td class="px-4 py-3 text-gray-400">ICBC, CCB</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 text-gray-200">Green term loan <span class="text-[10px] ml-1 px-1.5 py-0.5 bg-emerald-500/15 text-emerald-300 rounded border border-emerald-500/20">Incumbent</span></td>
+                <td class="px-4 py-3 text-white">$300M</td>
+                <td class="px-4 py-3 text-gray-400">Jun 2029</td>
+                <td class="px-4 py-3 text-gray-400">SOFR+230</td>
+                <td class="px-4 py-3 text-emerald-300 font-medium">HSBC, YOU</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 text-gray-200">RCF (undrawn)</td>
+                <td class="px-4 py-3 text-white">$200M</td>
+                <td class="px-4 py-3 text-gray-400">Jun 2028</td>
+                <td class="px-4 py-3 text-gray-400">SOFR+175</td>
+                <td class="px-4 py-3 text-gray-400">DBS</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 3. WHY NOW -->
+      <section>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-6 h-6 rounded bg-blue-600/20 text-blue-400 flex items-center justify-center text-xs font-semibold">3</div>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-300">Why Now — Dated Trigger</h3>
+        </div>
+        <div class="bg-amber-500/5 border border-amber-500/20 rounded-lg p-5">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0 text-lg">⚡</div>
+            <div class="flex-1">
+              <p class="text-sm text-gray-200 leading-relaxed">
+                <span class="text-white font-semibold">$580M USD bond matures 14 Dec 2026.</span>
+                Refi window typically opens 9–12 months prior, i.e., <span class="text-amber-300 font-medium">Mar–Jun 2026</span>.
+                Q4'25 earnings call (15 Mar) raised CapEx guidance <span class="text-white font-medium">+32%</span> →
+                implies incremental <span class="text-white font-medium">~$350M</span> funding need beyond refi.
+              </p>
+              <div class="mt-4 flex items-center gap-6 text-xs">
+                <div><span class="text-gray-500">Days to maturity:</span> <span class="text-white font-semibold ml-1">241</span></div>
+                <div><span class="text-gray-500">Total addressable:</span> <span class="text-white font-semibold ml-1">~$900M</span></div>
+                <div><span class="text-gray-500">Optimal approach window:</span> <span class="text-amber-300 font-semibold ml-1">next 6 weeks</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. COMPETITIVE LANDSCAPE -->
+      <section>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-6 h-6 rounded bg-blue-600/20 text-blue-400 flex items-center justify-center text-xs font-semibold">4</div>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-300">Competitive Landscape</h3>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-red-500/5 border border-red-500/20 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-2">
+              <div class="text-[10px] uppercase tracking-wider text-red-400 font-semibold">🚨 Likely already engaged</div>
+              <span class="text-[10px] px-1.5 py-0.5 bg-red-500/15 text-red-300 rounded border border-red-500/25">HIGH</span>
+            </div>
+            <div class="text-sm text-white font-medium">MUFG · DBS · StanChart</div>
+            <details class="mt-2 text-xs text-gray-400">
+              <summary class="hover:text-gray-300">Show basis →</summary>
+              <ul class="mt-2 space-y-1 list-disc list-inside text-gray-500">
+                <li>2024 USD bond bookrunners (MUFG, DBS)</li>
+                <li>ST Telemedia banking affiliations (StanChart)</li>
+                <li>3 IR meetings logged Feb–Mar 2026 (MUFG, DBS, StanChart)</li>
+                <li>StanChart covered 2023 green loan syndication</li>
+              </ul>
+            </details>
+          </div>
+
+          <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-lg p-4">
+            <div class="text-[10px] uppercase tracking-wider text-emerald-400 font-semibold mb-2">✓ Incumbent on existing facility</div>
+            <div class="text-sm text-white font-medium">HSBC · YOU</div>
+            <div class="text-xs text-gray-400 mt-2">2023 $300M green loan (Jun 2029 maturity). Relationship warm — no negative events recorded.</div>
+          </div>
+
+          <div class="bg-purple-500/5 border border-purple-500/20 rounded-lg p-4">
+            <div class="text-[10px] uppercase tracking-wider text-purple-400 font-semibold mb-2">🔗 Sponsor-affiliated</div>
+            <div class="text-sm text-white font-medium">SMBC</div>
+            <div class="text-xs text-gray-400 mt-2">ST Telemedia's global house bank (Temasek-affiliated). Likely surfaced via sponsor channel rather than direct borrower pitch.</div>
+          </div>
+
+          <div class="bg-blue-500/5 border border-blue-500/20 rounded-lg p-4">
+            <div class="text-[10px] uppercase tracking-wider text-blue-400 font-semibold mb-2">⚡ Open lanes</div>
+            <div class="text-sm text-white font-medium">SGD tranche · SLL structuring</div>
+            <div class="text-xs text-gray-400 mt-2">No lender has claimed the SGD denomination or the sustainability-linked angle on this refi. Your incumbent status on the green loan = natural extension.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. POSITIONAL EDGE -->
+      <section>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-6 h-6 rounded bg-blue-600/20 text-blue-400 flex items-center justify-center text-xs font-semibold">5</div>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-300">Your Positional Edge</h3>
+        </div>
+        <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-lg p-5">
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <div class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0 text-xs mt-0.5">✓</div>
+              <div>
+                <div class="text-sm text-white font-medium">Incumbent on $300M green loan (2023)</div>
+                <div class="text-xs text-gray-400 mt-0.5">Relationship is warm. No refinancing on this facility required until 2029 — use as anchor.</div>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0 text-xs mt-0.5">✓</div>
+              <div>
+                <div class="text-sm text-white font-medium">SGD capability</div>
+                <div class="text-xs text-gray-400 mt-0.5">ST Telemedia prefers SGD for holdco-level financing — incumbent bookrunners lack this depth.</div>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0 text-xs mt-0.5">✓</div>
+              <div>
+                <div class="text-sm text-white font-medium">SLL structuring expertise</div>
+                <div class="text-xs text-gray-400 mt-0.5">GDS has public sustainability KPIs (renewable PPA coverage, PUE targets) — ripe for an SLL upsize.</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 6. COMPARABLE DEALS -->
+      <section>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-6 h-6 rounded bg-blue-600/20 text-blue-400 flex items-center justify-center text-xs font-semibold">6</div>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-300">Comparable Deals (last 12 months)</h3>
+        </div>
+        <div class="bg-gray-900/40 border border-subtler rounded-lg overflow-hidden">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-900/60 text-[10px] uppercase tracking-wider text-gray-400">
+              <tr>
+                <th class="px-4 py-3 text-left font-medium">Issuer</th>
+                <th class="px-4 py-3 text-left font-medium">Deal</th>
+                <th class="px-4 py-3 text-left font-medium">Pricing</th>
+                <th class="px-4 py-3 text-left font-medium">Tenor</th>
+                <th class="px-4 py-3 text-left font-medium">Bookrunners</th>
+                <th class="px-4 py-3 text-left font-medium">Date</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-subtler">
+              <tr>
+                <td class="px-4 py-3 text-gray-200">NextDC</td>
+                <td class="px-4 py-3 text-white">A$750M SLL</td>
+                <td class="px-4 py-3 text-gray-400">SOFR+215</td>
+                <td class="px-4 py-3 text-gray-400">5yr</td>
+                <td class="px-4 py-3 text-gray-400">ANZ, CBA</td>
+                <td class="px-4 py-3 text-gray-400">Nov 2025</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 text-gray-200">VNET Group</td>
+                <td class="px-4 py-3 text-white">$300M offshore bond</td>
+                <td class="px-4 py-3 text-gray-400">T+365</td>
+                <td class="px-4 py-3 text-gray-400">5yr</td>
+                <td class="px-4 py-3 text-gray-400">HSBC, CITIC</td>
+                <td class="px-4 py-3 text-gray-400">Sep 2025</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 text-gray-200">Keppel DC REIT</td>
+                <td class="px-4 py-3 text-white">S$500M SLL</td>
+                <td class="px-4 py-3 text-gray-400">SOFR+180</td>
+                <td class="px-4 py-3 text-gray-400">4yr</td>
+                <td class="px-4 py-3 text-gray-400">DBS, OCBC</td>
+                <td class="px-4 py-3 text-gray-400">Jan 2026</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-gray-500 mt-2">Implied pricing band for GDS: <span class="text-gray-300">SOFR+210 to +240</span> depending on tenor and structure.</p>
+      </section>
+
+      <!-- 7. SUGGESTED PITCH ANGLE -->
+      <section>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-6 h-6 rounded bg-blue-600/20 text-blue-400 flex items-center justify-center text-xs font-semibold">7</div>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-300">Suggested Pitch Angle</h3>
+        </div>
+        <div class="bg-blue-500/5 border border-blue-500/20 rounded-lg p-5">
+          <p class="text-sm text-gray-200 leading-relaxed">
+            <span class="text-blue-300 font-semibold">Pre-empt the syndicate.</span>
+            Propose an upsized sustainability-linked loan (<span class="text-white font-medium">$450M target</span>) combined with a tap on the existing green loan,
+            priced <span class="text-white font-medium">tight to the NextDC comp</span> (SOFR+215) given GDS's stronger renewable PPA coverage.
+            Positions you as <span class="text-white font-medium">lead on the SLL portion</span> before DCM syndication starts,
+            locks in the sustainability narrative for ST Telemedia, and creates natural share for subsequent RMB onshore refi in 2028.
+          </p>
+          <div class="mt-4 pt-4 border-t border-blue-500/10 flex items-center gap-4 text-xs">
+            <div class="text-gray-400">Recommended action: <span class="text-blue-300 font-medium">CFO call within 10 days</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. KEY CONTACTS -->
+      <section>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-6 h-6 rounded bg-blue-600/20 text-blue-400 flex items-center justify-center text-xs font-semibold">8</div>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-300">Key Contacts <span class="text-[10px] text-gray-500 ml-2 normal-case tracking-normal font-normal">(public info)</span></h3>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+          <div class="bg-gray-900/40 border border-subtler rounded-lg p-4">
+            <div class="text-[10px] uppercase tracking-wider text-gray-500">CFO</div>
+            <div class="text-sm text-white font-medium mt-1">Daniel Newman</div>
+            <div class="text-xs text-gray-400">Tenure 3.2 years</div>
+          </div>
+          <div class="bg-gray-900/40 border border-subtler rounded-lg p-4">
+            <div class="text-[10px] uppercase tracking-wider text-gray-500">Head of Treasury</div>
+            <div class="text-sm text-white font-medium mt-1">[Name]</div>
+            <div class="text-xs text-gray-400">Tenure 5+ years</div>
+          </div>
+          <div class="bg-gray-900/40 border border-subtler rounded-lg p-4">
+            <div class="text-[10px] uppercase tracking-wider text-gray-500">Investor Relations</div>
+            <div class="text-sm text-white font-medium mt-1">[Name]</div>
+            <div class="text-xs text-gray-400">ir@gds-services.com</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer actions -->
+      <div class="pt-4 border-t border-subtler flex items-center justify-between">
+        <p class="text-xs text-gray-500">Generated from public filings, bond prospectuses, exchange disclosures, rating agency feeds, and public IR calendar data.</p>
+        <div class="flex gap-2">
+          <button class="px-4 py-2 text-xs border border-gray-700 rounded-md hover:bg-gray-800 transition">Export PDF</button>
+          <button class="px-4 py-2 text-xs bg-blue-600 hover:bg-blue-500 rounded-md font-medium transition">Draft outreach →</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- MANDATE CARD PANEL                                                     -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <aside id="mandate-panel" class="hidden fixed right-0 top-0 h-screen w-[620px] max-w-[95vw] bg-card-strong border-l border-subtle z-50 overflow-y-auto scrollbar">
+    <div class="sticky top-0 bg-card-strong border-b border-subtle px-6 py-4 flex items-center justify-between z-10">
+      <div class="flex items-center gap-3">
+        <button onclick="closeAll()" class="w-8 h-8 rounded-md hover:bg-gray-800 flex items-center justify-center transition">
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <div>
+          <h2 class="font-semibold text-white">Mandate Card</h2>
+          <div class="text-xs text-gray-500">Defines your origination lens. Updates signal weighting in real-time.</div>
+        </div>
+      </div>
+      <button class="px-3.5 py-1.5 text-xs bg-blue-600 hover:bg-blue-500 rounded-md font-medium transition">Save</button>
+    </div>
+
+    <div class="p-6 space-y-8">
+
+      <!-- Role -->
+      <div>
+        <label class="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Your role</label>
+        <div class="mt-2 grid grid-cols-2 gap-2">
+          <button class="p-4 bg-blue-600/10 border border-blue-600/40 rounded-lg text-left">
+            <div class="text-sm font-semibold text-white flex items-center gap-2">
+              <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
+              Commercial Banker
+            </div>
+            <div class="text-xs text-gray-400 mt-1">Weights maturity walls, peer refi, bookrunner patterns. Prioritizes syndication + ancillary revenue.</div>
+          </button>
+          <button class="p-4 bg-gray-900/40 border border-gray-800 rounded-lg text-left hover:border-gray-700 transition">
+            <div class="text-sm font-semibold text-gray-300 flex items-center gap-2">
+              <span class="w-2 h-2 bg-gray-600 rounded-full"></span>
+              PC Direct Lender
+            </div>
+            <div class="text-xs text-gray-500 mt-1">Weights sponsor exits, covenant pressure, rating migration. Prioritizes unitranche + bespoke structure.</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sub-sector -->
+      <div>
+        <label class="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Sub-sector coverage</label>
+        <div class="mt-2 flex flex-wrap gap-2">
+          <span class="px-3 py-1.5 text-xs bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full cursor-pointer">✓ Data Centers</span>
+          <span class="px-3 py-1.5 text-xs bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full cursor-pointer">✓ Towers</span>
+          <span class="px-3 py-1.5 text-xs bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full cursor-pointer">✓ Fiber / FTTx</span>
+          <span class="px-3 py-1.5 text-xs bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full cursor-pointer">✓ REITs</span>
+          <span class="px-3 py-1.5 text-xs text-gray-500 border border-gray-800 rounded-full cursor-pointer hover:border-gray-700">Submarine cables</span>
+          <span class="px-3 py-1.5 text-xs text-gray-500 border border-gray-800 rounded-full cursor-pointer hover:border-gray-700">Edge / Cloud</span>
+        </div>
+      </div>
+
+      <!-- Size band -->
+      <div>
+        <label class="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Facility size band (USD)</label>
+        <div class="mt-2 grid grid-cols-2 gap-3">
+          <div>
+            <div class="text-[10px] text-gray-500 mb-1">Min</div>
+            <div class="flex items-center bg-gray-900/60 border border-gray-800 rounded-md px-3 py-2">
+              <span class="text-xs text-gray-500 mr-2">$</span>
+              <input type="text" value="100M" class="bg-transparent text-sm text-white w-full outline-none" />
+            </div>
+          </div>
+          <div>
+            <div class="text-[10px] text-gray-500 mb-1">Max</div>
+            <div class="flex items-center bg-gray-900/60 border border-gray-800 rounded-md px-3 py-2">
+              <span class="text-xs text-gray-500 mr-2">$</span>
+              <input type="text" value="500M" class="bg-transparent text-sm text-white w-full outline-none" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leverage cap -->
+      <div>
+        <label class="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Max net leverage tolerance</label>
+        <div class="mt-2 flex items-center gap-4">
+          <input type="range" min="2" max="8" step="0.1" value="5.5" class="flex-1 accent-blue-500" />
+          <span class="text-sm text-white font-mono w-12">5.5x</span>
+        </div>
+      </div>
+
+      <!-- Structures -->
+      <div>
+        <label class="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Preferred structures</label>
+        <div class="mt-2 flex flex-wrap gap-2">
+          <span class="px-3 py-1.5 text-xs bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full cursor-pointer">✓ Term loan B</span>
+          <span class="px-3 py-1.5 text-xs bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full cursor-pointer">✓ Club / Syndicated</span>
+          <span class="px-3 py-1.5 text-xs bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full cursor-pointer">✓ Green loan</span>
+          <span class="px-3 py-1.5 text-xs bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full cursor-pointer">✓ SLL</span>
+          <span class="px-3 py-1.5 text-xs bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full cursor-pointer">✓ RCF</span>
+          <span class="px-3 py-1.5 text-xs text-gray-500 border border-gray-800 rounded-full cursor-pointer hover:border-gray-700">Unitranche</span>
+          <span class="px-3 py-1.5 text-xs text-gray-500 border border-gray-800 rounded-full cursor-pointer hover:border-gray-700">2L / Mezz</span>
+          <span class="px-3 py-1.5 text-xs text-gray-500 border border-gray-800 rounded-full cursor-pointer hover:border-gray-700">Project finance</span>
+          <span class="px-3 py-1.5 text-xs text-gray-500 border border-gray-800 rounded-full cursor-pointer hover:border-gray-700">DCM / Bond</span>
+          <span class="px-3 py-1.5 text-xs text-gray-500 border border-gray-800 rounded-full cursor-pointer hover:border-gray-700">NAV facility</span>
+        </div>
+      </div>
+
+      <!-- Geography -->
+      <div>
+        <label class="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Geographic scope</label>
+        <div class="mt-2 flex flex-wrap gap-2">
+          <span class="px-3 py-1.5 text-xs bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full cursor-pointer">✓ Greater China (HK / offshore)</span>
+          <span class="px-3 py-1.5 text-xs bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full cursor-pointer">✓ Singapore</span>
+          <span class="px-3 py-1.5 text-xs bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full cursor-pointer">✓ Australia / NZ</span>
+          <span class="px-3 py-1.5 text-xs bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full cursor-pointer">✓ India</span>
+          <span class="px-3 py-1.5 text-xs bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full cursor-pointer">✓ Indonesia · Philippines · Malaysia · Thailand</span>
+          <span class="px-3 py-1.5 text-xs bg-blue-600/10 text-blue-300 border border-blue-600/30 rounded-full cursor-pointer">✓ Korea · Taiwan</span>
+          <span class="px-3 py-1.5 text-xs text-gray-500 border border-gray-800 rounded-full cursor-pointer hover:border-gray-700">Japan <span class="text-[9px] text-gray-600 ml-1">(v1.5)</span></span>
+        </div>
+      </div>
+
+      <!-- Position -->
+      <div>
+        <label class="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Your position</label>
+        <div class="mt-2 space-y-3">
+          <div>
+            <div class="text-xs text-gray-400 mb-1.5">Incumbent on (gets score boost + defensive alerts)</div>
+            <div class="bg-gray-900/60 border border-gray-800 rounded-md p-2.5 min-h-[48px] flex flex-wrap gap-2">
+              <span class="px-2.5 py-1 text-xs bg-emerald-500/10 text-emerald-300 border border-emerald-500/25 rounded-md flex items-center gap-1.5">GDS Holdings <button class="text-emerald-500/60 hover:text-emerald-300">×</button></span>
+              <span class="px-2.5 py-1 text-xs bg-emerald-500/10 text-emerald-300 border border-emerald-500/25 rounded-md flex items-center gap-1.5">NextDC <button class="text-emerald-500/60 hover:text-emerald-300">×</button></span>
+              <input class="bg-transparent text-xs text-gray-500 outline-none flex-1 min-w-[120px]" placeholder="Add company..." />
+            </div>
+          </div>
+          <div>
+            <div class="text-xs text-gray-400 mb-1.5">Challenger on (gets aggression-mode ranking)</div>
+            <div class="bg-gray-900/60 border border-gray-800 rounded-md p-2.5 min-h-[48px] flex flex-wrap gap-2">
+              <span class="px-2.5 py-1 text-xs bg-amber-500/10 text-amber-300 border border-amber-500/25 rounded-md flex items-center gap-1.5">Mitratel <button class="text-amber-500/60 hover:text-amber-300">×</button></span>
+              <span class="px-2.5 py-1 text-xs bg-amber-500/10 text-amber-300 border border-amber-500/25 rounded-md flex items-center gap-1.5">VNET <button class="text-amber-500/60 hover:text-amber-300">×</button></span>
+              <input class="bg-transparent text-xs text-gray-500 outline-none flex-1 min-w-[120px]" placeholder="Add company..." />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exclusions -->
+      <div>
+        <label class="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Exclusions</label>
+        <div class="mt-2 bg-gray-900/60 border border-gray-800 rounded-md p-2.5 min-h-[48px] flex flex-wrap gap-2">
+          <span class="px-2.5 py-1 text-xs bg-red-500/10 text-red-300 border border-red-500/25 rounded-md flex items-center gap-1.5">Chinese SOEs <button class="text-red-500/60 hover:text-red-300">×</button></span>
+          <input class="bg-transparent text-xs text-gray-500 outline-none flex-1 min-w-[120px]" placeholder="Add exclusion..." />
+        </div>
+      </div>
+
+      <!-- Hold size -->
+      <div>
+        <label class="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Hold size per deal (USD)</label>
+        <div class="mt-2 grid grid-cols-2 gap-3">
+          <div>
+            <div class="text-[10px] text-gray-500 mb-1">Min</div>
+            <div class="flex items-center bg-gray-900/60 border border-gray-800 rounded-md px-3 py-2">
+              <span class="text-xs text-gray-500 mr-2">$</span>
+              <input type="text" value="50M" class="bg-transparent text-sm text-white w-full outline-none" />
+            </div>
+          </div>
+          <div>
+            <div class="text-[10px] text-gray-500 mb-1">Max</div>
+            <div class="flex items-center bg-gray-900/60 border border-gray-800 rounded-md px-3 py-2">
+              <span class="text-xs text-gray-500 mr-2">$</span>
+              <input type="text" value="150M" class="bg-transparent text-sm text-white w-full outline-none" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="pt-4 border-t border-subtler flex items-center justify-between">
+        <button class="text-xs text-gray-500 hover:text-gray-300 transition">Reset to defaults</button>
+        <div class="flex gap-2">
+          <button onclick="closeAll()" class="px-4 py-2 text-xs border border-gray-700 rounded-md hover:bg-gray-800 transition">Cancel</button>
+          <button onclick="closeAll()" class="px-4 py-2 text-xs bg-blue-600 hover:bg-blue-500 rounded-md font-medium transition">Save Mandate</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- JS: panel controls                                                     -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <script>
+    // Minimal state — in-memory only (no localStorage per artifact constraints)
+    const brief = {
+      gds:     { company: 'GDS Holdings',                  ticker: 'HKEX 9698 · NASDAQ GDS', score: 87 },
+      mitratel:{ company: 'Mitratel',                      ticker: 'IDX MTEL',               score: 81 },
+      nextdc:  { company: 'NextDC',                        ticker: 'ASX NXT',                score: 79 },
+      keppel:  { company: 'Keppel DC REIT',                ticker: 'SGX AJBU',               score: 68 },
+      hkbn:    { company: 'HKBN',                          ticker: 'HKEX 1310',              score: 64 }
+    };
+
+    function openBrief(id) {
+      const b = brief[id] || brief.gds;
+      document.getElementById('brief-company').textContent = b.company;
+      document.getElementById('brief-ticker').textContent  = b.ticker;
+      // Note: for demo purposes, the brief body always shows GDS content.
+      // Cursor: wire this to a per-company dataset when building out v1.
+      document.getElementById('overlay').classList.remove('hidden');
+      document.getElementById('brief-panel').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function openMandate() {
+      document.getElementById('overlay').classList.remove('hidden');
+      document.getElementById('mandate-panel').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeAll() {
+      document.getElementById('overlay').classList.add('hidden');
+      document.getElementById('brief-panel').classList.add('hidden');
+      document.getElementById('mandate-panel').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+  </script>
+</body>
+</html>

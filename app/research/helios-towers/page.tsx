@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FileText, Lock } from "lucide-react";
-import BottomNav from "@/components/BottomNav";
+import { FileText } from "lucide-react";
+import { getSession } from "@/lib/get-session";
 
 export const metadata: Metadata = {
   title: "Helios Towers — Indicative Credit Brief (Teaser) | Principal AI",
@@ -17,13 +17,17 @@ export const metadata: Metadata = {
 const body = "text-[15px] leading-relaxed text-slate-300 sm:text-base sm:leading-7";
 const riskLabel = "text-sm font-bold text-cyan-500/95 sm:text-[15px]";
 
-export default function HeliosTowersResearchTeaserPage() {
+export default async function HeliosTowersResearchTeaserPage() {
+  const isAuthenticated = await getSession();
   return (
     <div className="min-h-full w-full bg-[#0B0F19] text-slate-50">
       <article className="relative mx-auto max-w-3xl px-5 pb-8 pt-10 sm:px-8 sm:pt-14 md:pt-16">
         <header className="mb-10 border-b border-slate-800/80 pb-8">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-            Indicative Credit Brief · Flagship Teaser
+            <Link href="/advisory" className="no-underline text-slate-500 hover:text-slate-400 transition-colors">
+              ← Advisory
+            </Link>
+            {" · "}Indicative Credit Brief
           </p>
           <div className="mb-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
@@ -69,50 +73,44 @@ export default function HeliosTowersResearchTeaserPage() {
             for investors to convert to shares, Helios must find cash or new loans.
           </p>
         </section>
-      </article>
 
-      {/* Paywall band: gradient + glass card — immediately after summary */}
-      <div className="relative mx-auto max-w-3xl px-5 pb-20 sm:px-8 sm:pb-28">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 top-[-10rem] z-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/85 to-transparent sm:top-[-14rem]"
-        />
-
-        <div className="relative z-10 mx-auto flex justify-center pt-2 sm:pt-4">
-          <div className="max-w-lg rounded-2xl border border-slate-800 bg-slate-900/80 px-6 py-8 shadow-2xl shadow-black/40 backdrop-blur-md sm:px-10 sm:py-10">
-            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-slate-700/80 bg-slate-800/50">
-              <Lock className="h-5 w-5 text-blue-400" aria-hidden />
-            </div>
-            <p className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-              Client Access Required
+        {/* Full brief CTA — shown to all, framed differently based on auth */}
+        {isAuthenticated ? (
+          <div className="mt-10 border-t border-slate-800/60 pt-8">
+            <p className="text-sm text-slate-400 leading-relaxed">
+              This is an illustrative excerpt. The full institutional brief — including financial reconstructions,
+              covenant analysis, and debt serviceability models — is available on a commissioned mandate.
             </p>
-            <p className="mt-4 text-center text-sm leading-relaxed text-slate-300 sm:text-[15px]">
-              Unlock Full Institutional Brief. Access complete financial reconstructions, covenant analysis, and debt
-              serviceability models.
+            <Link
+              href="/contact"
+              className="mt-5 inline-flex items-center justify-center rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white no-underline transition-colors hover:bg-blue-700"
+            >
+              Commission a Mandate
+            </Link>
+          </div>
+        ) : (
+          <div className="mt-10 border-t border-slate-800/60 pt-8">
+            <p className="text-sm text-slate-400 leading-relaxed">
+              Full institutional brief available to authenticated clients on a commissioned mandate.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-lg bg-blue-600 px-5 py-3 text-center text-sm font-semibold text-white shadow-[0_0_24px_rgba(37,99,235,0.25)] transition-colors hover:bg-blue-700 no-underline"
+                className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white no-underline transition-colors hover:bg-blue-700"
               >
                 Commission a Mandate
               </Link>
               <Link
-                href="/login"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-lg border border-slate-600 bg-slate-800/60 px-5 py-3 text-center text-sm font-semibold text-slate-200 transition-colors hover:border-slate-500 hover:bg-slate-800 no-underline"
+                href={"/login?returnTo=" + encodeURIComponent("/research/helios-towers")}
+                className="inline-flex items-center justify-center rounded-lg border border-slate-600 bg-slate-800/60 px-5 py-3 text-sm font-semibold text-slate-200 no-underline transition-colors hover:border-slate-500 hover:bg-slate-800"
               >
                 Client Login
               </Link>
             </div>
           </div>
-        </div>
-      </div>
+        )}
+      </article>
 
-      <BottomNav
-        nextHref="/contact"
-        nextLabel="Commission a mandate"
-        nextDescription="Scope institutional credit research on your timeline"
-      />
     </div>
   );
 }

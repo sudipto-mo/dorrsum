@@ -29,10 +29,13 @@ export type TeaserNavProps = TeaserNavTerminalProps | TeaserNavWithNextProps;
 const nextClassName =
   "cursor-pointer text-white transition-colors hover:text-blue-400 font-medium inline-flex items-center group bg-transparent border-0 p-0";
 
+/** Default: after login, land on the AI infrastructure network map (same-origin path). */
+const DEFAULT_LOGIN_HREF = "/login?returnTo=" + encodeURIComponent("/dc-network-map.html");
+
 export default function TeaserNav(props: TeaserNavProps) {
   const {
     description = "Explore the network. Deeper models, covenants, and full briefs are available to clients.",
-    loginHref = "/login",
+    loginHref = DEFAULT_LOGIN_HREF,
     className = "",
   } = props;
 

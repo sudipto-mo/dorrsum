@@ -1,13 +1,6 @@
-import type { Metadata } from "next";
-import CoverageSectors from "@/components/CoverageSectors";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Coverage & Research | Principal AI",
-  description:
-    "Institutional credit briefs, covenant stress-testing, and Telecom infrastructure deep-dives. Access is strictly gated for authenticated clients.",
-};
-
-/** Canonical sector hierarchy; same body as /products. */
+/** /coverage is the legacy URL — canonical page is /research */
 export default function CoveragePage() {
-  return <CoverageSectors />;
+  redirect("/research");
 }

@@ -186,7 +186,12 @@ export default function TeaserWindow() {
             className="mt-0 border-t-0 pt-0"
           />
         ) : (
-          <TeaserNav terminal description={active.footerHint} className="mt-0 border-t-0 pt-0" />
+          <TeaserNav
+            terminal
+            description={active.footerHint}
+            className="mt-0 border-t-0 pt-0"
+            loginHref={"/login?returnTo=" + encodeURIComponent("/research/helios-towers")}
+          />
         )}
       </div>
     </div>

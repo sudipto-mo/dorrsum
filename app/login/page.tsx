@@ -4,7 +4,17 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ShieldCheck } from "lucide-react";
 import { SESSION_COOKIE, verifySession } from "@/lib/linkedin-session";
-import { creditWorkbenchPathname } from "@/lib/workbench-redirect";
+import { POST_LOGIN_RETURN_COOKIE } from "@/lib/oauth-cookie-names";
+import { sanitizeReturnPath } from "@/lib/post-login-return";
+import { oauthSuccessRedirectPath } from "@/lib/workbench-redirect";
+
+type LoginSearchParams = { returnTo?: string | string[] };
+
+function pickReturnTo(sp: LoginSearchParams): string | null {
+  const raw = sp.returnTo;
+  const s = typeof raw === "string" ? raw : Array.isArray(raw) ? raw[0] : undefined;
+  return sanitizeReturnPath(s);
+}
 
 export const metadata: Metadata = {
   title: "Client Access | Principal AI",
@@ -12,12 +22,19 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default async function LoginPage() {
+export default async function LoginPage({ searchParams }: { searchParams: Promise<LoginSearchParams> }) {
+  const sp = await searchParams;
+  const returnTo = pickReturnTo(sp);
+  const authorizeSuffix = returnTo ? `?returnTo=${encodeURIComponent(returnTo)}` : "";
+
   const jar = await cookies();
   const token = jar.get(SESSION_COOKIE)?.value ?? "";
   const secret = (process.env.AUTH_SECRET || "").trim();
   if (secret && token && verifySession(token, secret)) {
-    redirect(`${creditWorkbenchPathname()}/`);
+    const rawReturn = jar.get(POST_LOGIN_RETURN_COOKIE)?.value ?? "";
+    const path =
+      returnTo ?? sanitizeReturnPath(rawReturn) ?? oauthSuccessRedirectPath();
+    redirect(path);
   }
 
   return (
@@ -35,7 +52,7 @@ export default async function LoginPage() {
 
         <div className="flex flex-col gap-3">
           <a
-            href="/api/auth/linkedin/authorize"
+            href={`/api/auth/linkedin/authorize${authorizeSuffix}`}
             className="inline-flex items-center justify-center gap-2.5 w-full py-3.5 px-4 rounded-xl bg-[#0a66c2] hover:bg-[#004182] text-white text-sm font-semibold tracking-wide transition-colors no-underline shadow-[0_1px_0_rgba(0,0,0,0.15)] border border-black/10"
           >
             <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" aria-hidden fill="currentColor">
@@ -44,7 +61,7 @@ export default async function LoginPage() {
             Sign in with LinkedIn
           </a>
           <a
-            href="/api/auth/google/authorize"
+            href={`/api/auth/google/authorize${authorizeSuffix}`}
             className="inline-flex items-center justify-center gap-2.5 w-full py-3.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-800 text-sm font-semibold tracking-wide transition-colors no-underline border border-slate-200/80 shadow-sm"
           >
             <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" aria-hidden>
@@ -68,6 +85,18 @@ export default async function LoginPage() {
             Sign in with Google
           </a>
         </div>
+
+        {process.env.NODE_ENV === "development" && (
+          <div className="mt-4 pt-4 border-t border-slate-700/50">
+            <a
+              href={`/api/auth/dev-login${authorizeSuffix}`}
+              className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-slate-700/60 hover:bg-slate-700 text-slate-300 text-sm font-medium tracking-wide transition-colors no-underline border border-slate-600/50"
+            >
+              <span className="text-yellow-400 text-xs font-bold uppercase tracking-widest">Dev</span>
+              Skip Login (local only)
+            </a>
+          </div>
+        )}
 
         <div className="mt-6 flex items-center justify-center gap-2 text-xs font-medium text-slate-400/80">
           <ShieldCheck size={14} className="shrink-0 text-slate-500" aria-hidden />

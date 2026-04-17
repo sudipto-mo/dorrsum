@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Infrastructure Network · Principal AI</title>
+<title>The Digital Infrastructure Stack · Principal AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg:     #08080E;
@@ -19,11 +22,34 @@
 body {
   background: var(--bg);
   color: var(--t1);
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
   padding: 44px 24px 60px;
 }
 .wrap { max-width: 920px; margin: 0 auto; }
+
+/* Matches app research pages: breadcrumb (same as dc-infrastructure index + module pages) */
+.breadcrumb-row {
+  margin-bottom: 0.75rem; /* mb-3, matches /research/dc-infrastructure */
+  font-size: 0.75rem; /* text-xs */
+  font-weight: 600; /* font-semibold */
+  letter-spacing: 0.2em; /* tracking-[0.2em] */
+  text-transform: uppercase;
+  color: #64748b; /* text-slate-500 on parent for " · " if added later */
+}
+.breadcrumb-row a {
+  color: #64748b; /* text-slate-500 */
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.breadcrumb-row a:hover {
+  color: #94a3b8; /* hover:text-slate-400 */
+}
+.breadcrumb-row .bc-rest {
+  color: #64748b;
+}
+html.embed .breadcrumb-row,
+html.showroom .breadcrumb-row { display: none; }
 
 .eyebrow {
   font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
@@ -103,6 +129,7 @@ h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 
 html.embed body { padding: 14px 12px 18px; }
 html.embed .wrap { max-width: none; }
 html.embed .copyright { display: none; }
+html.embed .client-access { margin-top: 10px; font-size: 10px; }
 html.embed h1 { font-size: 17px; margin-bottom: 4px; }
 html.embed .eyebrow { margin-bottom: 8px; }
 html.embed .sub { font-size: 12px; margin-bottom: 12px; line-height: 1.5; }
@@ -110,12 +137,44 @@ html.embed .sub br { display: none; }
 html.embed .sub span { display: block; margin-top: 4px; }
 html.embed .toggle { margin-bottom: 12px; }
 html.embed .legend { margin-top: 10px; gap: 12px; }
+
+/* Showroom mode (landing page): keep map crisp, remove controls/CTAs */
+/* Keep the Supply Chain / Financing Flows toggle visible in showroom. */
+html.showroom .copyright { display: none; }
+html.showroom .legend { display: none; }
+html.showroom .eyebrow { display: none; }
+html.showroom h1 { display: none; }
+html.showroom .sub { display: none; }
+html.showroom body { padding: 12px 12px 0; }
+html.showroom .wrap {
+  max-width: none;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+html.showroom .svg-shell {
+  flex: 1;
+  margin: 10px 0 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+html.showroom #net {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 </style>
 <script>
 (function () {
   try {
-    if (new URLSearchParams(location.search).get("embed") === "1") {
+    const q = new URLSearchParams(location.search);
+    if (q.get("embed") === "1") {
       document.documentElement.classList.add("embed");
+    }
+    if (q.get("showroom") === "1") {
+      document.documentElement.classList.add("showroom");
+      window.__PA_SHOWROOM__ = true;
     }
   } catch (_) {}
 })();
@@ -124,8 +183,12 @@ html.embed .legend { margin-top: 10px; gap: 12px; }
 <body>
 <div class="wrap">
 
-  <div class="eyebrow">Principal AI · Data Centre Coverage</div>
-  <h1>The AI Infrastructure Network</h1>
+  <p class="breadcrumb-row">
+    <a href="/research">← Research</a><span class="bc-rest"> · Principal AI · </span><a href="/research/dc-infrastructure">Digital Infrastructure Stack</a>
+  </p>
+
+  <div class="eyebrow">Principal AI</div>
+  <h1>The Digital Infrastructure Stack</h1>
   <p class="sub">
     The ecosystem is a web, not a chain — every capital decision touches multiple layers simultaneously.<br>
     <span style="color:var(--t3)">Toggle to switch views · Hover any node to trace its connections</span>
@@ -247,6 +310,18 @@ const nMap = {};
 NODES.forEach(n => nMap[n.id] = n);
 const NS = 'http://www.w3.org/2000/svg';
 const XL = 'http://www.w3.org/1999/xlink';
+
+// Showroom embeds: make the SVG "cover" the available space to avoid unused letterbox area.
+try {
+  if (window.__PA_SHOWROOM__) {
+    const svg = document.getElementById('net');
+    if (svg) {
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+      // Slightly crop margins so the network appears larger in tall hero embeds.
+      svg.setAttribute('viewBox', '-10 10 890 520');
+    }
+  }
+} catch (_) {}
 
 function el(tag, attrs) {
   const e = document.createElementNS(NS, tag);

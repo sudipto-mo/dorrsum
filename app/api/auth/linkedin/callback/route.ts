@@ -8,6 +8,7 @@ import {
 } from "@/lib/linkedin-session";
 import { logLinkedInSignIn } from "@/lib/supabase-signin-log";
 import { decodeJwtPayload, queryFromUrl, trimEnv, protoSecure } from "@/lib/oauth-query";
+import { parseOAuthState } from "@/lib/oauth-return-state";
 import { redirectToWorkbench } from "@/lib/workbench-redirect";
 
 export async function GET(request: NextRequest) {
@@ -37,10 +38,11 @@ export async function GET(request: NextRequest) {
   }
 
   const code = q.code;
-  const state = q.state;
+  const stateParam = typeof q.state === "string" ? q.state : "";
+  const { csrf, returnTo: returnFromState } = parseOAuthState(stateParam);
   const saved = getCookieHeader(request.headers.get("cookie"), STATE_COOKIE);
 
-  if (!code || !state || !saved || state !== saved) {
+  if (!code || !csrf || !saved || csrf !== saved) {
     return withClear(
       redirectToWorkbench(request, {
         oauth_auth: "error",
@@ -143,7 +145,7 @@ export async function GET(request: NextRequest) {
     secure: secure,
   });
 
-  const res = redirectToWorkbench(request, { oauth_auth: "success" });
+  const res = redirectToWorkbench(request, { oauth_auth: "success" }, returnFromState);
   res.headers.append("Set-Cookie", clearState);
   res.headers.append("Set-Cookie", sessionCookie);
   return res;
