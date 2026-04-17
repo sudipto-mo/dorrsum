@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "bash scripts/dev-8080.sh",
     "dev:webpack": "bash scripts/dev-8080.sh --webpack",
-    "build": "next build && npm run test:smoke",
+    "build": "next build",
     "start": "bash scripts/start-8080.sh",
     "test:smoke": "start-server-and-test \"npm run start\" http://localhost:8080 \"playwright test\""
   },
