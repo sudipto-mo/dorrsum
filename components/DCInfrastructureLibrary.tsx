@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
   PILLAR_RESEARCH_FILTER_IDS,
@@ -62,8 +62,6 @@ type Props = {
   /** Controlled asset filter (pill state). When both are set, internal state is ignored. */
   assetDeepFilter?: AssetDeepFilter;
   onAssetDeepFilterChange?: (filter: AssetDeepFilter) => void;
-  /** Rendered after the page header, before Strategic Intelligence (e.g. Advisory Scope). */
-  betweenHeaderAndStrategic?: ReactNode;
 };
 
 export default function DCInfrastructureLibrary({
@@ -71,7 +69,6 @@ export default function DCInfrastructureLibrary({
   assetDeepDives,
   assetDeepFilter: controlledActive,
   onAssetDeepFilterChange,
-  betweenHeaderAndStrategic,
 }: Props) {
   const [uncontrolledActive, setUncontrolledActive] = useState<AssetDeepFilter>("ALL");
   const controlled =
@@ -107,8 +104,6 @@ export default function DCInfrastructureLibrary({
           credit analysis.
         </p>
       </header>
-
-      {betweenHeaderAndStrategic}
 
       {/* Pinned strategic intelligence — ignores filters */}
       <section className="mb-12" aria-labelledby="strategic-heading">
