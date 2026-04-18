@@ -26,10 +26,24 @@ function NavLink({
   );
 }
 
-const ADVISORY_ITEMS = [
+type AdvisoryItem = { href: string; label: string; isWip?: boolean };
+
+const ADVISORY_ITEMS_BASE: AdvisoryItem[] = [
   { href: "/advisory?persona=providers", label: "Credit Assessment" },
   { href: "/advisory?persona=sponsors", label: "Capital Structuring" },
 ];
+
+/** Cross-Border is WIP — visible in dev or when NEXT_PUBLIC_ENABLE_CROSS_BORDER=1. */
+const isCrossBorderEnabled =
+  process.env.NODE_ENV === "development" ||
+  process.env.NEXT_PUBLIC_ENABLE_CROSS_BORDER === "1";
+
+const ADVISORY_ITEMS: AdvisoryItem[] = isCrossBorderEnabled
+  ? [
+      ...ADVISORY_ITEMS_BASE,
+      { href: "/advisory?persona=cross-border", label: "Cross-Border Structuring", isWip: true },
+    ]
+  : ADVISORY_ITEMS_BASE;
 
 function AdvisoryDropdown({ onNavigate }: { onNavigate?: () => void }) {
   const [open, setOpen] = useState(false);
@@ -77,11 +91,16 @@ function AdvisoryDropdown({ onNavigate }: { onNavigate?: () => void }) {
                 key={item.href}
                 href={item.href}
                 onClick={() => { setOpen(false); onNavigate?.(); }}
-                className="block px-4 py-3 no-underline transition-colors hover:bg-white/[0.05] group"
+                className="flex items-center justify-between px-4 py-3 no-underline transition-colors hover:bg-white/[0.05] group"
               >
                 <p className="text-[13px] font-semibold text-slate-200 group-hover:text-white transition-colors">
                   {item.label}
                 </p>
+                {"isWip" in item && item.isWip && (
+                  <span className="ml-3 rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/25">
+                    WIP
+                  </span>
+                )}
               </Link>
             ))}
           </div>
@@ -177,7 +196,14 @@ export default function SiteNavbar({ authBadge, authNavItems }: { authBadge?: Re
               </p>
               {ADVISORY_ITEMS.map((item) => (
                 <NavLink key={item.href} href={item.href} onClick={closeMobile} className="pl-6">
-                  {item.label}
+                  <span className="flex items-center gap-2">
+                    {item.label}
+                    {"isWip" in item && item.isWip && (
+                      <span className="rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/25">
+                        WIP
+                      </span>
+                    )}
+                  </span>
                 </NavLink>
               ))}
             </div>

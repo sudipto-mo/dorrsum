@@ -73,7 +73,7 @@ export default function AdvisoryScopeCards({ selected = "ALL", onPillarClick }: 
         onClick={() => onPillarClick("real_assets")}
         aria-pressed={selected === "real_assets"}
       >
-        <TerminalLabel>The Physical Shell</TerminalLabel>
+        <TerminalLabel>The Physical &amp; Active Shell</TerminalLabel>
         <h2
           id="pillar-digital-real-estate"
           className={`mt-3 text-lg font-semibold tracking-tight transition-colors ${selected === "real_assets" ? "text-white" : "text-slate-100"}`}
@@ -84,13 +84,13 @@ export default function AdvisoryScopeCards({ selected = "ALL", onPillarClick }: 
           <div className="rounded-xl border border-slate-800/70 bg-slate-950/35 px-4 py-3.5">
             <TerminalLabel>Asset Focus</TerminalLabel>
             <p className="mt-2 text-sm leading-relaxed text-slate-300">
-              Hyperscale colocation, TowerCos, active/passive infrastructure sharing.
+              Hyperscale colocation, AI Silicon (GPUs/ASICs), TowerCos, and liquid-cooling infrastructure.
             </p>
           </div>
           <div className="rounded-xl border border-slate-800/70 bg-slate-950/35 px-4 py-3.5">
             <TerminalLabel>Structuring Levers</TerminalLabel>
             <p className="mt-2 text-sm leading-relaxed text-slate-300">
-              Master Lease Agreement (MLA) bankability, tenancy-adjusted IRR optimization, and redundancy premiums.
+              Master Lease Agreement (MLA) bankability, asset lifecycle management, and thermal retrofit premiums.
             </p>
           </div>
         </div>

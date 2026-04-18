@@ -12,10 +12,10 @@ export default async function EcosystemMapTeaser({ compact = false, minHeight = 
       <div className={compact ? "" : "mx-auto max-w-6xl px-6"}>
         {compact ? null : (
           <header className="mb-8">
-            <h2 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">The Nexus Map</h2>
+            <h2 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">Interactive Ecosystem Web</h2>
             <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-400 sm:text-base">
-              Trace capital flows, supply chain dependencies, and physical risk across the 6-layer digital
-              infrastructure ecosystem.
+              Map the financing flows, supply chain dependencies, and capital relationships across the digital
+              infrastructure stack.
             </p>
           </header>
         )}
@@ -28,7 +28,7 @@ export default async function EcosystemMapTeaser({ compact = false, minHeight = 
           {/* Map iframe */}
           <div className="absolute inset-0">
             <iframe
-              title="The Nexus Map — interactive preview"
+              title="Interactive Ecosystem Web — preview"
               src="/dc-network-map.html?embed=1&showroom=1"
               className="h-full w-full border-0"
               loading="lazy"
@@ -51,7 +51,7 @@ export default async function EcosystemMapTeaser({ compact = false, minHeight = 
                 </div>
                 <div>
                   {isAuthenticated ? (
-                    <p className="text-[12px] font-semibold text-slate-100 leading-tight">Nexus Map · Interactive</p>
+                    <p className="text-[12px] font-semibold text-slate-100 leading-tight">Ecosystem Web · Interactive</p>
                   ) : (
                     <p className="text-[12px] font-semibold text-slate-100 leading-tight">Client Access Required</p>
                   )}
@@ -67,7 +67,7 @@ export default async function EcosystemMapTeaser({ compact = false, minHeight = 
                   href="/dc-network-map.html"
                   className="shrink-0 rounded-md bg-blue-600 px-4 py-2.5 text-[13px] font-semibold text-white no-underline transition-colors hover:bg-blue-500"
                 >
-                  Open Map
+                  Explore the Ecosystem Web
                 </Link>
               ) : (
                 <Link

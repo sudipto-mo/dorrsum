@@ -16,7 +16,7 @@ export default function CoverageSectors({ isAuthenticated = false }: { isAuthent
           TMT &amp; Digital Infrastructure Research
         </h1>
         <p className="mt-4 text-base leading-relaxed text-slate-400 sm:text-lg">
-          Sector intelligence across the convergence of Compute, Real Estate, and Power.
+          Sector intelligence across the convergence of Connectivity, Real Assets, and Power.
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-3">
           {isAuthenticated && (
@@ -24,7 +24,7 @@ export default function CoverageSectors({ isAuthenticated = false }: { isAuthent
               href="/dc-network-map.html"
               className="inline-flex items-center justify-center rounded-lg bg-[#3b82f6] px-4 py-2.5 text-[13px] font-semibold text-white no-underline shadow-[0_0_14px_rgba(59,130,246,0.20)] transition-all hover:bg-[#60a5fa] hover:shadow-[0_0_22px_rgba(96,165,250,0.45)]"
             >
-              Open Nexus Map
+              Explore the Ecosystem Web
             </Link>
           )}
           <Link
