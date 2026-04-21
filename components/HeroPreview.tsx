@@ -287,11 +287,13 @@ function EcosystemViz() {
 
   const W=300, H=200;
   const px = (p: number) => p*W/100, py = (p: number) => p*H/100;
+  /** Stable stringification for SVG attrs — avoids server/client float hydration mismatches. */
+  const q = (n: number, places = 3) => Math.round(n * 10 ** places) / 10 ** places;
   const pos: Record<string, { x: number; y: number }> = {};
   nodes.forEach((n,i) => {
     pos[n.id] = {
-      x: px(n.x) + Math.sin(t + i*0.71)*1.4,
-      y: py(n.y) + Math.cos(t*1.15 + i*0.53)*1.1,
+      x: q(px(n.x) + Math.sin(t + i*0.71)*1.4),
+      y: q(py(n.y) + Math.cos(t*1.15 + i*0.53)*1.1),
     };
   });
 
@@ -326,7 +328,7 @@ function EcosystemViz() {
 
         {nodes.map((n,i) => {
           const p = pos[n.id];
-          const pulsed = 0.10 + 0.06*Math.sin(t*1.3 + i*0.8);
+          const pulsed = q(0.10 + 0.06*Math.sin(t*1.3 + i*0.8), 4);
           return (
             <g key={n.id} filter="url(#eglow)">
               <circle cx={p.x} cy={p.y} r={n.r+6} fill={n.g} opacity={pulsed}/>
