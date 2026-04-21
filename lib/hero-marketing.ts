@@ -1,0 +1,110 @@
+/**
+ * Homepage hero copy and carousel slide metadata.
+ * Global chrome uses `SiteNavbar` with the same inline styles as the original Hero bar
+ * (`lib/marketing-nav-styles.ts`).
+ */
+
+import { STACK_REPORTS, stackReportFullTitle, type StackReport } from "@/lib/dc-stack-reports";
+
+/** Left-column hero — matches marketing homepage intent. */
+export const HERO_MARKETING = {
+  eyebrow: "APAC Digital Infrastructure Advisory",
+  headline: {
+    beforeEm: "Pricing risk where connectivity, real assets, and",
+    em: "power converge.",
+  },
+  body:
+    "Independent credit assessment and capital structuring for lenders, sponsors, and institutional clients operating across the digital infrastructure stack.",
+  primaryCta: { label: "View Research", href: "/research" as const },
+  secondaryCta: { label: "Advisory Services", href: "/advisory" as const },
+} as const;
+
+/** Brand block — aligned with `SiteNavbar` home link. */
+export const HERO_BRAND = {
+  mark: "P",
+  title: "Principal AI",
+  tagline: "Research & Advisory",
+} as const;
+
+export type HeroCarouselVizKey = "physical" | "worldview" | "ecosystem";
+
+export type HeroCarouselSlideMeta = {
+  vizKey: HeroCarouselVizKey;
+  type: string;
+  title: string;
+  subtitle: string;
+  date: string;
+  region: string;
+  accent: string;
+  light: boolean;
+  href: string;
+};
+
+function stackReportCardDate(r: StackReport): string {
+  return `${r.releaseMonthLong} ${r.releaseYear}`;
+}
+
+/**
+ * Carousel slides: first two reports use `stackReportFullTitle` + dates/hrefs from `STACK_REPORTS`;
+ * third slide is the ecosystem map tool (static href).
+ */
+export function getHeroCarouselSlides(): HeroCarouselSlideMeta[] {
+  const ps = STACK_REPORTS["physical-stack"];
+  const wv = STACK_REPORTS.worldview;
+  return [
+    {
+      vizKey: "physical",
+      type: "Research Report",
+      title: stackReportFullTitle(ps),
+      subtitle: "",
+      date: stackReportCardDate(ps),
+      region: ps.region,
+      accent: "rgba(140,105,50,0.85)",
+      light: true,
+      href: ps.href,
+    },
+    {
+      vizKey: "worldview",
+      type: "Research Report",
+      title: stackReportFullTitle(wv),
+      subtitle: "",
+      date: stackReportCardDate(wv),
+      region: wv.region,
+      accent: "rgba(100,80,30,0.80)",
+      light: true,
+      href: wv.href,
+    },
+    {
+      vizKey: "ecosystem",
+      type: "Interactive Tool",
+      title: "Ecosystem Web",
+      subtitle: "The AI Infrastructure Network",
+      date: "LIVE",
+      region: "WEB",
+      accent: "rgba(100,80,30,0.80)",
+      light: true,
+      href: "/dc-network-map.html",
+    },
+  ];
+}
+
+export type HeroNavItem =
+  | { kind: "link"; label: string; href: string }
+  | { kind: "origination"; label: string; href: string; wip: true }
+  | { kind: "advisory"; label: string; href: string; hasChevron: true };
+
+/**
+ * Primary nav items for the inline hero bar — same routes as `SiteNavbar` desktop row
+ * (Research → Advisory dropdown parent → Contact), plus Origination when enabled and allowed.
+ */
+export function getHeroPrimaryNavItems(opts: { showOrigination: boolean }): HeroNavItem[] {
+  const items: HeroNavItem[] = [{ kind: "link", label: "Research", href: "/research" }];
+  if (opts.showOrigination) {
+    items.push({ kind: "origination", label: "Origination", href: "/origination", wip: true });
+  }
+  items.push(
+    { kind: "advisory", label: "Advisory", href: "/advisory", hasChevron: true },
+    { kind: "link", label: "Contact", href: "/contact" },
+  );
+  return items;
+}

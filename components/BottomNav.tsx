@@ -39,30 +39,30 @@ export default function BottomNav({
   const { left, right } = splitInstitutionalLine(subText);
 
   return (
-    <footer className="w-full border-t border-slate-800 bg-[#050505] text-slate-400">
-      <div className="grid grid-cols-1 divide-y divide-slate-800 md:grid-cols-2 md:divide-x md:divide-y-0">
-        <Link href={prevHref} className="group p-8 transition-colors hover:bg-slate-900/50">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-slate-500">
+    <footer className="w-full border-t border-[color:var(--pa-border)] bg-[#faf8f2] text-[var(--pa-muted)]">
+      <div className="grid grid-cols-1 divide-y divide-[color:var(--pa-border)] md:grid-cols-2 md:divide-x md:divide-y-0">
+        <Link href={prevHref} className="group p-8 transition-colors hover:bg-white">
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#7b8794]">
             <ArrowLeft className="h-3 w-3 shrink-0" aria-hidden />
             {prevLabel}
           </div>
-          <p className="mt-2 text-sm transition-colors group-hover:text-white">{prevDescription}</p>
+          <p className="mt-2 text-sm transition-colors group-hover:text-[var(--pa-text)]">{prevDescription}</p>
         </Link>
 
-        <Link href={nextHref} className="group p-8 text-right transition-colors hover:bg-slate-900/50">
-          <div className="flex items-center justify-end gap-2 text-xs font-mono uppercase tracking-widest text-blue-500">
+        <Link href={nextHref} className="group p-8 text-right transition-colors hover:bg-white">
+          <div className="flex items-center justify-end gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--pa-navy)]">
             Next: {nextLabel}
             <ArrowRight className="h-3 w-3 shrink-0" aria-hidden />
           </div>
-          <p className="mt-2 text-sm transition-colors group-hover:text-white">{nextDescription}</p>
+          <p className="mt-2 text-sm transition-colors group-hover:text-[var(--pa-text)]">{nextDescription}</p>
         </Link>
       </div>
 
-      <div className="border-t border-slate-800 py-6 text-center">
-        <p className="text-[11px] uppercase tracking-[0.2em] text-slate-600">
+      <div className="border-t border-[color:var(--pa-border)] py-6 text-center">
+        <p className="text-[11px] uppercase tracking-[0.2em] text-[#7b8794]">
           {left}
           {" — "}
-          <Link href={loginHref} className="ml-1 text-blue-600 transition-colors hover:text-blue-400">
+          <Link href={loginHref} className="ml-1 text-[var(--pa-link)] transition-colors hover:text-[var(--pa-link-hover)]">
             {right}
           </Link>
         </p>

@@ -27,7 +27,7 @@ export type TeaserNavWithNextProps = Base & {
 export type TeaserNavProps = TeaserNavTerminalProps | TeaserNavWithNextProps;
 
 const nextClassName =
-  "cursor-pointer text-white transition-colors hover:text-blue-400 font-medium inline-flex items-center group bg-transparent border-0 p-0";
+  "inline-flex items-center gap-1 bg-transparent p-0 text-[var(--pa-navy)] transition-colors hover:text-[var(--pa-navy-deep)] font-semibold border-0 cursor-pointer group";
 
 /** Default: after login, land on the AI infrastructure network map (same-origin path). */
 const DEFAULT_LOGIN_HREF = "/login?returnTo=" + encodeURIComponent("/dc-network-map.html");
@@ -40,9 +40,9 @@ export default function TeaserNav(props: TeaserNavProps) {
   } = props;
 
   const loginBlock = (
-    <div className="text-sm text-slate-500">
+    <div className="text-sm text-[var(--pa-muted)]">
       Full institutional research —{" "}
-      <Link href={loginHref} className="ml-1 text-blue-500 hover:underline">
+      <Link href={loginHref} className="ml-1 text-[var(--pa-link)] hover:underline">
         client login
       </Link>
     </div>
@@ -50,9 +50,9 @@ export default function TeaserNav(props: TeaserNavProps) {
 
   if ("terminal" in props && props.terminal) {
     return (
-      <div className={`border-t border-slate-800 pt-6 ${className}`}>
-        <p className="mb-6 max-w-2xl text-sm text-slate-400">{description}</p>
-        <div className="flex flex-col gap-4 border-t border-slate-800/50 pt-4 md:flex-row md:items-center md:justify-end">
+      <div className={`border-t border-[color:var(--pa-border)] pt-6 ${className}`}>
+        <p className="mb-6 max-w-2xl text-sm text-[var(--pa-muted)]">{description}</p>
+        <div className="flex flex-col gap-4 border-t border-[color:var(--pa-border)] pt-4 md:flex-row md:items-center md:justify-end">
           {loginBlock}
         </div>
       </div>
@@ -71,10 +71,10 @@ export default function TeaserNav(props: TeaserNavProps) {
   );
 
   return (
-    <div className={`border-t border-slate-800 pt-6 ${className}`}>
-      <p className="mb-6 max-w-2xl text-sm text-slate-400">{description}</p>
+    <div className={`border-t border-[color:var(--pa-border)] pt-6 ${className}`}>
+      <p className="mb-6 max-w-2xl text-sm text-[var(--pa-muted)]">{description}</p>
 
-      <div className="flex flex-col justify-between gap-4 border-t border-slate-800/50 pt-4 md:flex-row md:items-center">
+      <div className="flex flex-col justify-between gap-4 border-t border-[color:var(--pa-border)] pt-4 md:flex-row md:items-center">
         {onNextClick ? (
           <button type="button" onClick={onNextClick} className={`${nextClassName} text-left`}>
             {nextContent}

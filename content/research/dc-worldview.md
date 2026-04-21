@@ -1,5 +1,5 @@
-# Module 1: The Worldview
-## Who Is Building the AI Cloud — APAC Edition
+# The Worldview: Who Is Building the AI Cloud
+## APAC Edition
 
 *Principal AI | Digital Infrastructure Stack*
 *April 2026*

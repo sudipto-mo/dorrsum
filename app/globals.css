@@ -9,18 +9,30 @@
 :root,
 html[data-theme="light"] {
   /* Mirrors public/credit-workbench light tokens */
-  --pa-page: #f3f2ef;
+  --pa-page: #f5f2eb;
   --pa-surface: #ffffff;
-  --pa-band: #ebe9e4;
-  --pa-text: #1c1917;
-  --pa-muted: #57534e;
-  --pa-border: #d6d3cd;
-  --pa-navy: #1e3a5f;
-  --pa-navy-deep: #1a365d;
-  --pa-link: #1e3a5f;
-  --pa-link-hover: #2563eb;
-  --pa-accent: #2563eb;
+  --pa-band: #ece8df;
+  --pa-text: #1f2430;
+  --pa-muted: #5c6573;
+  --pa-border: #d8d3c8;
+  --pa-navy: #243b53;
+  --pa-navy-deep: #1d2f44;
+  --pa-link: #243b53;
+  --pa-link-hover: #1d2f44;
+  --pa-accent: #566c86;
   --pa-focus: #1a365d;
+  /* Institutional signature accent — deep oxblood. Used sparingly for rules, emphasis, and single brand touches. */
+  --pa-signature: #6b1d2a;
+  --pa-signature-deep: #501620;
+
+  /* Primary nav — matches `HeroPreview` fixed bar (glass, navy type, DM Sans rhythm) */
+  --pa-nav-bg: oklch(95.5% 0.01 82 / 0.9);
+  --pa-nav-border: rgba(20, 40, 80, 0.07);
+  --pa-nav-link: oklch(20% 0.06 258);
+  --pa-nav-title: oklch(15% 0.07 258);
+  --pa-nav-tagline: oklch(38% 0.06 258);
+  --pa-nav-mark: oklch(15% 0.07 258);
+  --pa-nav-wip: oklch(46% 0.14 253);
 }
 
 html[data-theme="dark"] {
@@ -42,6 +54,22 @@ html[data-theme="dark"] {
   box-sizing: border-box;
 }
 
+/* Editorial serif utility — used for institutional display headlines. */
+.font-serif-display {
+  font-family: var(--font-serif), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-feature-settings: "ss01", "lnum";
+  letter-spacing: -0.015em;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 html,
 body {
   margin: 0;
@@ -55,14 +83,25 @@ body {
   min-height: 100%;
 }
 
-a {
-  color: var(--pa-link);
-  text-decoration: none;
-  font-weight: 600;
+::selection {
+  background: rgba(36, 59, 83, 0.14);
 }
-a:hover {
-  color: var(--pa-link-hover);
-  text-decoration: underline;
+
+/*
+ * Default link styling — MUST live in @layer base so Tailwind utilities on <a>
+ * (e.g. SiteNavbar / next/link) are not overridden. Unlayered rules here were
+ * loading after @tailwind utilities and broke nav colors, weight, and hovers.
+ */
+@layer base {
+  a {
+    color: var(--pa-link);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  a:hover {
+    color: var(--pa-link-hover);
+    text-decoration: underline;
+  }
 }
 
 .site-wrap {
@@ -365,54 +404,54 @@ html[data-theme="dark"] .btn-primary {
 
 @layer components {
   .prose-research h1 {
-    @apply text-2xl font-bold text-white mt-10 mb-4;
+    @apply mt-10 mb-4 text-2xl font-bold text-[var(--pa-navy)];
   }
   .prose-research h2 {
-    @apply text-xl font-semibold text-slate-100 mt-10 mb-3 border-b border-slate-800 pb-2;
+    @apply mt-10 mb-3 border-b border-[color:var(--pa-border)] pb-2 text-xl font-semibold text-[var(--pa-navy-deep)];
   }
   .prose-research h3 {
-    @apply text-base font-semibold text-slate-200 mt-6 mb-2;
+    @apply mt-6 mb-2 text-base font-semibold text-[var(--pa-text)];
   }
   .prose-research p {
-    @apply text-[15px] leading-relaxed text-slate-300 mb-4 sm:text-base sm:leading-7;
+    @apply mb-4 text-[15px] leading-relaxed text-[var(--pa-muted)] sm:text-base sm:leading-7;
   }
   .prose-research ul {
-    @apply list-disc list-outside pl-5 text-slate-300 text-[15px] mb-4 space-y-1;
+    @apply mb-4 list-outside list-disc space-y-1 pl-5 text-[15px] text-[var(--pa-muted)];
   }
   .prose-research ol {
-    @apply list-decimal list-outside pl-5 text-slate-300 text-[15px] mb-4 space-y-1;
+    @apply mb-4 list-outside list-decimal space-y-1 pl-5 text-[15px] text-[var(--pa-muted)];
   }
   .prose-research li {
     @apply leading-relaxed;
   }
   .prose-research table {
-    @apply w-full border-collapse text-sm text-slate-300 mb-6;
+    @apply mb-6 w-full border-collapse text-sm text-[var(--pa-muted)];
   }
   .prose-research th {
-    @apply text-left text-xs font-semibold uppercase tracking-wider text-slate-400 border-b border-slate-700 pb-2 pr-4;
+    @apply border-b border-[color:var(--pa-border)] pb-2 pr-4 text-left text-xs font-semibold uppercase tracking-wider text-[var(--pa-muted)];
   }
   .prose-research td {
-    @apply py-2 pr-4 border-b border-slate-800/60 align-top;
+    @apply border-b border-[color:var(--pa-border)] py-2 pr-4 align-top;
   }
   .prose-research pre {
-    @apply bg-slate-900 border border-slate-800 rounded-lg p-4 overflow-x-auto text-sm text-slate-300 mb-4 font-mono;
+    @apply mb-4 overflow-x-auto rounded-lg border border-[color:var(--pa-border)] bg-[#f0ede6] p-4 font-mono text-sm text-[var(--pa-text)];
   }
   .prose-research code {
-    @apply bg-slate-800 text-cyan-400 rounded px-1 py-0.5 text-sm font-mono;
+    @apply rounded bg-[#ece8df] px-1 py-0.5 font-mono text-sm text-[var(--pa-navy)];
   }
   .prose-research pre code {
-    @apply bg-transparent text-slate-300 p-0;
+    @apply bg-transparent p-0 text-[var(--pa-text)];
   }
   .prose-research a {
-    @apply text-blue-400 hover:text-blue-300 underline underline-offset-2;
+    @apply underline underline-offset-2 text-[var(--pa-link)] hover:text-[var(--pa-link-hover)];
   }
   .prose-research blockquote {
-    @apply border-l-2 border-slate-700 pl-4 text-slate-400 italic;
+    @apply border-l-2 border-[color:var(--pa-border)] pl-4 italic text-[var(--pa-muted)];
   }
   .prose-research hr {
-    @apply border-slate-800 my-8;
+    @apply my-8 border-[color:var(--pa-border)];
   }
   .prose-research strong {
-    @apply text-slate-100 font-semibold;
+    @apply font-semibold text-[var(--pa-text)];
   }
 }

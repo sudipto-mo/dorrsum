@@ -53,14 +53,14 @@ function GlobalOAuthFlashInner() {
 
   const bar =
     message.kind === "ok"
-      ? "border-emerald-500/35 bg-emerald-500/10 text-emerald-100/95"
+      ? "border-[#cdd9cc] bg-[#f4f7f1] text-[#355244]"
       : message.kind === "warn"
-        ? "border-amber-500/35 bg-amber-500/10 text-amber-100/95"
-        : "border-red-500/35 bg-red-500/10 text-red-100/95";
+        ? "border-[#ddd3be] bg-[#faf6eb] text-[#715f32]"
+        : "border-[#e0c8c8] bg-[#fbf2f2] text-[#7a3b3b]";
 
   return (
     <div
-      className={`mx-auto max-w-4xl px-6 pt-4 print:hidden ${bar} border rounded-lg px-4 py-3 text-sm leading-relaxed`}
+      className={`mx-auto mt-4 max-w-4xl rounded-sm border px-4 py-3 text-sm leading-relaxed print:hidden ${bar}`}
       role="status"
     >
       {message.text}

@@ -1,5 +1,5 @@
-# Module 2: The Physical Stack
-## Where the Bottlenecks Are — An APAC Supply Chain Map
+# The Physical Stack: Where the Bottlenecks Are
+## An APAC Supply Chain Map
 
 *Principal AI | Digital Infrastructure Stack*
 *April 2026*
@@ -277,11 +277,11 @@ The "Construction Alpha" belongs to the **Integrated Operators**.
 
 Each node in the Principal AI network map corresponds to a supply chain constraint. The interactive layer will allow logged-in users to click any node and see: current lead times, key vendors operating in the APAC region, geographic concentration of risk, and the companies navigating each constraint.
 
-The following module — *The Worldview* — maps the companies across this supply chain, showing who is building, who is financing, and where capital is flowing.
+The companion note — *The Worldview* — maps the companies across this supply chain, showing who is building, who is financing, and where capital is flowing.
 
 ---
 
-*Next: Module 1 — Who Is Building the AI Cloud (APAC Edition)*
+*Next: The Worldview: Who Is Building the AI Cloud (APAC Edition)*
 
 ---
 

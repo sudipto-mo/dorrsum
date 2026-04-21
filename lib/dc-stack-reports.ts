@@ -82,6 +82,11 @@ export function stackReportMainPillarLine(r: StackReport): string {
   return `${r.pillarKey} · ${r.region} · ${r.releaseMonthLong} ${r.releaseYear}`;
 }
 
+/** Display title for reports: "The Worldview: Who Is Building the AI Cloud". */
+export function stackReportFullTitle(r: StackReport): string {
+  return `${r.title}: ${r.subtitle}`;
+}
+
 /** Latest Intelligence sidebar — date + region only (no pillar prefix). */
 export function stackReportSidebarMetaLine(r: StackReport): string {
   return `${r.releaseMonthLong} ${r.releaseYear} · ${r.region}`;

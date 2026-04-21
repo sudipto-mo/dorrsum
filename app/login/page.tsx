@@ -38,22 +38,23 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   }
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center px-6 py-16 sm:py-20 min-h-0">
-      <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-10 max-w-md w-full mx-auto shadow-xl shadow-black/25">
+    <div className="flex min-h-0 flex-1 flex-col items-center justify-center px-6 py-16 sm:py-20">
+      <div className="mx-auto w-full max-w-md rounded-sm border border-[color:var(--pa-border)] bg-white p-10 shadow-[0_18px_40px_rgba(31,36,48,0.08)]">
         <div className="flex justify-center mb-6">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-slate-700 bg-slate-800/50 text-blue-400">
+          <div className="flex h-12 w-12 items-center justify-center rounded-sm border border-[color:var(--pa-border)] bg-[#faf8f2] text-[var(--pa-navy)]">
             <ShieldCheck className="h-6 w-6" aria-hidden />
           </div>
         </div>
-        <h1 className="text-2xl font-semibold mb-2 text-center text-slate-50">Client Access</h1>
-        <p className="text-slate-400 text-sm text-center mb-8 m-0 leading-relaxed">
-          Authenticate to access institutional credit briefs and deal screening models.
+        <p className="mb-2 text-center text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7b8794]">Client Access</p>
+        <h1 className="mb-2 text-center text-2xl font-semibold text-[var(--pa-navy)]">Secure Sign-In</h1>
+        <p className="m-0 mb-8 text-center text-sm leading-relaxed text-[var(--pa-muted)]">
+          Authenticate to access commissioned research, client briefs, and restricted workflow pages.
         </p>
 
         <div className="flex flex-col gap-3">
           <a
             href={`/api/auth/linkedin/authorize${authorizeSuffix}`}
-            className="inline-flex items-center justify-center gap-2.5 w-full py-3.5 px-4 rounded-xl bg-[#0a66c2] hover:bg-[#004182] text-white text-sm font-semibold tracking-wide transition-colors no-underline shadow-[0_1px_0_rgba(0,0,0,0.15)] border border-black/10"
+            className="inline-flex w-full items-center justify-center gap-2.5 rounded-sm border border-[#0a66c2] bg-[#0a66c2] px-4 py-3.5 text-sm font-semibold tracking-wide text-white no-underline transition-colors hover:bg-[#004182]"
           >
             <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" aria-hidden fill="currentColor">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -62,7 +63,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           </a>
           <a
             href={`/api/auth/google/authorize${authorizeSuffix}`}
-            className="inline-flex items-center justify-center gap-2.5 w-full py-3.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-800 text-sm font-semibold tracking-wide transition-colors no-underline border border-slate-200/80 shadow-sm"
+            className="inline-flex w-full items-center justify-center gap-2.5 rounded-sm border border-[color:var(--pa-border)] bg-[#faf8f2] px-4 py-3.5 text-sm font-semibold tracking-wide text-[var(--pa-text)] no-underline transition-colors hover:bg-[#f2eee5]"
           >
             <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" aria-hidden>
               <path
@@ -87,30 +88,30 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         </div>
 
         {process.env.NODE_ENV === "development" && (
-          <div className="mt-4 pt-4 border-t border-slate-700/50">
+          <div className="mt-4 border-t border-[color:var(--pa-border)] pt-4">
             <a
               href={`/api/auth/dev-login${authorizeSuffix}`}
-              className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-slate-700/60 hover:bg-slate-700 text-slate-300 text-sm font-medium tracking-wide transition-colors no-underline border border-slate-600/50"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-sm border border-[color:var(--pa-border)] bg-white px-4 py-3 text-sm font-medium tracking-wide text-[var(--pa-muted)] no-underline transition-colors hover:bg-[#faf8f2]"
             >
-              <span className="text-yellow-400 text-xs font-bold uppercase tracking-widest">Dev</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-[#8a6d3b]">Dev</span>
               Skip Login (local only)
             </a>
           </div>
         )}
 
-        <div className="mt-6 flex items-center justify-center gap-2 text-xs font-medium text-slate-400/80">
-          <ShieldCheck size={14} className="shrink-0 text-slate-500" aria-hidden />
+        <div className="mt-6 flex items-center justify-center gap-2 text-xs font-medium text-[var(--pa-muted)]">
+          <ShieldCheck size={14} className="shrink-0 text-[#7b8794]" aria-hidden />
           <span>Secure institutional portal. No third-party data access.</span>
         </div>
 
-        <p className="text-xs text-slate-500 text-center mt-8 mb-0 leading-relaxed">
+        <p className="mt-8 mb-0 text-center text-xs leading-relaxed text-[#7b8794]">
           After a successful sign-in you&apos;ll go straight to the Institutional Credit Desk on this domain.
         </p>
 
         <div className="text-center mt-6">
           <Link
             href="/"
-            className="text-sm text-slate-400 hover:text-slate-200 transition-colors no-underline inline-flex items-center gap-1"
+            className="inline-flex items-center gap-1 text-sm text-[var(--pa-link)] transition-colors no-underline hover:text-[var(--pa-link-hover)]"
           >
             ← Back to home
           </Link>

@@ -1,25 +1,41 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { HERO_BRAND } from "@/lib/hero-marketing";
+import {
+  marketingNavBrandMarkStyle,
+  marketingNavInnerRowStyle,
+  marketingNavLinkStyle,
+  marketingNavShellStyle,
+  marketingNavTaglineStyle,
+  marketingNavTitleStyle,
+  marketingNavWipBadgeStyle,
+} from "@/lib/marketing-nav-styles";
 
-function NavLink({
+function NavMarketingLink({
   href,
   children,
-  className = "",
   onClick,
+  style,
 }: {
   href: string;
   children: React.ReactNode;
-  className?: string;
   onClick?: () => void;
+  style?: CSSProperties;
 }) {
   return (
     <Link
       href={href}
       onClick={onClick}
-      className={`block rounded-md px-3 py-2 text-[13px] font-medium tracking-wide text-slate-400 transition-colors no-underline hover:bg-white/[0.04] hover:text-slate-100 md:inline-block md:py-2 ${className}`}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLAnchorElement).style.opacity = "1";
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLAnchorElement).style.opacity = "0.68";
+      }}
+      style={{ ...marketingNavLinkStyle, ...style }}
     >
       {children}
     </Link>
@@ -33,7 +49,6 @@ const ADVISORY_ITEMS_BASE: AdvisoryItem[] = [
   { href: "/advisory?persona=sponsors", label: "Capital Structuring" },
 ];
 
-/** Cross-Border is WIP — visible in dev or when NEXT_PUBLIC_ENABLE_CROSS_BORDER=1. */
 const isCrossBorderEnabled =
   process.env.NODE_ENV === "development" ||
   process.env.NEXT_PUBLIC_ENABLE_CROSS_BORDER === "1";
@@ -50,7 +65,9 @@ function AdvisoryDropdown({ onNavigate }: { onNavigate?: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
@@ -64,42 +81,79 @@ function AdvisoryDropdown({ onNavigate }: { onNavigate?: () => void }) {
   }, []);
 
   return (
-    <div
-      ref={ref}
-      className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
+    <div ref={ref} style={{ position: "relative" }} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
       <Link
         href="/advisory"
-        className="inline-flex items-center gap-1 rounded-md px-3 py-2 text-[13px] font-medium tracking-wide text-slate-400 transition-colors no-underline hover:bg-white/[0.04] hover:text-slate-100"
         aria-haspopup="true"
         aria-expanded={open}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLAnchorElement).style.opacity = "1";
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLAnchorElement).style.opacity = "0.68";
+        }}
+        style={{
+          ...marketingNavLinkStyle,
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 5,
+        }}
       >
         Advisory
-        <ChevronDown
-          className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-          aria-hidden
-        />
+        <span style={{ fontSize: 7.5, opacity: 0.45 }} aria-hidden>
+          ▾
+        </span>
       </Link>
 
       {open && (
-        <div className="absolute left-0 top-full z-50 pt-1.5">
-          <div className="min-w-[230px] overflow-hidden rounded-xl border border-slate-700/60 bg-[#0d1220] shadow-[0_16px_48px_rgba(0,0,0,0.6)] backdrop-blur-xl">
+        <div style={{ position: "absolute", left: 0, top: "100%", zIndex: 110, paddingTop: 6 }}>
+          <div
+            style={{
+              minWidth: 250,
+              overflow: "hidden",
+              borderRadius: 2,
+              border: "1px solid rgba(20,40,80,0.12)",
+              background: "white",
+              boxShadow: "0 10px 30px rgba(31,36,48,0.08)",
+            }}
+          >
             {ADVISORY_ITEMS.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                onClick={() => { setOpen(false); onNavigate?.(); }}
-                className="flex items-center justify-between px-4 py-3 no-underline transition-colors hover:bg-white/[0.05] group"
+                onClick={() => {
+                  setOpen(false);
+                  onNavigate?.();
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  borderBottom: "1px solid #ece8df",
+                  padding: "12px 16px",
+                  textDecoration: "none",
+                  transition: "background 0.15s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "oklch(95.5% 0.012 82)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                }}
               >
-                <p className="text-[13px] font-semibold text-slate-200 group-hover:text-white transition-colors">
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 600,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "#243b53",
+                  }}
+                >
                   {item.label}
-                </p>
+                </span>
                 {"isWip" in item && item.isWip && (
-                  <span className="ml-3 rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/25">
-                    WIP
-                  </span>
+                  <span style={{ ...marketingNavWipBadgeStyle, marginLeft: 12 }}>WIP</span>
                 )}
               </Link>
             ))}
@@ -110,6 +164,20 @@ function AdvisoryDropdown({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
+const mobilePanelStyle: CSSProperties = {
+  position: "fixed",
+  top: 58,
+  left: 0,
+  right: 0,
+  zIndex: 99,
+  borderTop: "1px solid rgba(20,40,80,0.07)",
+  background: "oklch(95.5% 0.010 82 / 0.98)",
+  backdropFilter: "blur(18px)",
+  WebkitBackdropFilter: "blur(18px)",
+  maxHeight: "min(80vh, 520px)",
+  overflowY: "auto",
+};
+
 export default function SiteNavbar({ authBadge, authNavItems }: { authBadge?: React.ReactNode; authNavItems?: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
@@ -117,9 +185,7 @@ export default function SiteNavbar({ authBadge, authNavItems }: { authBadge?: Re
   useEffect(() => {
     if (!mobileOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setMobileOpen(false);
-      }
+      if (e.key === "Escape") setMobileOpen(false);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -136,83 +202,121 @@ export default function SiteNavbar({ authBadge, authNavItems }: { authBadge?: Re
   const closeMobile = () => setMobileOpen(false);
 
   return (
-    <nav
-      ref={navRef}
-      className="print:hidden sticky top-0 z-50 border-b border-slate-800/70 bg-[#0B0F19]/92 backdrop-blur-md"
-      aria-label="Primary"
-    >
-      <div className="mx-auto flex h-[3.25rem] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 md:h-16 md:gap-6">
-        <Link
-          href="/"
-          className="flex shrink-0 items-center gap-2.5 no-underline hover:opacity-95 sm:gap-3"
-          onClick={() => {
-            closeMobile();
-          }}
-        >
-          <div className="flex h-8 w-8 items-center justify-center rounded bg-blue-600 text-sm font-bold text-white shadow-lg shadow-blue-600/15">
-            P
-          </div>
-          <span className="text-[15px] font-semibold tracking-wide text-slate-100">Principal AI</span>
-        </Link>
+    <>
+      <nav ref={navRef} style={marketingNavShellStyle} aria-label="Primary" className="print:hidden">
+        <div style={marketingNavInnerRowStyle}>
+          <Link
+            href="/"
+            onClick={closeMobile}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.opacity = "0.95";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.opacity = "1";
+            }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 11,
+              marginRight: "auto",
+              textDecoration: "none",
+              color: "inherit",
+              flexShrink: 0,
+            }}
+          >
+            <div style={marketingNavBrandMarkStyle}>{HERO_BRAND.mark}</div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <span style={marketingNavTitleStyle}>{HERO_BRAND.title}</span>
+              <span className="hidden md:block" style={marketingNavTaglineStyle}>
+                {HERO_BRAND.tagline}
+              </span>
+            </div>
+          </Link>
 
-        <div className="flex min-w-0 flex-1 items-center justify-end gap-3 sm:gap-4 md:gap-8 lg:gap-10">
-          <div className="hidden shrink-0 items-center md:flex md:gap-8 lg:gap-10">
-            <NavLink href="/research" className="px-2 md:px-3">
-              Research
-            </NavLink>
-            {authNavItems}
-            <AdvisoryDropdown />
-            <NavLink href="/contact" className="px-2 md:px-3">
-              Contact
-            </NavLink>
-          </div>
-
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            {authBadge}
-            <button
-              type="button"
-              className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md text-slate-300 hover:bg-white/[0.06] md:hidden"
-              aria-expanded={mobileOpen}
-              aria-controls="site-nav-mobile"
-              onClick={() => setMobileOpen((o) => !o)}
+          <div
+            style={{
+              display: "flex",
+              minWidth: 0,
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "flex-end",
+              flexWrap: "nowrap",
+              gap: 20,
+            }}
+          >
+            <div
+              className="hidden shrink-0 md:flex"
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 28,
+                flexWrap: "nowrap",
+              }}
             >
-              {mobileOpen ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}
-              <span className="sr-only">{mobileOpen ? "Close menu" : "Open menu"}</span>
-            </button>
+              <NavMarketingLink href="/research">Research</NavMarketingLink>
+              {authNavItems}
+              <AdvisoryDropdown />
+              <NavMarketingLink href="/contact">Contact</NavMarketingLink>
+            </div>
+
+            <div style={{ display: "flex", flexShrink: 0, alignItems: "center", gap: 12, paddingLeft: 8 }}>
+              {authBadge}
+              <button
+                type="button"
+                style={{
+                  display: "inline-flex",
+                  height: 40,
+                  width: 40,
+                  flexShrink: 0,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 2,
+                  border: "1px solid transparent",
+                  background: "transparent",
+                  color: "oklch(20% 0.06 258)",
+                  opacity: 0.68,
+                  cursor: "pointer",
+                }}
+                className="md:hidden"
+                aria-expanded={mobileOpen}
+                aria-controls="site-nav-mobile"
+                onClick={() => setMobileOpen((o) => !o)}
+              >
+                {mobileOpen ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}
+                <span className="sr-only">{mobileOpen ? "Close menu" : "Open menu"}</span>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </nav>
+
+      {/* Reserve space for fixed bar (original Hero layout behavior) */}
+      <div style={{ height: 58, flexShrink: 0 }} aria-hidden="true" />
 
       {mobileOpen ? (
-        <div id="site-nav-mobile" className="border-t border-slate-800/80 bg-[#0B0F19] md:hidden">
-          <div className="mx-auto max-w-7xl space-y-1 px-4 py-4 pb-6">
-            <NavLink href="/research" onClick={closeMobile}>
+        <div id="site-nav-mobile" style={mobilePanelStyle} className="md:hidden">
+          <div style={{ maxWidth: 1440, margin: "0 auto", padding: "16px 20px 28px" }}>
+            <NavMarketingLink href="/research" onClick={closeMobile} style={{ display: "block", padding: "10px 0" }}>
               Research
-            </NavLink>
-            {authNavItems}
-            <div>
-              <p className="px-3 pt-2 pb-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-600">
-                Advisory
-              </p>
-              {ADVISORY_ITEMS.map((item) => (
-                <NavLink key={item.href} href={item.href} onClick={closeMobile} className="pl-6">
-                  <span className="flex items-center gap-2">
-                    {item.label}
-                    {"isWip" in item && item.isWip && (
-                      <span className="rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/25">
-                        WIP
-                      </span>
-                    )}
-                  </span>
-                </NavLink>
-              ))}
-            </div>
-            <NavLink href="/contact" onClick={closeMobile}>
+            </NavMarketingLink>
+            <div style={{ paddingTop: 4 }}>{authNavItems}</div>
+            <p style={{ margin: "12px 0 6px", fontSize: 11, fontWeight: 600, letterSpacing: "0.2em", color: "#7b8794", textTransform: "uppercase" }}>
+              Advisory
+            </p>
+            {ADVISORY_ITEMS.map((item) => (
+              <NavMarketingLink key={item.href} href={item.href} onClick={closeMobile} style={{ display: "block", padding: "8px 0 8px 16px" }}>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                  {item.label}
+                  {"isWip" in item && item.isWip && <span style={marketingNavWipBadgeStyle}>WIP</span>}
+                </span>
+              </NavMarketingLink>
+            ))}
+            <NavMarketingLink href="/contact" onClick={closeMobile} style={{ display: "block", padding: "12px 0 0" }}>
               Contact
-            </NavLink>
+            </NavMarketingLink>
           </div>
         </div>
       ) : null}
-    </nav>
+    </>
   );
 }

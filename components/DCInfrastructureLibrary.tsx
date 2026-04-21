@@ -8,6 +8,7 @@ import {
   researchFilterLabel,
 } from "@/lib/advisory-pillars";
 import { DIGITAL_INFRASTRUCTURE_STACK } from "@/lib/dc-stack-reports";
+import { paEditorialTitleResearchHub } from "@/lib/editorial-typography";
 
 export type AssetDeepFilter = "ALL" | PillarResearchFilter;
 
@@ -40,6 +41,10 @@ const FILTER_TO_TAG: Record<PillarResearchFilter, string> = {
   POWER: "#POWER",
   EXPERIENCE: "#EXPERIENCE",
 };
+
+function strategicCardTopLine(mod: LibraryModule): string {
+  return mod.pillarLineMain ?? `${mod.pillar} · ${mod.releaseMonth}`;
+}
 
 function matchesAssetDeepFilter(mod: LibraryModule, active: AssetDeepFilter): boolean {
   if (active === "ALL") return true;
@@ -86,20 +91,18 @@ export default function DCInfrastructureLibrary({
 
   return (
     <>
-      <header className="mb-10 border-b border-slate-800/80 pb-8">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-          <Link href="/research" className="no-underline text-slate-500 transition-colors hover:text-slate-400">
+      <header className="mb-10 border-b border-[color:var(--pa-border)] pb-8">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#7b8794]">
+          <Link href="/research" className="no-underline text-[#7b8794] transition-colors hover:text-[var(--pa-navy)]">
             ← Research
           </Link>
           {" · "}
-          <span className="text-slate-500">Principal AI</span>
-          {" · "}
-          <span className="text-slate-400">{DIGITAL_INFRASTRUCTURE_STACK}</span>
+          <span className="text-[var(--pa-muted)]">{DIGITAL_INFRASTRUCTURE_STACK}</span>
         </p>
-        <h1 className="mb-3 text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
+        <h1 className={`mb-3 ${paEditorialTitleResearchHub}`}>
           The {DIGITAL_INFRASTRUCTURE_STACK}
         </h1>
-        <p className="text-base leading-relaxed text-slate-400">
+        <p className="text-base leading-[1.8] text-[var(--pa-muted)] sm:text-lg">
           APAC-focused research covering the full stack: supply chain constraints, operator landscape, and company-level
           credit analysis.
         </p>
@@ -109,7 +112,7 @@ export default function DCInfrastructureLibrary({
       <section className="mb-12" aria-labelledby="strategic-heading">
         <h2
           id="strategic-heading"
-          className="mb-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400 uppercase"
+          className="mb-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7b8794] uppercase"
         >
           Strategic Intelligence
         </h2>
@@ -128,7 +131,7 @@ export default function DCInfrastructureLibrary({
       >
         <h2
           id="asset-heading"
-          className="mb-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400 uppercase"
+          className="mb-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7b8794] uppercase"
         >
           Asset Deep Dives
         </h2>
@@ -143,10 +146,10 @@ export default function DCInfrastructureLibrary({
                 role="tab"
                 aria-selected={isOn}
                 onClick={() => setActive(f.id)}
-                className={`rounded-full border px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors ${
+                className={`rounded-sm border px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors ${
                   isOn
-                    ? "border-blue-500/50 bg-blue-500/15 text-blue-300 ring-1 ring-blue-500/30"
-                    : "border-slate-800 bg-slate-950/40 text-slate-400 hover:border-slate-700 hover:text-slate-300"
+                    ? "border-[#8da2b8] bg-white text-[var(--pa-navy)]"
+                    : "border-[color:var(--pa-border)] bg-[#faf8f2] text-[var(--pa-muted)] hover:border-[#bcc4ce] hover:text-[var(--pa-text)]"
                 }`}
               >
                 {f.label}
@@ -157,7 +160,7 @@ export default function DCInfrastructureLibrary({
 
         <div className="space-y-4">
           {visibleAssetModules.length === 0 ? (
-            <p className="rounded-xl border border-slate-800/80 bg-slate-950/30 px-5 py-8 text-center text-sm leading-relaxed text-slate-500">
+            <p className="rounded-sm border border-[color:var(--pa-border)] bg-white px-5 py-8 text-center text-sm leading-relaxed text-[var(--pa-muted)]">
               {assetDeepDives.length === 0 ? (
                 <>
                   No layer-specific briefs are published yet. The stack-wide reports above are the current release;
@@ -165,7 +168,7 @@ export default function DCInfrastructureLibrary({
                 </>
               ) : (
                 <>
-                  No asset notes match this filter. Try <strong className="text-slate-400">ALL</strong> or another
+                  No asset notes match this filter. Try <strong className="text-[var(--pa-text)]">ALL</strong> or another
                   layer — or use Strategic intelligence above for cross-stack coverage.
                 </>
               )}
@@ -176,11 +179,11 @@ export default function DCInfrastructureLibrary({
         </div>
       </section>
 
-      <div className="mt-10 rounded-xl border border-slate-800 bg-slate-900/30 p-5">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Coverage Region</p>
-        <p className="text-sm leading-relaxed text-slate-400">
-          Current coverage is <strong className="text-slate-300">Asia-Pacific</strong>. For other regions,{" "}
-          <Link href="/contact" className="text-blue-400 hover:text-blue-300">
+      <div className="mt-10 rounded-sm border border-[color:var(--pa-border)] bg-white p-5">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#7b8794]">Coverage Region</p>
+        <p className="text-sm leading-relaxed text-[var(--pa-muted)]">
+          Current coverage is <strong className="text-[var(--pa-text)]">Asia-Pacific</strong>. For other regions,{" "}
+          <Link href="/contact" className="text-[var(--pa-link)] hover:text-[var(--pa-link-hover)]">
             contact us
           </Link>{" "}
           to register interest.
@@ -195,33 +198,32 @@ function StrategicFeaturedCard({ mod }: { mod: LibraryModule }) {
     return (
       <Link
         href={mod.href}
-        className="group block rounded-xl border border-amber-500/15 bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-slate-950/90 p-6 shadow-[0_0_0_1px_rgba(251,191,36,0.08)] ring-1 ring-inset ring-amber-500/10 transition-all no-underline hover:border-amber-500/25 hover:ring-amber-500/20"
+        className="group block rounded-sm border border-[color:var(--pa-border)] bg-white p-6 transition-colors no-underline hover:border-[#bcc4ce] hover:bg-[#faf8f2]"
       >
         <div className="min-w-0">
           <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
-            <p className="min-w-0 flex-1 pr-2 text-[11px] font-semibold uppercase leading-snug tracking-[0.16em] text-slate-100">
-              {mod.pillarLineMain ?? `${mod.pillar} · ${mod.releaseMonth}`}
+            <p className="min-w-0 flex-1 pr-2 text-[11px] font-semibold uppercase leading-snug tracking-[0.16em] text-[#7b8794]">
+              {strategicCardTopLine(mod)}
             </p>
             <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">
-              <span className="mt-px rounded-full border border-amber-400/35 bg-amber-400/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-amber-200/90">
+              <span className="mt-px rounded-sm border border-[#d8d3c8] bg-[#faf8f2] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#8a6d3b]">
                 Featured
               </span>
-              <span className="mt-px rounded-full border border-green-400/30 bg-green-400/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-green-400">
+              <span className="mt-px rounded-sm border border-[#d8d3c8] bg-white px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#3f6b4f]">
                 {mod.status}
               </span>
             </div>
           </div>
-          <h3 className="mt-3 text-lg font-semibold tracking-tight text-slate-100 transition-colors group-hover:text-white">
-            {mod.title}
+          <h3 className="mt-3 text-lg font-semibold tracking-tight text-[var(--pa-navy)] transition-colors group-hover:text-[var(--pa-navy-deep)]">
+            {mod.title}: {mod.subtitle}
           </h3>
-          <p className="mt-1 text-sm italic text-slate-500">{mod.subtitle}</p>
-          <p className="mt-3 text-sm leading-relaxed text-slate-400">{mod.description}</p>
+          <p className="mt-3 text-sm leading-relaxed text-[var(--pa-muted)]">{mod.description}</p>
           {mod.tags && mod.tags.length > 0 ? (
             <div className="mt-4 flex flex-wrap gap-2">
               {mod.tags.map((t) => (
                 <span
                   key={t}
-                  className="rounded-md border border-slate-800/80 bg-slate-950/50 px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wide text-slate-500"
+                  className="rounded-sm border border-[color:var(--pa-border)] bg-[#faf8f2] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[#7b8794]"
                 >
                   {t}
                 </span>
@@ -234,19 +236,20 @@ function StrategicFeaturedCard({ mod }: { mod: LibraryModule }) {
   }
 
   return (
-    <div className="block rounded-xl border border-slate-800/50 bg-slate-900/20 p-6 opacity-60">
+    <div className="block rounded-sm border border-[color:var(--pa-border)] bg-[#faf8f2] p-6 opacity-70">
       <div className="min-w-0">
         <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
-          <p className="min-w-0 flex-1 pr-2 text-[11px] font-semibold uppercase leading-snug tracking-[0.16em] text-slate-400">
-            {mod.pillarLineMain ?? `${mod.pillar} · ${mod.releaseMonth}`}
+          <p className="min-w-0 flex-1 pr-2 text-[11px] font-semibold uppercase leading-snug tracking-[0.16em] text-[#7b8794]">
+            {strategicCardTopLine(mod)}
           </p>
-          <span className="mt-px rounded-full border border-amber-400/25 bg-amber-400/5 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-amber-200/70">
+          <span className="mt-px rounded-sm border border-[#d8d3c8] bg-white px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#8a6d3b]">
             Featured
           </span>
         </div>
-        <h3 className="mt-3 text-lg font-semibold tracking-tight text-slate-500">{mod.title}</h3>
-        <p className="mt-1 text-sm italic text-slate-600">{mod.subtitle}</p>
-        <p className="mt-3 text-sm leading-relaxed text-slate-600">{mod.description}</p>
+        <h3 className="mt-3 text-lg font-semibold tracking-tight text-[var(--pa-muted)]">
+          {mod.title}: {mod.subtitle}
+        </h3>
+        <p className="mt-3 text-sm leading-relaxed text-[var(--pa-muted)]">{mod.description}</p>
       </div>
     </div>
   );
@@ -257,28 +260,28 @@ function AssetDeepCard({ mod, active }: { mod: LibraryModule; active: AssetDeepF
     return (
       <Link
         href={mod.href}
-        className="group block rounded-xl border border-slate-800 bg-slate-900/40 p-6 transition-all no-underline hover:border-slate-700 hover:bg-slate-900/60"
+        className="group block rounded-sm border border-[color:var(--pa-border)] bg-white p-6 transition-colors no-underline hover:border-[#bcc4ce] hover:bg-[#faf8f2]"
       >
         <div className="min-w-0">
           <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
-            <p className="min-w-0 flex-1 pr-2 text-[11px] font-semibold uppercase leading-snug tracking-[0.16em] text-slate-100">
+            <p className="min-w-0 flex-1 pr-2 text-[11px] font-semibold uppercase leading-snug tracking-[0.16em] text-[#7b8794]">
               {assetCardMetadataLine(mod, active)}
             </p>
-            <span className="mt-px shrink-0 rounded-full border border-green-400/30 bg-green-400/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-green-400">
+            <span className="mt-px shrink-0 rounded-sm border border-[#d8d3c8] bg-white px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#3f6b4f]">
               {mod.status}
             </span>
           </div>
-          <h3 className="mt-3 text-lg font-semibold tracking-tight text-slate-100 transition-colors group-hover:text-white">
+          <h3 className="mt-3 text-lg font-semibold tracking-tight text-[var(--pa-navy)] transition-colors group-hover:text-[var(--pa-navy-deep)]">
             {mod.title}
           </h3>
-          <p className="mt-1 text-sm italic text-slate-500">{mod.subtitle}</p>
-          <p className="mt-3 text-sm leading-relaxed text-slate-400">{mod.description}</p>
+          <p className="mt-1 text-sm italic text-[#7b8794]">{mod.subtitle}</p>
+          <p className="mt-3 text-sm leading-relaxed text-[var(--pa-muted)]">{mod.description}</p>
           {mod.tags && mod.tags.length > 0 ? (
             <div className="mt-4 flex flex-wrap gap-2">
               {mod.tags.map((t) => (
                 <span
                   key={t}
-                  className="rounded-md border border-slate-800/80 bg-slate-950/50 px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wide text-slate-500"
+                  className="rounded-sm border border-[color:var(--pa-border)] bg-[#faf8f2] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[#7b8794]"
                 >
                   {t}
                 </span>
@@ -291,19 +294,19 @@ function AssetDeepCard({ mod, active }: { mod: LibraryModule; active: AssetDeepF
   }
 
   return (
-    <div className="block rounded-xl border border-slate-800/50 bg-slate-900/20 p-6 opacity-60">
+    <div className="block rounded-sm border border-[color:var(--pa-border)] bg-[#faf8f2] p-6 opacity-70">
       <div className="min-w-0">
         <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
-          <p className="min-w-0 flex-1 pr-2 text-[11px] font-semibold uppercase leading-snug tracking-[0.16em] text-slate-400">
+          <p className="min-w-0 flex-1 pr-2 text-[11px] font-semibold uppercase leading-snug tracking-[0.16em] text-[#7b8794]">
             {assetCardMetadataLine(mod, active)}
           </p>
-          <span className="mt-px shrink-0 rounded-full border border-slate-700 bg-slate-800/50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+          <span className="mt-px shrink-0 rounded-sm border border-[color:var(--pa-border)] bg-white px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#7b8794]">
             {mod.status}
           </span>
         </div>
-        <h3 className="mt-3 text-lg font-semibold tracking-tight text-slate-500">{mod.title}</h3>
-        <p className="mt-1 text-sm italic text-slate-600">{mod.subtitle}</p>
-        <p className="mt-3 text-sm leading-relaxed text-slate-600">{mod.description}</p>
+        <h3 className="mt-3 text-lg font-semibold tracking-tight text-[var(--pa-muted)]">{mod.title}</h3>
+        <p className="mt-1 text-sm italic text-[#7b8794]">{mod.subtitle}</p>
+        <p className="mt-3 text-sm leading-relaxed text-[var(--pa-muted)]">{mod.description}</p>
       </div>
     </div>
   );

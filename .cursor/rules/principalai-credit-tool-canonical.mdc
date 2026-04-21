@@ -1,5 +1,5 @@
 ---
-description: Use principalai-credit-tool as the canonical repo for the live credit memo (principalai.pro)
+description: Use principalai-credit-tool as the canonical repo for the live credit draft (principalai.pro)
 alwaysApply: true
 ---
 
@@ -10,16 +10,18 @@ alwaysApply: true
 
 ## Where to edit
 
-- **Full credit memo (single HTML):** `index.html` at the repo root.
+- **Company site (Next.js App Router):** `app/` (pages), `app/globals.css`, `app/layout.tsx`.
+- **Credit Workbench (static draft UI):** `public/credit-workbench/index.html` (served at `/credit-workbench/`).
+- **API routes:** `app/api/` (auth, regenerate-conclusion). Shared logic: `lib/`.
 
 ## Workflow
 
-- Run locally (static): `cd` to repo root, then `./serve.sh` (serves on **port 8080**) or `python3 -m http.server 8080`.
+- Run locally: **always port 8080** — `cd` to repo root, `npm install` once, then `./serve.sh` or `npm run dev` (Next.js). `npm run dev` / `dev:webpack` run `scripts/dev-8080.sh`, which **terminates any process already listening on 8080** before starting Next.js, so a stale dev server does not block startup. Do **not** use another port unless the user explicitly agrees.
 - **Do not `git commit` unless the user explicitly asks to commit** (e.g. “commit”, “commit and push”). Do not bundle `.cursor/` or other local-only IDE files into commits unless they explicitly ask to include them — keep those changes **local only**.
 - **Do not `git push` (or push to GitHub) unless the user explicitly asks to push.** If they ask to push without having committed, confirm what to commit or ask them to say “commit” first.
-- When they **do** ask to update GitHub / the live site: **commit and push to `origin main`** on **this** repo (only the files they intend — typically `index.html`, not `.cursor/` unless requested).
-- **`principalai-app`** may contain a copy under `public/credit-memo/index.html` for the Next.js demo; treat it as **secondary** unless the user explicitly asks to sync that repo.
+- When they **do** ask to update GitHub / the live site: **commit and push to `origin main`** on **this** repo (only the files they intend — typically `app/`, `public/credit-workbench/`, `lib/`, `package.json`, not `.cursor/` unless requested).
+- **`principalai-app`** may contain a copy under `public/credit-draft/index.html` (or legacy `public/credit-memo/index.html`) for the Next.js demo; treat it as **secondary** unless the user explicitly asks to sync that repo.
 
 ## Deploy
 
-- Production follows **Vercel** deployments from **`main`** on **`principalai-credit-tool`**. After substantive HTML changes, the user (or an explicit “push” request) triggers **`git push`** and then confirm deployment in Vercel.
+- Production follows **Vercel** deployments from **`main`** on **`principalai-credit-tool`** (framework: **Next.js**). After substantive changes, the user (or an explicit “push” request) triggers **`git push`** and then confirm deployment in Vercel.

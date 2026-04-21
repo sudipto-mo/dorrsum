@@ -4,10 +4,11 @@ import {
   STACK_HUB_PATH,
   STACK_REPORT_LIST,
   type StackReport,
+  stackReportFullTitle,
   stackReportSidebarMetaLine,
 } from "@/lib/dc-stack-reports";
 
-/** Reverse-chronological: higher defaultOrder (newer module) first. */
+/** Reverse-chronological: higher defaultOrder (newer report) first. */
 function reportsNewestFirst(list: StackReport[]): StackReport[] {
   return [...list].sort((a, b) => b.defaultOrder - a.defaultOrder);
 }
@@ -16,11 +17,11 @@ export default function ResearchVault() {
   const items = reportsNewestFirst(STACK_REPORT_LIST);
 
   return (
-    <div className="overflow-hidden border border-slate-800/70 bg-slate-950/50 backdrop-blur-md">
-      <div className="border-b border-slate-800/70 px-4 py-4">
+    <div className="overflow-hidden rounded-sm border border-[color:var(--pa-border)] bg-white">
+      <div className="border-b border-[color:var(--pa-border)] px-4 py-4">
         <Link
           href={STACK_HUB_PATH}
-          className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-white no-underline transition-colors hover:text-blue-300 uppercase"
+          className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--pa-navy)] no-underline transition-colors hover:text-[var(--pa-navy-deep)] uppercase"
         >
           Latest intelligence
         </Link>
@@ -29,9 +30,9 @@ export default function ResearchVault() {
       <div className="flex flex-col">
         {items.length === 0 ? (
           <div className="px-5 py-8">
-            <p className="text-sm leading-relaxed text-slate-500">
+            <p className="text-sm leading-relaxed text-[var(--pa-muted)]">
               No reports listed. Open the{" "}
-              <Link href={STACK_HUB_PATH} className="text-blue-400 no-underline hover:text-blue-300">
+              <Link href={STACK_HUB_PATH} className="text-[var(--pa-link)] no-underline hover:text-[var(--pa-link-hover)]">
                 {DIGITAL_INFRASTRUCTURE_STACK}
               </Link>{" "}
               library.
@@ -42,15 +43,14 @@ export default function ResearchVault() {
             <Link
               key={item.id}
               href={item.href}
-              className="group block border-b border-gray-900 px-5 py-8 no-underline transition-colors last:border-b-0 hover:bg-slate-900/40"
+              className="group block border-b border-[color:var(--pa-border)] px-5 py-7 no-underline transition-colors last:border-b-0 hover:bg-[#faf8f2]"
             >
-              <p className="font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-slate-500">
+              <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-[#7b8794]">
                 {stackReportSidebarMetaLine(item)}
               </p>
-              <span className="mt-2 block text-[15px] font-bold leading-snug tracking-tight text-white transition-colors group-hover:text-blue-300">
-                {item.title}
+              <span className="mt-2 block text-[15px] font-bold leading-snug tracking-tight text-[var(--pa-navy)] transition-colors group-hover:text-[var(--pa-navy-deep)]">
+                {stackReportFullTitle(item)}
               </span>
-              <span className="mt-1.5 block text-[13px] leading-snug text-slate-500">{item.subtitle}</span>
             </Link>
           ))
         )}

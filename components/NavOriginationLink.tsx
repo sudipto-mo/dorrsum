@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { getSession } from "@/lib/get-session";
+import OriginationNavLinkInner from "@/components/OriginationNavLinkInner";
 
 /**
  * Origination nav link — dev/staging only.
@@ -15,17 +15,5 @@ export default async function NavOriginationLink() {
   const isAuthenticated = await getSession();
   if (!isAuthenticated) return null;
 
-  return (
-    <Link
-      href="/origination"
-      className="inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-[13px] font-medium tracking-wide text-slate-400 transition-colors no-underline hover:bg-white/[0.04] hover:text-slate-100"
-    >
-      Origination
-      {process.env.NODE_ENV === "development" && (
-        <span className="rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/25">
-          WIP
-        </span>
-      )}
-    </Link>
-  );
+  return <OriginationNavLinkInner showDevWip={process.env.NODE_ENV === "development"} />;
 }

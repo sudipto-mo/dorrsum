@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { FileText } from "lucide-react";
 import { getSession } from "@/lib/get-session";
+import { paEditorialTitleModule } from "@/lib/editorial-typography";
 
 export const metadata: Metadata = {
   title: "Helios Towers — Indicative Credit Brief (Teaser) | Principal AI",
@@ -14,38 +15,38 @@ export const metadata: Metadata = {
   },
 };
 
-const body = "text-[15px] leading-relaxed text-slate-300 sm:text-base sm:leading-7";
-const riskLabel = "text-sm font-bold text-cyan-500/95 sm:text-[15px]";
+const body = "text-[15px] leading-relaxed text-[var(--pa-muted)] sm:text-base sm:leading-7";
+const riskLabel = "text-sm font-bold text-[var(--pa-navy)] sm:text-[15px]";
 
 export default async function HeliosTowersResearchTeaserPage() {
   const isAuthenticated = await getSession();
   return (
-    <div className="min-h-full w-full bg-[#0B0F19] text-slate-50">
+    <div className="min-h-full w-full bg-[var(--pa-page)] text-[var(--pa-text)]">
       <article className="relative mx-auto max-w-3xl px-5 pb-8 pt-10 sm:px-8 sm:pt-14 md:pt-16">
-        <header className="mb-10 border-b border-slate-800/80 pb-8">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-            <Link href="/advisory" className="no-underline text-slate-500 hover:text-slate-400 transition-colors">
+        <header className="mb-10 border-b border-[color:var(--pa-border)] pb-8">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#7b8794]">
+            <Link href="/advisory" className="no-underline text-[#7b8794] transition-colors hover:text-[var(--pa-navy)]">
               ← Advisory
             </Link>
             {" · "}Indicative Credit Brief
           </p>
           <div className="mb-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
+            <h1 className={paEditorialTitleModule}>
               Helios Towers plc
             </h1>
-            <span className="text-sm font-medium text-slate-500">Telecom / Tower Infrastructure</span>
+            <span className="text-sm font-medium text-[#7b8794]">Telecom / Tower Infrastructure</span>
           </div>
-          <p className="text-sm text-slate-500">London · March 2026 · Excerpt for qualified counterparties only</p>
+          <p className="text-sm text-[#7b8794]">London · March 2026 · Excerpt for qualified counterparties only</p>
         </header>
 
         <div className="mb-2 flex flex-wrap items-center gap-2">
-          <FileText className="h-5 w-5 shrink-0 text-cyan-500/90" aria-hidden />
+          <FileText className="h-5 w-5 shrink-0 text-[var(--pa-navy)]" aria-hidden />
           <h2
             id="teaser-summary-heading"
-            className="m-0 text-lg font-extrabold uppercase tracking-[0.14em] text-slate-100 sm:text-xl"
+            className="m-0 text-lg font-extrabold uppercase tracking-[0.14em] text-[var(--pa-text)] sm:text-xl"
           >
             Summary{" "}
-            <span className="normal-case font-extrabold tracking-[0.06em] text-slate-400">( Illustrative )</span>
+            <span className="normal-case font-extrabold tracking-[0.06em] text-[#7b8794]">( Illustrative )</span>
           </h2>
         </div>
 
@@ -76,33 +77,33 @@ export default async function HeliosTowersResearchTeaserPage() {
 
         {/* Full brief CTA — shown to all, framed differently based on auth */}
         {isAuthenticated ? (
-          <div className="mt-10 border-t border-slate-800/60 pt-8">
-            <p className="text-sm text-slate-400 leading-relaxed">
+          <div className="mt-10 border-t border-[color:var(--pa-border)] pt-8">
+            <p className="text-sm leading-relaxed text-[var(--pa-muted)]">
               This is an illustrative excerpt. The full institutional brief — including financial reconstructions,
               covenant analysis, and debt serviceability models — is available on a commissioned mandate.
             </p>
             <Link
               href="/contact"
-              className="mt-5 inline-flex items-center justify-center rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white no-underline transition-colors hover:bg-blue-700"
+              className="mt-5 inline-flex items-center justify-center rounded-sm border border-[var(--pa-navy)] bg-[var(--pa-navy)] px-5 py-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-white no-underline transition-colors hover:bg-[var(--pa-navy-deep)]"
             >
               Commission a Mandate
             </Link>
           </div>
         ) : (
-          <div className="mt-10 border-t border-slate-800/60 pt-8">
-            <p className="text-sm text-slate-400 leading-relaxed">
+          <div className="mt-10 border-t border-[color:var(--pa-border)] pt-8">
+            <p className="text-sm leading-relaxed text-[var(--pa-muted)]">
               Full institutional brief available to authenticated clients on a commissioned mandate.
             </p>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white no-underline transition-colors hover:bg-blue-700"
+                className="inline-flex items-center justify-center rounded-sm border border-[var(--pa-navy)] bg-[var(--pa-navy)] px-5 py-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-white no-underline transition-colors hover:bg-[var(--pa-navy-deep)]"
               >
                 Commission a Mandate
               </Link>
               <Link
                 href={"/login?returnTo=" + encodeURIComponent("/research/helios-towers")}
-                className="inline-flex items-center justify-center rounded-lg border border-slate-600 bg-slate-800/60 px-5 py-3 text-sm font-semibold text-slate-200 no-underline transition-colors hover:border-slate-500 hover:bg-slate-800"
+                className="inline-flex items-center justify-center rounded-sm border border-[color:var(--pa-border)] bg-white px-5 py-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--pa-navy)] no-underline transition-colors hover:border-[#bcc4ce]"
               >
                 Client Login
               </Link>

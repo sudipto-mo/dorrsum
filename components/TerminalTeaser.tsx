@@ -13,18 +13,18 @@ const tools: Array<{
 }> = [
   {
     key: "map",
-    label: "TMT Ecosystem Map",
-    description: "Visualizing capital flows and supply chains.",
+    label: "Ecosystem Web",
+    description: "Preview of capital flows and supply-chain dependencies.",
   },
   {
     key: "sim",
-    label: "Bankability Simulator",
-    description: "Stress-testing PUE, Leverage, and DSCR.",
+    label: "Bankability Review",
+    description: "Scenario testing across PUE, leverage, and DSCR.",
   },
   {
     key: "risk",
-    label: "Sovereign Risk Matrix",
-    description: "Geopolitical and grid capacity screening.",
+    label: "Constraint Matrix",
+    description: "Geopolitical and grid-capacity screening.",
   },
 ];
 
@@ -145,22 +145,23 @@ export default function TerminalTeaser() {
     <section className="w-full">
       <div className="mx-auto max-w-6xl px-6">
         <header className="mb-8">
-          <h2 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
-            Proprietary Intelligence Terminal
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7b8794]">Client Platform</p>
+          <h2 className="text-xl font-semibold tracking-tight text-[var(--pa-navy)] sm:text-2xl">
+            Institutional Research Environment
           </h2>
-          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-400 sm:text-base">
-            Practitioner-grade credit assessment models and ecosystem maps, engineered for the Digital Infrastructure
-            Nexus.
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--pa-muted)] sm:text-base">
+            Research previews, scenario frameworks, and ecosystem mapping built for live mandates in the digital
+            infrastructure stack.
           </p>
         </header>
 
-        <div className="overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-950/30 shadow-[0_22px_70px_rgba(0,0,0,0.55)] backdrop-blur-md">
+        <div className="overflow-hidden rounded-sm border border-[color:var(--pa-border)] bg-white shadow-[0_12px_28px_rgba(31,36,48,0.06)]">
           {/* Tabs */}
-          <div className="flex flex-col gap-3 border-b border-slate-800/70 bg-slate-950/40 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <div className="flex flex-col gap-3 border-b border-[color:var(--pa-border)] bg-[#faf8f2] px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
             <div className="flex items-center gap-2" aria-hidden>
-              <div className="h-2.5 w-2.5 rounded-full bg-slate-700" />
-              <div className="h-2.5 w-2.5 rounded-full bg-slate-700" />
-              <div className="h-2.5 w-2.5 rounded-full bg-slate-700" />
+              <div className="h-2.5 w-2.5 rounded-full bg-[#d8d3c8]" />
+              <div className="h-2.5 w-2.5 rounded-full bg-[#d8d3c8]" />
+              <div className="h-2.5 w-2.5 rounded-full bg-[#d8d3c8]" />
             </div>
 
             <div className="flex flex-wrap gap-1.5">
@@ -169,15 +170,15 @@ export default function TerminalTeaser() {
                   key={t.key}
                   type="button"
                   onClick={() => setActive(t.key)}
-                  className={`rounded-lg px-3 py-2 text-left transition-colors ${
+                  className={`rounded-sm border px-3 py-2 text-left transition-colors ${
                     active === t.key
-                      ? "bg-blue-500/10 text-blue-200 border border-blue-500/25"
-                      : "bg-transparent text-slate-300 border border-transparent hover:bg-white/[0.04] hover:text-slate-100"
+                      ? "border-[#8da2b8] bg-white text-[var(--pa-navy)]"
+                      : "border-transparent bg-transparent text-[var(--pa-muted)] hover:border-[#d8d3c8] hover:bg-white hover:text-[var(--pa-text)]"
                   }`}
                   aria-pressed={active === t.key}
                 >
                   <p className="m-0 text-[12px] font-semibold tracking-tight">{t.label}</p>
-                  <p className="m-0 mt-0.5 hidden text-[11px] text-slate-500 sm:block">{t.description}</p>
+                  <p className="m-0 mt-0.5 hidden text-[11px] text-[#7b8794] sm:block">{t.description}</p>
                 </button>
               ))}
             </div>
@@ -190,27 +191,27 @@ export default function TerminalTeaser() {
             </div>
 
             {/* Heavy blur veil */}
-            <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-2xl transition-all duration-300" />
+            <div className="absolute inset-0 bg-slate-950/25 backdrop-blur-xl transition-all duration-300" />
 
             {/* Gated overlay (sharp) */}
             <div className="absolute inset-0 flex items-center justify-center p-6">
-              <div className="w-full max-w-md rounded-2xl border border-slate-700/70 bg-slate-950/70 p-7 text-center shadow-[0_24px_80px_rgba(0,0,0,0.65)]">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-blue-500/25 bg-blue-500/10 text-blue-300">
+              <div className="w-full max-w-md rounded-sm border border-[color:var(--pa-border)] bg-[#faf8f2]/95 p-7 text-center shadow-[0_18px_40px_rgba(15,23,42,0.18)]">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-sm border border-[color:var(--pa-border)] bg-white text-[var(--pa-navy)]">
                   <OverlayIcon className="h-5 w-5" aria-hidden />
                 </div>
-                <p className="mt-5 text-sm font-semibold text-slate-100">Client Access Required</p>
-                <p className="mt-2 text-sm leading-relaxed text-slate-400">
-                  Interactive models and live data feeds are restricted to active mandates and platform subscribers.
+                <p className="mt-5 text-sm font-semibold text-[var(--pa-navy)]">Client Access Required</p>
+                <p className="mt-2 text-sm leading-relaxed text-[var(--pa-muted)]">
+                  Interactive models and live data feeds are restricted to active mandates and authorized client users.
                 </p>
                 <div className="mt-6">
                   <Link
                     href="/contact"
-                    className="inline-flex w-full items-center justify-center rounded-xl bg-[#3b82f6] px-5 py-3 text-sm font-semibold text-white no-underline shadow-[0_0_24px_rgba(59,130,246,0.25)] transition-colors hover:bg-[#2563eb]"
+                    className="inline-flex w-full items-center justify-center rounded-sm border border-[var(--pa-navy)] bg-[var(--pa-navy)] px-5 py-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-white no-underline transition-colors hover:bg-[var(--pa-navy-deep)]"
                   >
-                    Request Access
+                    Request Client Access
                   </Link>
                 </div>
-                <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.22em] text-slate-500">
+                <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7b8794]">
                   Preview mode · details obscured
                 </p>
               </div>

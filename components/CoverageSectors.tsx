@@ -5,33 +5,34 @@ import { useRouter } from "next/navigation";
 import AdvisoryScopeCards from "@/components/AdvisoryScopeCards";
 import ResearchVault from "@/components/ResearchVault";
 import { ADVISORY_TO_RESEARCH_FILTER } from "@/lib/advisory-pillars";
+import { paEditorialLead, paEditorialTitleResearchHub } from "@/lib/editorial-typography";
 
 export default function CoverageSectors({ isAuthenticated = false }: { isAuthenticated?: boolean }) {
   const router = useRouter();
 
   return (
     <div className="w-full">
-      <header className="max-w-6xl border-b border-slate-800 pb-10">
-        <h1 className="text-3xl font-semibold tracking-tight text-white m-0 sm:text-4xl md:text-5xl">
+      <header className="max-w-6xl border-b border-[color:var(--pa-border)] pb-10">
+        <h1 className={`m-0 ${paEditorialTitleResearchHub}`}>
           TMT &amp; Digital Infrastructure Research
         </h1>
-        <p className="mt-4 text-base leading-relaxed text-slate-400 sm:text-lg">
+        <p className={paEditorialLead}>
           Sector intelligence across the convergence of Connectivity, Real Assets, and Power.
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-3">
           {isAuthenticated && (
             <Link
               href="/dc-network-map.html"
-              className="inline-flex items-center justify-center rounded-lg bg-[#3b82f6] px-4 py-2.5 text-[13px] font-semibold text-white no-underline shadow-[0_0_14px_rgba(59,130,246,0.20)] transition-all hover:bg-[#60a5fa] hover:shadow-[0_0_22px_rgba(96,165,250,0.45)]"
+              className="inline-flex items-center justify-center rounded-sm border border-[var(--pa-navy)] bg-[var(--pa-navy)] px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-white no-underline transition-colors hover:bg-[var(--pa-navy-deep)]"
             >
-              Explore the Ecosystem Web
+              View Ecosystem Web
             </Link>
           )}
           <Link
             href="/research/dc-infrastructure"
-            className="inline-flex items-center justify-center rounded-lg border border-slate-700 bg-slate-900/40 px-4 py-2.5 text-[13px] font-semibold text-slate-200 no-underline transition-colors hover:border-slate-600 hover:bg-slate-900/60"
+            className="inline-flex items-center justify-center rounded-sm border border-[color:var(--pa-border)] bg-white px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--pa-navy)] no-underline transition-colors hover:border-[#bcc4ce]"
           >
-            Explore the Digital Stack →
+            View the Digital Stack
           </Link>
         </div>
       </header>
@@ -40,7 +41,7 @@ export default function CoverageSectors({ isAuthenticated = false }: { isAuthent
       <div className="mt-12 grid max-w-6xl grid-cols-1 gap-8 lg:grid-cols-12">
         {/* Left: taxonomy master */}
         <section className="col-span-1 lg:col-span-8">
-          <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.22em] text-blue-300/70">
+          <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7b8794]">
             Advisory Scope
           </p>
           <AdvisoryScopeCards
@@ -50,15 +51,15 @@ export default function CoverageSectors({ isAuthenticated = false }: { isAuthent
             }
           />
 
-          <div className="mt-8 flex items-center justify-between rounded-xl border border-slate-800/70 bg-slate-950/30 px-5 py-4">
-            <p className="text-sm text-slate-400">
+          <div className="mt-8 flex items-center justify-between rounded-sm border border-[color:var(--pa-border)] bg-white px-5 py-4">
+            <p className="text-sm text-[var(--pa-muted)]">
               Have a deal to assess or a project to structure?
             </p>
             <Link
               href="/advisory"
-              className="shrink-0 rounded-md border border-slate-700 bg-slate-900/60 px-4 py-2 text-[12px] font-semibold text-slate-200 no-underline transition-colors hover:border-slate-600 hover:bg-slate-800/60"
+              className="shrink-0 rounded-sm border border-[color:var(--pa-border)] bg-[#faf8f2] px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--pa-navy)] no-underline transition-colors hover:border-[#bcc4ce]"
             >
-              View Advisory Services →
+              View Advisory Services
             </Link>
           </div>
         </section>

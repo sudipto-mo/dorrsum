@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { DM_Sans, Inter, Libre_Baskerville, Source_Serif_4 } from "next/font/google";
 import ConditionalSiteNavbar from "@/components/ConditionalSiteNavbar";
 import NavAuthBadge from "@/components/NavAuthBadge";
 import NavOriginationLink from "@/components/NavOriginationLink";
@@ -13,6 +13,31 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
+/** Editorial serif for institutional display type (headlines, quotes). */
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-serif",
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+});
+
+/** Homepage hero preview — editorial serif + geometric sans. */
+const libreBaskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-hero-serif",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-hero-sans",
+});
+
 export const metadata: Metadata = {
   title: "Principal AI",
   description:
@@ -21,14 +46,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.variable} ${sourceSerif.variable} ${libreBaskerville.variable} ${dmSans.variable}`}
+      suppressHydrationWarning
+    >
       <body
-        className={`${inter.className} min-h-screen antialiased bg-[#0B0F19] text-slate-50 font-sans flex flex-col`}
+        className={`${inter.className} flex min-h-screen flex-col bg-[var(--pa-page)] font-sans text-[var(--pa-text)] antialiased`}
       >
         <GoogleAnalytics />
         <ConditionalSiteNavbar authBadge={<NavAuthBadge />} authNavItems={<NavOriginationLink />} />
         <GlobalOAuthFlash />
-        <div className="flex-1 w-full flex flex-col">{children}</div>
+        <div className="flex w-full flex-1 flex-col">{children}</div>
       </body>
     </html>
   );
