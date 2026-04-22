@@ -7,7 +7,7 @@ import ResearchVault from "@/components/ResearchVault";
 import { ADVISORY_TO_RESEARCH_FILTER } from "@/lib/advisory-pillars";
 import { paEditorialLead, paEditorialTitleResearchHub } from "@/lib/editorial-typography";
 
-export default function CoverageSectors({ isAuthenticated = false }: { isAuthenticated?: boolean }) {
+export default function CoverageSectors() {
   const router = useRouter();
 
   return (
@@ -20,14 +20,12 @@ export default function CoverageSectors({ isAuthenticated = false }: { isAuthent
           Sector intelligence across the convergence of Connectivity, Real Assets, and Power.
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-3">
-          {isAuthenticated && (
-            <Link
-              href="/dc-network-map.html"
-              className="inline-flex items-center justify-center rounded-sm border border-[var(--pa-navy)] bg-[var(--pa-navy)] px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-white no-underline transition-colors hover:bg-[var(--pa-navy-deep)]"
-            >
-              View Ecosystem Web
-            </Link>
-          )}
+          <Link
+            href="/dc-network-map.html"
+            className="inline-flex items-center justify-center rounded-sm border border-[var(--pa-navy)] bg-[var(--pa-navy)] px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-white no-underline transition-colors hover:bg-[var(--pa-navy-deep)]"
+          >
+            View Ecosystem Web
+          </Link>
           <Link
             href="/research/dc-infrastructure"
             className="inline-flex items-center justify-center rounded-sm border border-[color:var(--pa-border)] bg-white px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--pa-navy)] no-underline transition-colors hover:border-[#bcc4ce]"

@@ -1,25 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FileText } from "lucide-react";
-import { getSession } from "@/lib/get-session";
 import { paEditorialTitleModule } from "@/lib/editorial-typography";
 
 export const metadata: Metadata = {
-  title: "Helios Towers — Indicative Credit Brief (Teaser) | Principal AI",
+  title: "Helios Towers — Indicative Credit Brief | Principal AI",
   description:
-    "Public excerpt: illustrative summary (financial, equity, and refinancing risk). Full institutional briefs for commissioned clients.",
+    "Illustrative credit summary (financial, equity, and refinancing risk). Commissioned clients receive full institutional briefs, models, and covenant analysis.",
   openGraph: {
-    title: "Helios Towers — Indicative Credit Brief (Teaser)",
+    title: "Helios Towers — Indicative Credit Brief",
     description:
-      "Preview the quality of Principal AI proprietary credit research before client access.",
+      "Sample Principal AI credit research: illustrative risk summary for qualified counterparties.",
   },
 };
 
 const body = "text-[15px] leading-relaxed text-[var(--pa-muted)] sm:text-base sm:leading-7";
 const riskLabel = "text-sm font-bold text-[var(--pa-navy)] sm:text-[15px]";
 
-export default async function HeliosTowersResearchTeaserPage() {
-  const isAuthenticated = await getSession();
+export default async function HeliosTowersResearchPage() {
   return (
     <div className="min-h-full w-full bg-[var(--pa-page)] text-[var(--pa-text)]">
       <article className="relative mx-auto max-w-3xl px-5 pb-8 pt-10 sm:px-8 sm:pt-14 md:pt-16">
@@ -75,41 +73,18 @@ export default async function HeliosTowersResearchTeaserPage() {
           </p>
         </section>
 
-        {/* Full brief CTA — shown to all, framed differently based on auth */}
-        {isAuthenticated ? (
-          <div className="mt-10 border-t border-[color:var(--pa-border)] pt-8">
-            <p className="text-sm leading-relaxed text-[var(--pa-muted)]">
-              This is an illustrative excerpt. The full institutional brief — including financial reconstructions,
-              covenant analysis, and debt serviceability models — is available on a commissioned mandate.
-            </p>
-            <Link
-              href="/contact"
-              className="mt-5 inline-flex items-center justify-center rounded-sm border border-[var(--pa-navy)] bg-[var(--pa-navy)] px-5 py-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-white no-underline transition-colors hover:bg-[var(--pa-navy-deep)]"
-            >
-              Commission a Mandate
-            </Link>
-          </div>
-        ) : (
-          <div className="mt-10 border-t border-[color:var(--pa-border)] pt-8">
-            <p className="text-sm leading-relaxed text-[var(--pa-muted)]">
-              Full institutional brief available to authenticated clients on a commissioned mandate.
-            </p>
-            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-sm border border-[var(--pa-navy)] bg-[var(--pa-navy)] px-5 py-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-white no-underline transition-colors hover:bg-[var(--pa-navy-deep)]"
-              >
-                Commission a Mandate
-              </Link>
-              <Link
-                href={"/login?returnTo=" + encodeURIComponent("/research/helios-towers")}
-                className="inline-flex items-center justify-center rounded-sm border border-[color:var(--pa-border)] bg-white px-5 py-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--pa-navy)] no-underline transition-colors hover:border-[#bcc4ce]"
-              >
-                Client Login
-              </Link>
-            </div>
-          </div>
-        )}
+        <div className="mt-10 border-t border-[color:var(--pa-border)] pt-8">
+          <p className="text-sm leading-relaxed text-[var(--pa-muted)]">
+            This note is an illustrative excerpt. The full institutional brief — financial reconstructions, covenant
+            analysis, and debt serviceability models — is delivered on a commissioned mandate.
+          </p>
+          <Link
+            href="/contact"
+            className="mt-5 inline-flex items-center justify-center rounded-sm border border-[var(--pa-navy)] bg-[var(--pa-navy)] px-5 py-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-white no-underline transition-colors hover:bg-[var(--pa-navy-deep)]"
+          >
+            Commission a Mandate
+          </Link>
+        </div>
       </article>
 
     </div>

@@ -9,7 +9,7 @@ export interface BottomNavProps {
   subText?: string;
   prevDescription?: string;
   nextDescription?: string;
-  /** Post-login return path (passed as `/login?returnTo=…`). Defaults to Helios research teaser. */
+  /** Post-login return path (passed as `/login?returnTo=…`). Defaults to Helios sample brief. */
   loginHref?: string;
 }
 

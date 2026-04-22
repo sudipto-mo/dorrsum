@@ -4,7 +4,7 @@ type Props = {
   items: PhysicalStackTocItem[];
   /** Optional intro line under the Contents heading (omit when redundant with the list). */
   description?: string;
-  /** When true, rows link to in-page anchors in the full report (authenticated readers). */
+  /** When true, rows link to in-page anchors in the full report. */
   linkable: boolean;
 };
 

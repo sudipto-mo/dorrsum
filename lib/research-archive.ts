@@ -68,7 +68,7 @@ export const RESEARCH_ARCHIVE: ResearchArtifact[] = [
     authors: ["S. Mondal"],
     href: "/research/dc-infrastructure/worldview",
     pages: 18,
-    access: "teaser",
+    access: "open",
   },
   {
     id: "dc-physical-stack-2026",
@@ -82,7 +82,7 @@ export const RESEARCH_ARCHIVE: ResearchArtifact[] = [
     authors: ["S. Mondal"],
     href: "/research/dc-infrastructure/physical-stack",
     pages: 14,
-    access: "teaser",
+    access: "open",
   },
   {
     id: "helios-towers-2026",

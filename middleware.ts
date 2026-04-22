@@ -8,8 +8,6 @@ import {
   sanitizeReturnPath,
 } from "@/lib/post-login-return";
 import { verifySessionEdge } from "@/lib/session-edge";
-import { creditWorkbenchPathname } from "@/lib/workbench-redirect";
-import { allowDcResearchWithoutAuthInDev } from "@/lib/dev-research-auth-bypass";
 import { protoSecure } from "@/lib/oauth-query";
 
 /**
@@ -19,22 +17,6 @@ import { protoSecure } from "@/lib/oauth-query";
  */
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-
-  // Gate the full map — but let the teaser iframe (showroom mode) and dev bypass through.
-  if (pathname === "/dc-network-map.html") {
-    const isShowroom = request.nextUrl.searchParams.get("showroom") === "1";
-    if (!isShowroom && !allowDcResearchWithoutAuthInDev()) {
-      const secret = (process.env.AUTH_SECRET || "").trim();
-      const token = getCookieHeader(request.headers.get("cookie"), SESSION_COOKIE);
-      const session = secret && token ? await verifySessionEdge(token, secret) : null;
-      if (!session) {
-        const loginUrl = new URL("/login", request.url);
-        loginUrl.searchParams.set("returnTo", pathname);
-        return NextResponse.redirect(loginUrl);
-      }
-    }
-    return NextResponse.next();
-  }
 
   if (pathname !== "/login") {
     return NextResponse.next();
@@ -72,5 +54,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login", "/dc-network-map.html"],
+  matcher: ["/login"],
 };
