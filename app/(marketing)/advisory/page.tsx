@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getSession } from "@/lib/get-session";
 
 export const metadata: Metadata = {
   title: "Advisory | Principal AI",
@@ -95,8 +94,6 @@ export default async function AdvisoryPage({
   const chapters: Chapter[] = crossBorderEnabled
     ? [...CHAPTERS, CROSS_BORDER_CHAPTER]
     : CHAPTERS;
-
-  const isAuthenticated = await getSession();
 
   return (
     <div className="w-full">
@@ -247,32 +244,25 @@ export default async function AdvisoryPage({
         );
       })}
 
-      {/* Client access — authenticated only, moved out of persona panel */}
-      {isAuthenticated && (
-        <section className="mt-2 grid gap-8 border-t border-[color:var(--pa-border)] bg-[#faf8f2] px-6 py-14 md:grid-cols-[minmax(0,220px)_minmax(0,1fr)] md:gap-16 md:px-10">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7b8794]">
-              Client Access
+      <section className="mt-2 grid gap-8 border-t border-[color:var(--pa-border)] bg-[#faf8f2] px-6 py-14 md:grid-cols-[minmax(0,220px)_minmax(0,1fr)] md:gap-16 md:px-10">
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7b8794]">Credit desk</p>
+        </div>
+        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+          <div className="max-w-xl">
+            <h3 className="font-serif-display text-[1.5rem] font-normal leading-tight text-[var(--pa-navy)]">Credit Desk</h3>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--pa-muted)]">
+              The institutional credit assessment environment — open read access; sign in is optional for your session.
             </p>
           </div>
-          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
-            <div className="max-w-xl">
-              <h3 className="font-serif-display text-[1.5rem] font-normal leading-tight text-[var(--pa-navy)]">
-                Credit Desk
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--pa-muted)]">
-                The institutional credit assessment environment for active mandates.
-              </p>
-            </div>
-            <Link
-              href="/credit-workbench"
-              className="shrink-0 border border-[var(--pa-navy)] bg-[var(--pa-navy)] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white no-underline transition-colors hover:bg-[var(--pa-navy-deep)]"
-            >
-              Open Credit Desk →
-            </Link>
-          </div>
-        </section>
-      )}
+          <Link
+            href="/credit-workbench"
+            className="shrink-0 border border-[var(--pa-navy)] bg-[var(--pa-navy)] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white no-underline transition-colors hover:bg-[var(--pa-navy-deep)]"
+          >
+            Open Credit Desk →
+          </Link>
+        </div>
+      </section>
 
       {/* Closing — disclosure-style */}
       <footer className="mt-4 border-t border-[color:var(--pa-border)] py-10">

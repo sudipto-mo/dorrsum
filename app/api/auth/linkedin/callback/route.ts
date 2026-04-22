@@ -8,13 +8,14 @@ import {
 } from "@/lib/linkedin-session";
 import { logLinkedInSignIn } from "@/lib/supabase-signin-log";
 import { decodeJwtPayload, queryFromUrl, trimEnv, protoSecure } from "@/lib/oauth-query";
+import { linkedinRedirectUri } from "@/lib/linkedin-oauth-env";
 import { parseOAuthState } from "@/lib/oauth-return-state";
 import { redirectToWorkbench } from "@/lib/workbench-redirect";
 
 export async function GET(request: NextRequest) {
   const clientId = trimEnv(process.env.LINKEDIN_CLIENT_ID);
   const clientSecret = trimEnv(process.env.LINKEDIN_CLIENT_SECRET);
-  const redirectUri = trimEnv(process.env.LINKEDIN_REDIRECT_URI);
+  const redirectUri = linkedinRedirectUri(request.url);
   const authSecret = trimEnv(process.env.AUTH_SECRET);
   const secure = protoSecure(request);
   const clearState = buildSetCookie(STATE_COOKIE, "", { maxAge: 0, secure });

@@ -13,7 +13,7 @@ function GlobalOAuthFlashInner() {
 
     if (mode === "success") {
       setMessage({
-        text: "You’re signed in. The Institutional Credit Desk and research gates are available on this session.",
+        text: "You’re signed in. Your name will show in the header where sign-in is supported.",
         kind: "ok",
       });
     } else if (mode === "missing_config") {

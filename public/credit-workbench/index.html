@@ -11,6 +11,7 @@
   <script>
     (function () {
       try {
+        document.documentElement.classList.add("full-report-unlocked");
         if (new URLSearchParams(window.location.search).get("embed") === "1") {
           document.documentElement.classList.add("desk-embed");
         }
@@ -3318,7 +3319,8 @@ async function refreshFullReportSession() {
     const r = await fetch("/api/auth/session", { credentials: "include" });
     if (!r.ok) throw new Error("bad status");
     const data = await r.json();
-    root.classList.toggle("full-report-unlocked", !!data.authenticated);
+    /* Full brief is public; keep unlocked regardless of sign-in. */
+    root.classList.add("full-report-unlocked");
     /* Show both OAuth entry points whenever the host has any provider configured.
        (Hiding per-provider made Google disappear until all GOOGLE_* vars were set — confusing.) */
     if (signinLinkedIn) signinLinkedIn.hidden = !data.configured;
@@ -3337,7 +3339,7 @@ async function refreshFullReportSession() {
       resetAllSubscriptionHintsHidden();
     }
   } catch (e) {
-    root.classList.remove("full-report-unlocked");
+    root.classList.add("full-report-unlocked");
     if (signinLinkedIn) signinLinkedIn.hidden = true;
     if (signinGoogle) signinGoogle.hidden = true;
     syncAccessInviteModalAuthUi();

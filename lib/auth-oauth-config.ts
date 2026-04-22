@@ -9,7 +9,6 @@ export function linkedinProviderMissingKeys(): string[] {
   const m: string[] = [];
   if (!trimEnv(process.env.LINKEDIN_CLIENT_ID)) m.push("LINKEDIN_CLIENT_ID");
   if (!trimEnv(process.env.LINKEDIN_CLIENT_SECRET)) m.push("LINKEDIN_CLIENT_SECRET");
-  if (!trimEnv(process.env.LINKEDIN_REDIRECT_URI)) m.push("LINKEDIN_REDIRECT_URI");
   return m;
 }
 

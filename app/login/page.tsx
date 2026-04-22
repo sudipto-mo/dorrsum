@@ -17,8 +17,8 @@ function pickReturnTo(sp: LoginSearchParams): string | null {
 }
 
 export const metadata: Metadata = {
-  title: "Client Access | Principal AI",
-  description: "Authenticate to access institutional credit briefs and deal screening models.",
+  title: "Sign in | Principal AI",
+  description: "Optional LinkedIn or Google sign-in to personalize your session on the site.",
   robots: { index: false, follow: false },
 };
 
@@ -45,10 +45,11 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
             <ShieldCheck className="h-6 w-6" aria-hidden />
           </div>
         </div>
-        <p className="mb-2 text-center text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7b8794]">Client Access</p>
-        <h1 className="mb-2 text-center text-2xl font-semibold text-[var(--pa-navy)]">Secure Sign-In</h1>
+        <p className="mb-2 text-center text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7b8794]">Optional</p>
+        <h1 className="mb-2 text-center text-2xl font-semibold text-[var(--pa-navy)]">Sign in</h1>
         <p className="m-0 mb-8 text-center text-sm leading-relaxed text-[var(--pa-muted)]">
-          Authenticate to access commissioned research, client briefs, and restricted workflow pages.
+          Optional sign-in: personalize your session on pages that show your account in the header. Research and the
+          credit desk are available without an account.
         </p>
 
         <div className="flex flex-col gap-3">

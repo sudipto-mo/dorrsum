@@ -19,7 +19,7 @@ alwaysApply: true
 - Run locally: **always port 8080** — `cd` to repo root, `npm install` once, then `./serve.sh` or `npm run dev` (Next.js). `npm run dev` / `dev:webpack` run `scripts/dev-8080.sh`, which **terminates any process already listening on 8080** before starting Next.js, so a stale dev server does not block startup. Do **not** use another port unless the user explicitly agrees.
 - **Do not `git commit` unless the user explicitly asks to commit** (e.g. “commit”, “commit and push”). Do not bundle `.cursor/` or other local-only IDE files into commits unless they explicitly ask to include them — keep those changes **local only**.
 - **Do not `git push` (or push to GitHub) unless the user explicitly asks to push.** If they ask to push without having committed, confirm what to commit or ask them to say “commit” first.
-- When they **do** ask to update GitHub / the live site: **commit and push to `origin main`** on **this** repo (only the files they intend — typically `app/`, `public/credit-workbench/`, `lib/`, `package.json`, not `.cursor/` unless requested).
+- When they **do** ask to update GitHub / the live site: **commit and push to `main` on both remotes** — `origin` (`sudipto-mo/principalai-credit-tool`, Vercel / principalai.pro) **and** `dorrsum` (`sudipto-mo/dorrsum`) — unless they say to push to only one. Use: `git push origin main && git push dorrsum main`. Only the files they intend — typically `app/`, `public/credit-workbench/`, `lib/`, `package.json`, not `.cursor/` unless requested.
 - **`principalai-app`** may contain a copy under `public/credit-draft/index.html` (or legacy `public/credit-memo/index.html`) for the Next.js demo; treat it as **secondary** unless the user explicitly asks to sync that repo.
 
 ## Deploy

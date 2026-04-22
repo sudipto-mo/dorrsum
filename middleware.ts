@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { redirectIfCanonicalHostMismatch } from "@/lib/canonical-host-redirect";
 import { getCookieHeader } from "@/lib/http-cookies";
 import { SESSION_COOKIE, POST_LOGIN_RETURN_COOKIE } from "@/lib/oauth-cookie-names";
 import {
@@ -11,11 +12,19 @@ import { verifySessionEdge } from "@/lib/session-edge";
 import { protoSecure } from "@/lib/oauth-query";
 
 /**
- * Skip the login screen when the session cookie is already valid (zero-click return).
- * OAuth uses Next.js API routes + signed cookies, not Supabase Auth.
+ * Optional 308 to CANONICAL_HOST: same host for /login, OAuth, and session cookies.
+ * @see {@link redirectIfCanonicalHostMismatch}
+ *
+ * On `/login` only: skip the login screen when the session cookie is already valid
+ * (zero-click return). OAuth uses Next.js API routes + signed cookies, not Supabase.
  * Honors `returnTo` query and {@link POST_LOGIN_RETURN_COOKIE} for post-login destination.
  */
 export async function middleware(request: NextRequest) {
+  const toCanonical = redirectIfCanonicalHostMismatch(request);
+  if (toCanonical) {
+    return toCanonical;
+  }
+
   const pathname = request.nextUrl.pathname;
 
   if (pathname !== "/login") {
@@ -53,6 +62,10 @@ export async function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
+/**
+ * All non-static app routes: canonical host runs first, then /login session shortcut.
+ * Preview (`*.vercel.app`) is left alone when `CANONICAL_HOST` is production-only in Vercel.
+ */
 export const config = {
-  matcher: ["/login"],
+  matcher: ["/((?!_next/static|_next/image|favicon\\.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|woff2?)$).*)"],
 };

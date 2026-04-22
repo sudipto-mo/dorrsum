@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { requireSession } from "@/lib/require-session";
 
 export const metadata: Metadata = {
   title: "Origination Radar | Principal AI",
@@ -8,8 +7,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default async function OriginationPage() {
-  await requireSession("/origination");
+export default function OriginationPage() {
   return (
     <iframe
       title="Origination Radar"

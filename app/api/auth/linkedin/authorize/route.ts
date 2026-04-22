@@ -4,6 +4,7 @@ import { STATE_COOKIE, buildSetCookie } from "@/lib/linkedin-session";
 import { POST_LOGIN_RETURN_COOKIE } from "@/lib/oauth-cookie-names";
 import { linkedinOAuthReady } from "@/lib/auth-oauth-config";
 import { redirectToWorkbench } from "@/lib/workbench-redirect";
+import { linkedinRedirectUri } from "@/lib/linkedin-oauth-env";
 import { trimEnv, protoSecure } from "@/lib/oauth-query";
 import { buildOAuthState } from "@/lib/oauth-return-state";
 import { sanitizeReturnPath } from "@/lib/post-login-return";
@@ -14,7 +15,10 @@ export async function GET(request: NextRequest) {
   }
 
   const clientId = trimEnv(process.env.LINKEDIN_CLIENT_ID);
-  const redirectUri = trimEnv(process.env.LINKEDIN_REDIRECT_URI);
+  const redirectUri = linkedinRedirectUri(request.url);
+  if (!redirectUri) {
+    return redirectToWorkbench(request, { oauth_auth: "missing_config" });
+  }
 
   const csrf = crypto.randomBytes(24).toString("hex");
   const returnTo = sanitizeReturnPath(request.nextUrl.searchParams.get("returnTo"));
