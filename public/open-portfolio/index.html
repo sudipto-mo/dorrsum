@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Open Portfolio — DORRSUM</title>
+<meta name="description" content="A live, public portfolio of global TMT and digital infrastructure equities. Real fills, full transparency, updated daily." />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    try {
+      if (new URLSearchParams(window.location.search).get("embed") === "1") {
+        document.documentElement.classList.add("portfolio-embed");
+      }
+    } catch (e) {}
+  })();
+</script>
+<style>
+  :root {
+    --pa-page: #f5f2eb;
+    --pa-surface: #ffffff;
+    --pa-band: #ece8df;
+    --pa-text: #1f2430;
+    --pa-muted: #5c6573;
+    --pa-border: #d8d3c8;
+    --pa-navy: #26215C;
+    --pa-navy-deep: #1e1a4e;
+    --pa-signature: #534AB7;
+    --pa-signature-deep: #3d3590;
+    --pa-nav-bg: oklch(95.5% 0.01 82 / 0.9);
+    --pa-nav-border: rgba(20, 40, 80, 0.07);
+    --color-deep:      #26215C;
+    --color-violet:    #534AB7;
+    --color-mid:       #AFA9EC;
+    --color-pale:      #E8E6FF;
+    --color-off-white: #F7F7FB;
+  }
+  html, body { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif; }
+  body { background: var(--pa-page); color: var(--pa-text); font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .font-serif-display { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.01em; }
+  .pa-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; color: var(--pa-navy); }
+  .pa-eyebrow { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; color: #7b8794; }
+  .pa-section-h { font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: var(--pa-text); }
+  .pa-body { font-size: 15px; line-height: 1.7; color: var(--pa-muted); }
+  .pa-cta {
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 2px;
+    border: 1px solid var(--pa-navy);
+    background: var(--pa-navy); color: #fff;
+    padding: 12px 20px;
+    font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    transition: background-color 0.15s;
+  }
+  .pa-cta:hover { background: var(--pa-navy-deep); }
+  .pa-cta-ghost {
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 2px;
+    border: 1px solid var(--pa-navy);
+    color: var(--pa-navy); background: transparent;
+    padding: 12px 20px;
+    font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    transition: all 0.15s;
+  }
+  .pa-cta-ghost:hover { background: rgba(36,59,83,0.04); }
+
+  /* Exhibit table styling (institutional research) */
+  table.pa-exhibit { width: 100%; border-collapse: collapse; font-size: 14px; }
+  table.pa-exhibit thead th {
+    font-family: 'Inter'; font-size: 10.5px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: #7b8794;
+    padding: 10px 12px; text-align: left;
+    border-bottom: 1px solid var(--pa-navy);
+  }
+  table.pa-exhibit thead th.num { text-align: right; }
+  table.pa-exhibit tbody td {
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--pa-border);
+    color: var(--pa-text);
+    font-variant-numeric: tabular-nums;
+  }
+  table.pa-exhibit tbody td.num { text-align: right; }
+  table.pa-exhibit tbody tr:hover { background: rgba(20,40,80,0.02); }
+  table.pa-exhibit tbody tr:last-child td { border-bottom: none; }
+  .ticker { font-weight: 600; color: var(--pa-navy); letter-spacing: 0.02em; }
+  .sub-label {
+    font-size: 10.5px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.1em; color: #7b8794;
+  }
+  .pl-gain { color: var(--pa-navy); font-weight: 500; }
+  .pl-loss { color: var(--pa-signature); font-weight: 500; }
+
+  /* Mix bar (bar composition) */
+  .mix-row { display: grid; grid-template-columns: 140px 1fr 60px; gap: 14px; align-items: center; padding: 8px 0; }
+  .mix-row .label { font-size: 13px; color: var(--pa-text); }
+  .mix-row .pct { font-size: 13px; text-align: right; color: var(--pa-navy); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .mix-bar-outer { height: 5px; background: var(--pa-band); border-radius: 1px; overflow: hidden; }
+  .mix-bar-inner { display: block; height: 100%; background: var(--pa-navy); }
+  .mix-bar-inner.signature { background: var(--pa-signature); }
+
+  /* Trade log */
+  .trade-item {
+    display: grid; grid-template-columns: 140px 110px 70px 1fr;
+    gap: 20px; align-items: baseline;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--pa-border);
+  }
+  .trade-item:last-child { border-bottom: none; }
+  .trade-date { font-size: 12px; letter-spacing: 0.08em; color: #7b8794; text-transform: uppercase; font-weight: 500; }
+  .trade-action { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--pa-navy); }
+  .trade-action.exit { color: var(--pa-signature); }
+  .trade-ticker { font-weight: 600; color: var(--pa-navy); font-size: 14px; }
+  .trade-text { font-size: 14px; color: var(--pa-muted); line-height: 1.6; }
+  .trade-text em { font-style: normal; color: var(--pa-text); font-weight: 500; }
+
+  /* Archive index */
+  .archive-item {
+    display: grid; grid-template-columns: 80px 120px 1fr;
+    gap: 20px; align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--pa-border);
+  }
+  .archive-item:last-child { border-bottom: none; }
+  .archive-num { font-size: 11px; letter-spacing: 0.14em; color: #7b8794; font-weight: 600; text-transform: uppercase; }
+  .archive-date { font-size: 12px; letter-spacing: 0.08em; color: var(--pa-muted); text-transform: uppercase; }
+  .archive-title { font-size: 15px; color: var(--pa-navy); font-weight: 500; }
+  .archive-item:hover .archive-title { text-decoration: underline; text-decoration-color: var(--pa-border); }
+
+  /* Gate */
+  .gate {
+    margin-top: 20px;
+    padding: 28px;
+    border: 1px solid var(--pa-border);
+    background: var(--pa-surface);
+    border-radius: 2px;
+    text-align: center;
+  }
+  .gate-input {
+    background: #fff; border: 1px solid var(--pa-border);
+    padding: 10px 14px;
+    border-radius: 2px;
+    font-family: 'Inter'; font-size: 13px;
+    color: var(--pa-text);
+    min-width: 260px; outline: none;
+  }
+  .gate-input:focus { border-color: var(--pa-navy); }
+
+  /* When embedded in the main site, hide duplicate chrome. */
+  html.portfolio-embed header { display: none !important; }
+  html.portfolio-embed footer { display: none !important; }
+</style>
+</head>
+
+<body class="min-h-screen">
+
+<!-- NAVBAR -->
+<header class="sticky top-0 z-50 border-b" style="background: var(--pa-nav-bg); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-color: var(--pa-nav-border);">
+  <div class="max-w-6xl mx-auto px-6 h-[58px] flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3" style="text-decoration:none;">
+      <div style="width:34px;height:34px;border-radius:2px;background:var(--color-off-white);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:var(--color-deep);">D</span>
+      </div>
+      <div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.04em;color:var(--pa-navy);">DO<span style="color:var(--color-violet);">RR</span>SUM</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--pa-muted);margin-top:-2px;">RETURN AND RISK. SUMMED UP.</div>
+      </div>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[13px]" style="font-weight: 500;">
+      <a href="/research" style="color: var(--pa-text); opacity: 0.68; text-decoration: none;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.68'">Research</a>
+      <a href="/advisory" style="color: var(--pa-text); opacity: 0.68; text-decoration: none;">Advisory <span style="font-size: 8px; opacity: 0.5;">▾</span></a>
+      <a href="#" style="color: var(--pa-navy); font-weight: 600; text-decoration: none;">Open Portfolio</a>
+      <a href="/contact" style="color: var(--pa-text); opacity: 0.68; text-decoration: none;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.68'">Contact</a>
+    </nav>
+    <a href="#follow" class="pa-cta" style="padding: 8px 14px; font-size: 11px;">Follow Free</a>
+  </div>
+</header>
+
+<!-- ARTICLE -->
+<main class="min-h-full w-full" style="background: var(--pa-page); color: var(--pa-text);">
+  <article class="relative mx-auto max-w-5xl px-5 pb-20 pt-10 sm:px-8 sm:pt-14 md:pt-16">
+
+    <!-- Breadcrumb + header -->
+    <header class="mb-12 border-b pb-10" style="border-color: var(--pa-border);">
+      <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em]" style="color:#7b8794;">
+        <a href="/research" style="color:#7b8794; text-decoration:none;">← Research</a>
+        <span style="margin: 0 6px;">·</span>Open Portfolio
+      </p>
+      <h1 class="pa-title text-3xl sm:text-4xl md:text-[2.75rem] max-w-3xl">
+        A live portfolio of global TMT and digital infrastructure equities.
+      </h1>
+      <p class="mt-5 text-base sm:text-lg leading-[1.7] max-w-2xl" style="color: var(--pa-muted);">
+        Every position held in a real brokerage account. Every entry price, exit, and return is real.
+        Published openly — to build a transparent, long-run track record in the sectors I know best.
+      </p>
+      <p class="mt-5 text-sm" style="color:#7b8794; letter-spacing: 0.02em;">
+        Singapore · Inception 03 October 2025 · Updated end-of-day · Free to follow
+      </p>
+    </header>
+
+    <!-- What this is -->
+    <section class="mb-14">
+      <div class="flex items-baseline gap-2 mb-4">
+        <h2 class="pa-section-h">What this is</h2>
+      </div>
+      <div class="max-w-3xl space-y-4">
+        <p class="pa-body">
+          <strong style="color: var(--pa-text); font-weight: 600;">Dorrsum Open Portfolio</strong> is a live, publicly tracked investment portfolio in global technology, media, telecom, and digital infrastructure equities. It is managed by me — a credit practitioner in these sectors — with my own capital, in a real brokerage account.
+        </p>
+        <p class="pa-body">
+          Everything here is observable: position sizes as percentage weights, real entry dates, real fill prices, real returns, and a weekly letter explaining the thinking. No paid tier, no model portfolio separate from my real one, no personalised advice.
+        </p>
+        <p class="pa-body" style="color: var(--pa-text); font-weight: 500;">
+          Nothing on this page is investment advice. It is my own views and my own trades, published for readers who want to follow a practitioner's thinking in the open.
+        </p>
+      </div>
+    </section>
+
+    <!-- Performance -->
+    <section class="mb-14">
+      <div class="flex items-baseline gap-2 mb-6">
+        <h2 class="pa-section-h">Performance</h2>
+        <span class="ml-3 text-xs uppercase tracking-[0.14em]" style="color:#7b8794;">As of EOD 23 Apr 2026</span>
+      </div>
+
+      <!-- Inline stats row -->
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-x-10 gap-y-6 mb-8 max-w-4xl">
+        <div>
+          <div class="sub-label mb-2">Since Inception</div>
+          <div class="font-serif-display font-light text-3xl" style="color: var(--pa-navy);">+14.2<span style="font-size: 0.65em; letter-spacing: 0;">%</span></div>
+          <div class="text-xs mt-1" style="color: var(--pa-muted);">Benchmark +9.5%</div>
+        </div>
+        <div>
+          <div class="sub-label mb-2">YTD 2026</div>
+          <div class="font-serif-display font-light text-3xl" style="color: var(--pa-navy);">+7.8<span style="font-size: 0.65em; letter-spacing: 0;">%</span></div>
+          <div class="text-xs mt-1" style="color: var(--pa-muted);">Benchmark +4.2%</div>
+        </div>
+        <div>
+          <div class="sub-label mb-2">Positions</div>
+          <div class="font-serif-display font-light text-3xl" style="color: var(--pa-navy);">15</div>
+          <div class="text-xs mt-1" style="color: var(--pa-muted);">Long only</div>
+        </div>
+        <div>
+          <div class="sub-label mb-2">Cash</div>
+          <div class="font-serif-display font-light text-3xl" style="color: var(--pa-navy);">8.0<span style="font-size: 0.65em; letter-spacing: 0;">%</span></div>
+          <div class="text-xs mt-1" style="color: var(--pa-muted);">Dry powder</div>
+        </div>
+        <div>
+          <div class="sub-label mb-2">Days Live</div>
+          <div class="font-serif-display font-light text-3xl" style="color: var(--pa-navy);">202</div>
+          <div class="text-xs mt-1" style="color: var(--pa-muted);">Oct '25 – Apr '26</div>
+        </div>
+      </div>
+
+      <!-- NAV chart -->
+      <div class="mt-8 pt-8 border-t" style="border-color: var(--pa-border);">
+        <div class="flex items-baseline justify-between mb-4 flex-wrap gap-3">
+          <div class="sub-label">NAV Curve · Rebased to 100 at Inception</div>
+          <div class="flex items-center gap-5 text-xs" style="color: var(--pa-muted);">
+            <span class="inline-flex items-center gap-2"><span style="display:inline-block;width:16px;height:2px;background:var(--pa-navy);"></span>Open Portfolio</span>
+            <span class="inline-flex items-center gap-2"><span style="display:inline-block;width:16px;height:1px;background:#7b8794;border-top:1px dashed #7b8794;"></span>Benchmark (ACWI Tech + Comm 50/50)</span>
+          </div>
+        </div>
+        <div class="w-full" style="height: 320px;">
+          <svg viewBox="0 0 1000 320" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+            <!-- gridlines -->
+            <g stroke="#d8d3c8" stroke-width="1" opacity="0.6">
+              <line x1="0" y1="60"  x2="1000" y2="60"/>
+              <line x1="0" y1="130" x2="1000" y2="130"/>
+              <line x1="0" y1="200" x2="1000" y2="200"/>
+              <line x1="0" y1="270" x2="1000" y2="270"/>
+            </g>
+            <!-- y labels -->
+            <g font-family="Inter, sans-serif" font-size="10" fill="#7b8794" font-weight="500">
+              <text x="8" y="63">120</text>
+              <text x="8" y="133">110</text>
+              <text x="8" y="203">100</text>
+              <text x="8" y="273">90</text>
+            </g>
+            <!-- x labels -->
+            <g font-family="Inter, sans-serif" font-size="10" fill="#7b8794" font-weight="500" letter-spacing="0.05em">
+              <text x="40"  y="312">OCT</text>
+              <text x="180" y="312">NOV</text>
+              <text x="320" y="312">DEC</text>
+              <text x="460" y="312">JAN</text>
+              <text x="600" y="312">FEB</text>
+              <text x="740" y="312">MAR</text>
+              <text x="880" y="312">APR '26</text>
+            </g>
+            <!-- Benchmark dashed -->
+            <path d="M 30 200 L 90 197 L 150 205 L 210 228 L 270 232 L 330 225 L 390 193 L 450 176 L 510 179 L 570 192 L 630 207 L 690 221 L 750 205 L 810 170 L 870 147 L 930 133 L 970 132"
+              fill="none" stroke="#7b8794" stroke-width="1.25" stroke-dasharray="5,4" opacity="0.75"/>
+            <!-- Portfolio line -->
+            <path d="M 30 200 L 90 193 L 150 202 L 210 232 L 270 240 L 330 228 L 390 180 L 450 156 L 510 162 L 570 175 L 630 189 L 690 212 L 750 191 L 810 150 L 870 120 L 930 102 L 970 100"
+              fill="none" stroke="#26215C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- end marker -->
+            <circle cx="970" cy="100" r="4" fill="#26215C"/>
+            <!-- callout -->
+            <g transform="translate(870, 70)">
+              <rect width="100" height="24" rx="1" fill="#ffffff" stroke="#d8d3c8"/>
+              <text x="10" y="16" font-family="Space Grotesk, sans-serif" font-weight="500" font-size="13" fill="#26215C">114.2</text>
+              <text x="58" y="16" font-family="Inter, sans-serif" font-size="10" fill="#5c6573">+14.2%</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest letter -->
+    <section class="mb-14 border-t pt-12" style="border-color: var(--pa-border);">
+      <div class="flex items-baseline gap-2 mb-5">
+        <h2 class="pa-section-h">This Week's Letter</h2>
+        <span class="ml-3 text-xs uppercase tracking-[0.14em]" style="color:#7b8794;">Wk 29 · 20 Apr 2026</span>
+      </div>
+      <div class="max-w-3xl">
+        <h3 class="pa-title text-2xl sm:text-[1.75rem] mb-4">Equinix Q1 — the bottleneck is still power.</h3>
+        <p class="pa-body mb-5">
+          The Equinix print confirms what the last six months of site visits and utility filings have been
+          telegraphing: new capacity in Northern Virginia is gated not by steel or capital, but by when
+          Dominion can energise the substation. Same story in Singapore. Here is why Vertiv and
+          Constellation are the right way to play this — and why I am not trimming EQIX.
+        </p>
+        <a href="#" class="pa-cta-ghost">Continue reading →</a>
+      </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio" class="mb-14 border-t pt-12" style="border-color: var(--pa-border);">
+      <div class="flex items-baseline gap-2 mb-5">
+        <h2 class="pa-section-h">Current Portfolio</h2>
+        <span class="ml-3 text-xs uppercase tracking-[0.14em]" style="color:#7b8794;">15 positions · % weights</span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="pa-exhibit">
+          <thead>
+            <tr>
+              <th>Ticker</th>
+              <th>Holding</th>
+              <th>Sector</th>
+              <th>Geo</th>
+              <th class="num">Weight</th>
+              <th class="num">Entry</th>
+              <th class="num">P&L</th>
+              <th class="num">Days</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ticker">NVDA</span></td>
+              <td>Nvidia</td>
+              <td><span class="sub-label">Semis · AI</span></td>
+              <td><span class="sub-label">US</span></td>
+              <td class="num">10.0%</td>
+              <td class="num">03 Oct 2025</td>
+              <td class="num pl-gain">+29.7%</td>
+              <td class="num">202</td>
+            </tr>
+            <tr>
+              <td><span class="ticker">EQIX</span></td>
+              <td>Equinix</td>
+              <td><span class="sub-label">Data Centre</span></td>
+              <td><span class="sub-label">US</span></td>
+              <td class="num">9.0%</td>
+              <td class="num">03 Oct 2025</td>
+              <td class="num pl-gain">+10.9%</td>
+              <td class="num">202</td>
+            </tr>
+            <tr>
+              <td><span class="ticker">MSFT</span></td>
+              <td>Microsoft</td>
+              <td><span class="sub-label">Hyperscaler</span></td>
+              <td><span class="sub-label">US</span></td>
+              <td class="num">7.5%</td>
+              <td class="num">03 Oct 2025</td>
+              <td class="num pl-gain">+11.0%</td>
+              <td class="num">202</td>
+            </tr>
+            <tr>
+              <td><span class="ticker">VRT</span></td>
+              <td>Vertiv Holdings</td>
+              <td><span class="sub-label">Power · Cooling</span></td>
+              <td><span class="sub-label">US</span></td>
+              <td class="num">7.0%</td>
+              <td class="num">03 Oct 2025</td>
+              <td class="num pl-gain">+33.0%</td>
+              <td class="num">202</td>
+            </tr>
+            <tr>
+              <td><span class="ticker">CEG</span></td>
+              <td>Constellation Energy</td>
+              <td><span class="sub-label">Power · Nuclear</span></td>
+              <td><span class="sub-label">US</span></td>
+              <td class="num">6.5%</td>
+              <td class="num">15 Nov 2025</td>
+              <td class="num pl-gain">+18.4%</td>
+              <td class="num">160</td>
+            </tr>
+            <tr>
+              <td><span class="ticker">DLR</span></td>
+              <td>Digital Realty</td>
+              <td><span class="sub-label">Data Centre</span></td>
+              <td><span class="sub-label">US</span></td>
+              <td class="num">6.5%</td>
+              <td class="num">03 Oct 2025</td>
+              <td class="num pl-gain">+8.8%</td>
+              <td class="num">202</td>
+            </tr>
+            <tr>
+              <td><span class="ticker">TSM</span></td>
+              <td>TSMC</td>
+              <td><span class="sub-label">Semis · Foundry</span></td>
+              <td><span class="sub-label">TW</span></td>
+              <td class="num">6.0%</td>
+              <td class="num">03 Oct 2025</td>
+              <td class="num pl-gain">+17.7%</td>
+              <td class="num">202</td>
+            </tr>
+            <tr>
+              <td><span class="ticker">AMT</span></td>
+              <td>American Tower</td>
+              <td><span class="sub-label">Towers</span></td>
+              <td><span class="sub-label">US</span></td>
+              <td class="num">6.0%</td>
+              <td class="num">03 Oct 2025</td>
+              <td class="num pl-gain">+10.1%</td>
+              <td class="num">202</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Gate -->
+      <div class="gate">
+        <p class="sub-label mb-2" style="color: var(--pa-navy);">7 More Positions</p>
+        <p class="pa-body mb-5" style="max-width: 440px; margin-left: auto; margin-right: auto;">
+          Join the free list to see the full portfolio, the weekly letter, and the complete trade log.
+        </p>
+        <form onsubmit="event.preventDefault();" class="flex justify-center gap-2 flex-wrap">
+          <input type="email" placeholder="you@domain.com" required class="gate-input">
+          <button type="submit" class="pa-cta">Unlock</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Composition -->
+    <section class="mb-14 border-t pt-12" style="border-color: var(--pa-border);">
+      <div class="flex items-baseline gap-2 mb-6">
+        <h2 class="pa-section-h">Composition</h2>
+        <span class="ml-3 text-xs uppercase tracking-[0.14em]" style="color:#7b8794;">By sector and geography</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-x-12 gap-y-8">
+        <div>
+          <div class="sub-label mb-4" style="color: var(--pa-navy);">By Sector</div>
+          <div class="mix-row"><div class="label">Semiconductors</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 26.5%;"></span></div><div class="pct">26.5%</div></div>
+          <div class="mix-row"><div class="label">Data Centres</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 19.5%;"></span></div><div class="pct">19.5%</div></div>
+          <div class="mix-row"><div class="label">Power &amp; Cooling</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 18.5%;"></span></div><div class="pct">18.5%</div></div>
+          <div class="mix-row"><div class="label">Towers</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 14.5%;"></span></div><div class="pct">14.5%</div></div>
+          <div class="mix-row"><div class="label">Hyperscalers</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 12%;"></span></div><div class="pct">12.0%</div></div>
+          <div class="mix-row"><div class="label">AI Cloud</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 5%;"></span></div><div class="pct">5.0%</div></div>
+          <div class="mix-row"><div class="label">Cash</div><div class="mix-bar-outer"><span class="mix-bar-inner signature" style="width: 8%;"></span></div><div class="pct">8.0%</div></div>
+        </div>
+        <div>
+          <div class="sub-label mb-4" style="color: var(--pa-navy);">By Geography</div>
+          <div class="mix-row"><div class="label">United States</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 72.5%;"></span></div><div class="pct">72.5%</div></div>
+          <div class="mix-row"><div class="label">Asia-Pacific</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 10%;"></span></div><div class="pct">10.0%</div></div>
+          <div class="mix-row"><div class="label">Europe</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 9.5%;"></span></div><div class="pct">9.5%</div></div>
+          <div class="mix-row"><div class="label">Cash</div><div class="mix-bar-outer"><span class="mix-bar-inner signature" style="width: 8%;"></span></div><div class="pct">8.0%</div></div>
+
+          <div class="mt-8 pt-6 border-t" style="border-color: var(--pa-border);">
+            <div class="sub-label mb-3" style="color: var(--pa-navy);">Portfolio stats</div>
+            <dl class="text-sm space-y-2" style="color: var(--pa-muted);">
+              <div class="flex justify-between"><dt>Largest position</dt><dd style="color: var(--pa-text); font-weight: 500;">NVDA · 10.0%</dd></div>
+              <div class="flex justify-between"><dt>Smallest position</dt><dd style="color: var(--pa-text); font-weight: 500;">GDS · 4.0%</dd></div>
+              <div class="flex justify-between"><dt>Average holding</dt><dd style="color: var(--pa-text); font-weight: 500;">163 days</dd></div>
+              <div class="flex justify-between"><dt>Turnover (LTM)</dt><dd style="color: var(--pa-text); font-weight: 500;">14%</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trade Log -->
+    <section class="mb-14 border-t pt-12" style="border-color: var(--pa-border);">
+      <div class="flex items-baseline gap-2 mb-5">
+        <h2 class="pa-section-h">Trade Log</h2>
+        <span class="ml-3 text-xs uppercase tracking-[0.14em]" style="color:#7b8794;">Last 30 days · % weights</span>
+      </div>
+      <div>
+        <div class="trade-item">
+          <div class="trade-date">22 Apr 2026</div>
+          <div class="trade-action">Opened</div>
+          <div class="trade-ticker">GDS</div>
+          <div class="trade-text">New <em>4.0%</em> position. China DC thesis — hyperscaler pipeline catching up, valuation gap vs US peers narrowing.</div>
+        </div>
+        <div class="trade-item">
+          <div class="trade-date">15 Apr 2026</div>
+          <div class="trade-action">Trimmed</div>
+          <div class="trade-ticker">MSFT</div>
+          <div class="trade-text">Reduced from <em>8.5% to 7.5%</em>. Valuation discipline after strong rally; recycled into cash buffer.</div>
+        </div>
+        <div class="trade-item">
+          <div class="trade-date">08 Apr 2026</div>
+          <div class="trade-action">Opened</div>
+          <div class="trade-ticker">CRWV</div>
+          <div class="trade-text">New <em>5.0%</em> position. Risk/reward post correction; GPU-debt unwind overdone; contract book under-appreciated.</div>
+        </div>
+        <div class="trade-item">
+          <div class="trade-date">02 Apr 2026</div>
+          <div class="trade-action exit">Exited</div>
+          <div class="trade-ticker">VOD</div>
+          <div class="trade-text">Closed <em>3.0%</em> position. Thesis broken — third consecutive execution miss; capex discipline question marks.</div>
+        </div>
+        <div class="trade-item">
+          <div class="trade-date">25 Mar 2026</div>
+          <div class="trade-action">Added</div>
+          <div class="trade-ticker">CEG</div>
+          <div class="trade-text">Increased from <em>5.0% to 6.5%</em>. Power scarcity thesis strengthening; nuclear re-rating has further to run.</div>
+        </div>
+        <div class="trade-item">
+          <div class="trade-date">18 Mar 2026</div>
+          <div class="trade-action">Trimmed</div>
+          <div class="trade-ticker">NVDA</div>
+          <div class="trade-text">Reduced from <em>11.0% to 10.0%</em>. Position sizing discipline — not a thesis change.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Letter archive -->
+    <section id="letters" class="mb-14 border-t pt-12" style="border-color: var(--pa-border);">
+      <div class="flex items-baseline gap-2 mb-5">
+        <h2 class="pa-section-h">Letters</h2>
+        <span class="ml-3 text-xs uppercase tracking-[0.14em]" style="color:#7b8794;">29 issues · weekly</span>
+      </div>
+      <div>
+        <div class="archive-item"><div class="archive-num">WK 29</div><div class="archive-date">20 Apr 2026</div><a href="#" class="archive-title" style="text-decoration:none;">Equinix Q1 — the bottleneck is still power.</a></div>
+        <div class="archive-item"><div class="archive-num">WK 28</div><div class="archive-date">13 Apr 2026</div><a href="#" class="archive-title" style="text-decoration:none;">Why I opened a position in CoreWeave.</a></div>
+        <div class="archive-item"><div class="archive-num">WK 27</div><div class="archive-date">06 Apr 2026</div><a href="#" class="archive-title" style="text-decoration:none;">Vertiv vs Eaton — both benefit, neither dominant.</a></div>
+        <div class="archive-item"><div class="archive-num">WK 26</div><div class="archive-date">30 Mar 2026</div><a href="#" class="archive-title" style="text-decoration:none;">The China data centre valuation gap.</a></div>
+        <div class="archive-item"><div class="archive-num">WK 25</div><div class="archive-date">23 Mar 2026</div><a href="#" class="archive-title" style="text-decoration:none;">Constellation and the nuclear call option.</a></div>
+        <div class="archive-item"><div class="archive-num">WK 24</div><div class="archive-date">16 Mar 2026</div><a href="#" class="archive-title" style="text-decoration:none;">When to trim a winner.</a></div>
+        <div class="archive-item"><div class="archive-num">WK 23</div><div class="archive-date">09 Mar 2026</div><a href="#" class="archive-title" style="text-decoration:none;">Cellnex — cash flow finally arriving.</a></div>
+        <div class="archive-item"><div class="archive-num">WK 22</div><div class="archive-date">02 Mar 2026</div><a href="#" class="archive-title" style="text-decoration:none;">Reading the hyperscaler capex plans.</a></div>
+      </div>
+      <div class="mt-8">
+        <a href="#" class="pa-cta-ghost">View all 29 letters →</a>
+      </div>
+    </section>
+
+    <!-- Follow / Subscribe -->
+    <section id="follow" class="mb-14 border-t pt-12" style="border-color: var(--pa-border);">
+      <div class="grid md:grid-cols-[1fr_auto] gap-10 items-center">
+        <div class="max-w-2xl">
+          <h2 class="pa-title text-2xl sm:text-[1.75rem] mb-3">Follow the portfolio.</h2>
+          <p class="pa-body">
+            One weekly letter. Every trade, with reasoning. Free, always. Signal, not noise.
+          </p>
+        </div>
+        <form onsubmit="event.preventDefault();" class="flex gap-2 flex-wrap">
+          <input type="email" placeholder="you@domain.com" required class="gate-input">
+          <button type="submit" class="pa-cta">Follow</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Disclaimer -->
+    <section class="mt-16 border-t pt-10" style="border-color: var(--pa-border);">
+      <p class="text-sm leading-relaxed" style="color: var(--pa-muted); max-width: 960px;">
+        <strong style="color: var(--pa-text); font-weight: 600;">Dorrsum Open Portfolio</strong> reflects the author's personal, real-money investment
+        positions held in a live brokerage account. All entries, exits, prices, and returns shown are real
+        fills from that account, updated at end-of-day. This page is published for transparency and
+        educational purposes. <strong style="color: var(--pa-text); font-weight: 600;">Nothing here constitutes personalised financial advice</strong>
+        or a recommendation to buy or sell any security. The author is not a registered investment
+        adviser in any jurisdiction. Past performance is not indicative of future returns. Readers should
+        conduct their own research and consult a licensed adviser before making any investment decision.
+      </p>
+    </section>
+
+  </article>
+</main>
+
+<!-- Footer -->
+<footer class="border-t mt-12" style="border-color: var(--pa-border); background: var(--pa-band);">
+  <div class="max-w-6xl mx-auto px-6 py-10 flex justify-between items-center flex-wrap gap-4">
+    <div class="flex items-center gap-3">
+      <div style="width:34px;height:34px;border-radius:2px;background:var(--color-off-white);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:var(--color-deep);">D</span>
+      </div>
+      <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: var(--pa-text);">
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:0.04em;color:var(--pa-navy);">DO<span style="color:var(--color-violet);">RR</span>SUM</span>
+        <div style="margin-top:6px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--pa-muted);">RETURN AND RISK. SUMMED UP.</div>
+      </div>
+    </div>
+    <div class="text-xs uppercase tracking-[0.14em]" style="color:#7b8794;">
+      Built in Singapore · © 2026
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

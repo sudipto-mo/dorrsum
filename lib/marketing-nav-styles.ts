@@ -49,33 +49,43 @@ export const marketingNavInnerRowStyle: CSSProperties = {
   gap: 16,
 };
 
+/** Square D badge — light surface, Dorrsum deep letter (see rebrand spec). */
 export const marketingNavBrandMarkStyle: CSSProperties = {
-  width: 32,
-  height: 32,
-  background: "oklch(15% 0.07 258)",
-  borderRadius: 3,
+  width: 34,
+  height: 34,
+  borderRadius: 2,
+  background: "var(--color-off-white)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  fontFamily: 'Libre Baskerville, var(--font-hero-serif), ui-serif, Georgia, serif',
-  fontSize: 14,
-  fontWeight: 700,
-  color: "white",
+  flexShrink: 0,
 };
 
+export const marketingNavBrandMarkLetterStyle: CSSProperties = {
+  fontFamily: "var(--font-brand), ui-sans-serif, system-ui, sans-serif",
+  fontSize: 18,
+  fontWeight: 700,
+  lineHeight: 1,
+  color: "var(--color-deep)",
+};
+
+/** “DORRSUM” with RR in brand violet — use with child span for RR. */
 export const marketingNavTitleStyle: CSSProperties = {
-  fontSize: 13,
-  fontWeight: 600,
-  letterSpacing: "-0.01em",
-  color: "oklch(15% 0.07 258)",
+  fontFamily: "var(--font-brand), ui-sans-serif, system-ui, sans-serif",
+  fontSize: 14,
+  fontWeight: 700,
+  letterSpacing: "0.04em",
+  color: "var(--color-deep)",
 };
 
 export const marketingNavTaglineStyle: CSSProperties = {
-  fontSize: 8.5,
-  letterSpacing: "0.15em",
+  fontFamily: "var(--font-mono-brand), ui-monospace, monospace",
+  fontSize: 9,
+  letterSpacing: "0.18em",
   textTransform: "uppercase",
-  color: "oklch(38% 0.06 258)",
+  color: "var(--pa-muted)",
   fontWeight: 400,
+  marginTop: -2,
 };
 
 export const marketingNavWipBadgeStyle: CSSProperties = {

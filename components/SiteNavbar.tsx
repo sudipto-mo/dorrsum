@@ -4,7 +4,9 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { HERO_BRAND } from "@/lib/hero-marketing";
+import NavOpenPortfolioLink from "@/components/NavOpenPortfolioLink";
 import {
+  marketingNavBrandMarkLetterStyle,
   marketingNavBrandMarkStyle,
   marketingNavInnerRowStyle,
   marketingNavLinkStyle,
@@ -207,6 +209,7 @@ export default function SiteNavbar({ authBadge, authNavItems }: { authBadge?: Re
         <div style={marketingNavInnerRowStyle}>
           <Link
             href="/"
+            aria-label="DORRSUM home"
             onClick={closeMobile}
             onMouseEnter={(e) => {
               e.currentTarget.style.opacity = "0.95";
@@ -224,9 +227,15 @@ export default function SiteNavbar({ authBadge, authNavItems }: { authBadge?: Re
               flexShrink: 0,
             }}
           >
-            <div style={marketingNavBrandMarkStyle}>{HERO_BRAND.mark}</div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <span style={marketingNavTitleStyle}>{HERO_BRAND.title}</span>
+            <div style={marketingNavBrandMarkStyle} aria-hidden>
+              <span style={marketingNavBrandMarkLetterStyle}>D</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column" }} aria-hidden>
+              <span style={marketingNavTitleStyle}>
+                DO
+                <span style={{ color: "var(--color-violet)" }}>RR</span>
+                SUM
+              </span>
               <span className="hidden md:block" style={marketingNavTaglineStyle}>
                 {HERO_BRAND.tagline}
               </span>
@@ -256,6 +265,7 @@ export default function SiteNavbar({ authBadge, authNavItems }: { authBadge?: Re
               <NavMarketingLink href="/research">Research</NavMarketingLink>
               {authNavItems}
               <AdvisoryDropdown />
+              <NavOpenPortfolioLink />
               <NavMarketingLink href="/contact">Contact</NavMarketingLink>
             </div>
 
@@ -299,6 +309,9 @@ export default function SiteNavbar({ authBadge, authNavItems }: { authBadge?: Re
             <NavMarketingLink href="/research" onClick={closeMobile} style={{ display: "block", padding: "10px 0" }}>
               Research
             </NavMarketingLink>
+            <div style={{ padding: "10px 0" }}>
+              <NavOpenPortfolioLink />
+            </div>
             <div style={{ paddingTop: 4 }}>{authNavItems}</div>
             <p style={{ margin: "12px 0 6px", fontSize: 11, fontWeight: 600, letterSpacing: "0.2em", color: "#7b8794", textTransform: "uppercase" }}>
               Advisory

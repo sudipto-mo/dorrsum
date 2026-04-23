@@ -19,11 +19,9 @@ export const HERO_MARKETING = {
   secondaryCta: { label: "Advisory Services", href: "/advisory" as const },
 } as const;
 
-/** Brand block — aligned with `SiteNavbar` home link. */
+/** Brand block — aligned with `SiteNavbar` home link (wordmark + tagline render in navbar). */
 export const HERO_BRAND = {
-  mark: "P",
-  title: "Principal AI",
-  tagline: "Research & Advisory",
+  tagline: "RETURN AND RISK. SUMMED UP.",
 } as const;
 
 export type HeroCarouselVizKey = "physical" | "worldview" | "ecosystem";

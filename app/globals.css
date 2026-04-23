@@ -8,6 +8,13 @@
  */
 :root,
 html[data-theme="light"] {
+  /* Dorrsum brand (aligned with public static rebrand) */
+  --color-deep: #26215c;
+  --color-violet: #534ab7;
+  --color-mid: #afa9ec;
+  --color-pale: #e8e6ff;
+  --color-off-white: #f7f7fb;
+
   /* Mirrors public/credit-workbench light tokens */
   --pa-page: #f5f2eb;
   --pa-surface: #ffffff;
@@ -15,15 +22,15 @@ html[data-theme="light"] {
   --pa-text: #1f2430;
   --pa-muted: #5c6573;
   --pa-border: #d8d3c8;
-  --pa-navy: #243b53;
-  --pa-navy-deep: #1d2f44;
+  --pa-navy: #26215c;
+  --pa-navy-deep: #1e1a4e;
   --pa-link: #243b53;
   --pa-link-hover: #1d2f44;
   --pa-accent: #566c86;
   --pa-focus: #1a365d;
   /* Institutional signature accent — deep oxblood. Used sparingly for rules, emphasis, and single brand touches. */
-  --pa-signature: #6b1d2a;
-  --pa-signature-deep: #501620;
+  --pa-signature: #534ab7;
+  --pa-signature-deep: #3d3590;
 
   /* Primary nav — matches `HeroPreview` fixed bar (glass, navy type, DM Sans rhythm) */
   --pa-nav-bg: oklch(95.5% 0.01 82 / 0.9);

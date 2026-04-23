@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Inter, Libre_Baskerville, Source_Serif_4 } from "next/font/google";
+import { DM_Sans, Inter, Libre_Baskerville, Source_Serif_4, Space_Grotesk, Space_Mono } from "next/font/google";
 import ConditionalSiteNavbar from "@/components/ConditionalSiteNavbar";
 import NavAuthBadge from "@/components/NavAuthBadge";
 import NavOriginationLink from "@/components/NavOriginationLink";
@@ -38,8 +38,24 @@ const dmSans = DM_Sans({
   variable: "--font-hero-sans",
 });
 
+/** Dorrsum wordmark / heading face */
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  display: "swap",
+  variable: "--font-brand",
+});
+
+/** Dorrsum tagline / metric labels */
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+  variable: "--font-mono-brand",
+});
+
 export const metadata: Metadata = {
-  title: "Principal AI",
+  title: "DORRSUM",
   description:
     "Research-first, transaction-ready advisory for TMT infrastructure credit — independent, practitioner-grade, and TMT-native.",
 };
@@ -48,7 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${sourceSerif.variable} ${libreBaskerville.variable} ${dmSans.variable}`}
+      className={`${inter.variable} ${sourceSerif.variable} ${libreBaskerville.variable} ${dmSans.variable} ${spaceGrotesk.variable} ${spaceMono.variable}`}
       suppressHydrationWarning
     >
       <body
