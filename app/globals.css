@@ -27,7 +27,7 @@ html[data-theme="light"] {
   --pa-link: var(--color-deep);
   --pa-link-hover: var(--color-violet);
   --pa-accent: var(--color-violet);
-  --pa-focus: #1a365d;
+  --pa-focus: var(--color-deep); /* #26215C */
   /* Institutional signature accent — brand violet. */
   --pa-signature: var(--color-violet);
 
@@ -38,7 +38,6 @@ html[data-theme="light"] {
   --pa-nav-title: oklch(15% 0.07 258);
   --pa-nav-tagline: oklch(38% 0.06 258);
   --pa-nav-mark: oklch(15% 0.07 258);
-  --pa-nav-wip: oklch(46% 0.14 253);
 }
 
 html[data-theme="dark"] {

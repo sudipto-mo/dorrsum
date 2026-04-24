@@ -88,14 +88,3 @@ export const marketingNavTaglineStyle: CSSProperties = {
   marginTop: -2,
 };
 
-export const marketingNavWipBadgeStyle: CSSProperties = {
-  flexShrink: 0,
-  fontSize: 7.5,
-  padding: "3px 7px",
-  background: "oklch(46% 0.14 253)",
-  color: "white",
-  borderRadius: 2,
-  letterSpacing: "0.07em",
-  fontWeight: 700,
-  textTransform: "uppercase",
-};

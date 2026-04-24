@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { marketingNavLinkStyle, marketingNavWipBadgeStyle } from "@/lib/marketing-nav-styles";
+import { marketingNavLinkStyle } from "@/lib/marketing-nav-styles";
 
-export default function OriginationNavLinkInner({ showDevWip }: { showDevWip: boolean }) {
+export default function OriginationNavLinkInner() {
   return (
     <Link
       href="/origination"
@@ -19,7 +19,6 @@ export default function OriginationNavLinkInner({ showDevWip }: { showDevWip: bo
       }}
     >
       Origination
-      {showDevWip ? <span style={marketingNavWipBadgeStyle}>WIP</span> : null}
     </Link>
   );
 }

@@ -11,10 +11,6 @@ export default function NavOpenPortfolioLink() {
 
   if (!enabled) return null;
 
-  return (
-    <OpenPortfolioNavLinkInner
-      showDevWip={process.env.NODE_ENV === "development"}
-    />
-  );
+  return <OpenPortfolioNavLinkInner />;
 }
 

@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { marketingNavLinkStyle, marketingNavWipBadgeStyle } from "@/lib/marketing-nav-styles";
+import { marketingNavLinkStyle } from "@/lib/marketing-nav-styles";
 
-export default function OpenPortfolioNavLinkInner({ showDevWip }: { showDevWip: boolean }) {
+export default function OpenPortfolioNavLinkInner() {
   return (
     <Link
       href="/open-portfolio"
@@ -19,7 +19,6 @@ export default function OpenPortfolioNavLinkInner({ showDevWip }: { showDevWip: 
       }}
     >
       Dorrsum Score
-      {showDevWip ? <span style={marketingNavWipBadgeStyle}>WIP</span> : null}
     </Link>
   );
 }

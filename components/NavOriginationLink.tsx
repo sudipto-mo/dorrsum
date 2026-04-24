@@ -11,5 +11,5 @@ export default function NavOriginationLink() {
 
   if (!enabled) return null;
 
-  return <OriginationNavLinkInner showDevWip={process.env.NODE_ENV === "development"} />;
+  return <OriginationNavLinkInner />;
 }

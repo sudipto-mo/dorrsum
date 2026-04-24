@@ -13,7 +13,6 @@ import {
   marketingNavShellStyle,
   marketingNavTaglineStyle,
   marketingNavTitleStyle,
-  marketingNavWipBadgeStyle,
 } from "@/lib/marketing-nav-styles";
 
 function NavMarketingLink({
@@ -44,7 +43,7 @@ function NavMarketingLink({
   );
 }
 
-type AdvisoryItem = { href: string; label: string; isWip?: boolean };
+type AdvisoryItem = { href: string; label: string };
 
 const ADVISORY_ITEMS_BASE: AdvisoryItem[] = [
   { href: "/advisory?persona=providers", label: "Credit Assessment" },
@@ -56,10 +55,7 @@ const isCrossBorderEnabled =
   process.env.NEXT_PUBLIC_ENABLE_CROSS_BORDER === "1";
 
 const ADVISORY_ITEMS: AdvisoryItem[] = isCrossBorderEnabled
-  ? [
-      ...ADVISORY_ITEMS_BASE,
-      { href: "/advisory?persona=cross-border", label: "Cross-Border Structuring", isWip: true },
-    ]
+  ? [...ADVISORY_ITEMS_BASE, { href: "/advisory?persona=cross-border", label: "Cross-Border Structuring" }]
   : ADVISORY_ITEMS_BASE;
 
 function AdvisoryDropdown({ onNavigate }: { onNavigate?: () => void }) {
@@ -154,9 +150,6 @@ function AdvisoryDropdown({ onNavigate }: { onNavigate?: () => void }) {
                 >
                   {item.label}
                 </span>
-                {"isWip" in item && item.isWip && (
-                  <span style={{ ...marketingNavWipBadgeStyle, marginLeft: 12 }}>WIP</span>
-                )}
               </Link>
             ))}
           </div>
@@ -318,10 +311,7 @@ export default function SiteNavbar({ authBadge, authNavItems }: { authBadge?: Re
             </p>
             {ADVISORY_ITEMS.map((item) => (
               <NavMarketingLink key={item.href} href={item.href} onClick={closeMobile} style={{ display: "block", padding: "8px 0 8px 16px" }}>
-                <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-                  {item.label}
-                  {"isWip" in item && item.isWip && <span style={marketingNavWipBadgeStyle}>WIP</span>}
-                </span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>{item.label}</span>
               </NavMarketingLink>
             ))}
             <NavMarketingLink href="/contact" onClick={closeMobile} style={{ display: "block", padding: "12px 0 0" }}>
