@@ -1,7 +1,7 @@
 import OpenPortfolioNavLinkInner from "@/components/OpenPortfolioNavLinkInner";
 
 /**
- * Open Portfolio nav link — dev/staging only.
+ * Dorrsum Score nav link — dev/staging only.
  * Hidden in production unless ENABLE_OPEN_PORTFOLIO=1 is set in env vars.
  */
 export default function NavOpenPortfolioLink() {

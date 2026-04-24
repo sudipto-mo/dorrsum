@@ -147,7 +147,7 @@ export default function EcosystemWebCardVisual() {
                   fill="white"
                   fontSize={n.r > 18 ? 7 : 6}
                   fontWeight="600"
-                  fontFamily="var(--font-hero-sans), system-ui, sans-serif"
+                  fontFamily="var(--font-brand), 'Space Grotesk', system-ui, sans-serif"
                   style={{ pointerEvents: "none" }}
                 >
                   {n.label.length > 10 ? n.label.slice(0, 9) + "…" : n.label}

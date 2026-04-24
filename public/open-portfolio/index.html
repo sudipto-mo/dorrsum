@@ -29,7 +29,6 @@
     --pa-navy: #26215C;
     --pa-navy-deep: #1e1a4e;
     --pa-signature: #534AB7;
-    --pa-signature-deep: #3d3590;
     --pa-nav-bg: oklch(95.5% 0.01 82 / 0.9);
     --pa-nav-border: rgba(20, 40, 80, 0.07);
     --color-deep:      #26215C;
@@ -56,103 +55,325 @@
     transition: background-color 0.15s;
   }
   .pa-cta:hover { background: var(--pa-navy-deep); }
-  .pa-cta-ghost {
-    display: inline-flex; align-items: center; justify-content: center;
-    border-radius: 2px;
-    border: 1px solid var(--pa-navy);
-    color: var(--pa-navy); background: transparent;
-    padding: 12px 20px;
-    font-size: 12px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.12em;
-    transition: all 0.15s;
-  }
-  .pa-cta-ghost:hover { background: rgba(36,59,83,0.04); }
-
-  /* Exhibit table styling (institutional research) */
-  table.pa-exhibit { width: 100%; border-collapse: collapse; font-size: 14px; }
-  table.pa-exhibit thead th {
-    font-family: 'Inter'; font-size: 10.5px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.12em;
-    color: #7b8794;
-    padding: 10px 12px; text-align: left;
-    border-bottom: 1px solid var(--pa-navy);
-  }
-  table.pa-exhibit thead th.num { text-align: right; }
-  table.pa-exhibit tbody td {
-    padding: 14px 12px;
-    border-bottom: 1px solid var(--pa-border);
-    color: var(--pa-text);
-    font-variant-numeric: tabular-nums;
-  }
-  table.pa-exhibit tbody td.num { text-align: right; }
-  table.pa-exhibit tbody tr:hover { background: rgba(20,40,80,0.02); }
-  table.pa-exhibit tbody tr:last-child td { border-bottom: none; }
-  .ticker { font-weight: 600; color: var(--pa-navy); letter-spacing: 0.02em; }
-  .sub-label {
-    font-size: 10.5px; font-weight: 500; text-transform: uppercase;
-    letter-spacing: 0.1em; color: #7b8794;
-  }
-  .pl-gain { color: var(--pa-navy); font-weight: 500; }
-  .pl-loss { color: var(--pa-signature); font-weight: 500; }
-
-  /* Mix bar (bar composition) */
-  .mix-row { display: grid; grid-template-columns: 140px 1fr 60px; gap: 14px; align-items: center; padding: 8px 0; }
-  .mix-row .label { font-size: 13px; color: var(--pa-text); }
-  .mix-row .pct { font-size: 13px; text-align: right; color: var(--pa-navy); font-weight: 500; font-variant-numeric: tabular-nums; }
-  .mix-bar-outer { height: 5px; background: var(--pa-band); border-radius: 1px; overflow: hidden; }
-  .mix-bar-inner { display: block; height: 100%; background: var(--pa-navy); }
-  .mix-bar-inner.signature { background: var(--pa-signature); }
-
-  /* Trade log */
-  .trade-item {
-    display: grid; grid-template-columns: 140px 110px 70px 1fr;
-    gap: 20px; align-items: baseline;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--pa-border);
-  }
-  .trade-item:last-child { border-bottom: none; }
-  .trade-date { font-size: 12px; letter-spacing: 0.08em; color: #7b8794; text-transform: uppercase; font-weight: 500; }
-  .trade-action { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--pa-navy); }
-  .trade-action.exit { color: var(--pa-signature); }
-  .trade-ticker { font-weight: 600; color: var(--pa-navy); font-size: 14px; }
-  .trade-text { font-size: 14px; color: var(--pa-muted); line-height: 1.6; }
-  .trade-text em { font-style: normal; color: var(--pa-text); font-weight: 500; }
-
-  /* Archive index */
-  .archive-item {
-    display: grid; grid-template-columns: 80px 120px 1fr;
-    gap: 20px; align-items: baseline;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--pa-border);
-  }
-  .archive-item:last-child { border-bottom: none; }
-  .archive-num { font-size: 11px; letter-spacing: 0.14em; color: #7b8794; font-weight: 600; text-transform: uppercase; }
-  .archive-date { font-size: 12px; letter-spacing: 0.08em; color: var(--pa-muted); text-transform: uppercase; }
-  .archive-title { font-size: 15px; color: var(--pa-navy); font-weight: 500; }
-  .archive-item:hover .archive-title { text-decoration: underline; text-decoration-color: var(--pa-border); }
-
-  /* Gate */
-  .gate {
-    margin-top: 20px;
-    padding: 28px;
-    border: 1px solid var(--pa-border);
-    background: var(--pa-surface);
-    border-radius: 2px;
-    text-align: center;
-  }
-  .gate-input {
-    background: #fff; border: 1px solid var(--pa-border);
-    padding: 10px 14px;
-    border-radius: 2px;
-    font-family: 'Inter'; font-size: 13px;
-    color: var(--pa-text);
-    min-width: 260px; outline: none;
-  }
-  .gate-input:focus { border-color: var(--pa-navy); }
 
   /* When embedded in the main site, hide duplicate chrome. */
   html.portfolio-embed header { display: none !important; }
   html.portfolio-embed footer { display: none !important; }
+
+  /* Universe Map — Digital Infrastructure supply chain */
+  .universe-frame {
+    background: var(--pa-surface);
+    border: 1px solid var(--pa-border);
+    border-radius: 2px;
+    padding: 20px 22px 18px 22px;
+    max-width: 100%;
+    min-width: 0;
+  }
+  /* Band rows */
+  .universe-row { display: grid; gap: 10px; }
+  .universe-row.financing {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* Reserve space so “Capital layer” is not painted under the cards */
+    padding-top: 22px;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px dashed var(--pa-border);
+    position: relative;
+  }
+  .financing-label {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    z-index: 2;
+    background: var(--pa-surface);
+    padding: 0 10px 4px 0;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #7b8794;
+    line-height: 1.35;
+  }
+  /* minmax(0,1fr) so columns share width equally; plain 1fr uses min-content mins and can overflow */
+  .universe-row.supply-chain {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .band-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+  /* Grid: band number stays column 1; long titles wrap only in column 2 (avoids “05” alone on row 1) */
+  .band-col-header {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 6px;
+    align-items: start;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--pa-navy);
+    padding: 0 2px 8px 2px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid var(--pa-border);
+    min-height: 3.5rem;
+    box-sizing: border-box;
+  }
+  .band-col-header .band-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--pa-navy);
+    letter-spacing: -0.02em;
+    font-style: normal;
+    line-height: 1.15;
+    padding-top: 1px;
+  }
+  .band-col-header .band-col-title {
+    min-width: 0;
+    line-height: 1.35;
+  }
+
+  .subnode-card {
+    background: #fbf8f1;
+    border: 1px solid var(--pa-border);
+    border-left: 2px solid var(--pa-border);
+    padding: 9px 11px 10px 11px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+    position: relative;
+    min-height: 84px;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .subnode-card:hover {
+    background: #f3eede;
+    border-color: var(--pa-navy);
+    border-left-color: var(--pa-navy);
+  }
+  .subnode-card.active {
+    background: #f0ece2;
+    border-color: var(--pa-navy);
+    border-left-color: var(--pa-navy);
+    border-left-width: 3px;
+    padding-left: 10px;
+  }
+  .subnode-title {
+    font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--pa-text); margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .subnode-tickers {
+    display: flex; flex-wrap: wrap; gap: 3px 4px;
+    font-size: 11.5px; line-height: 1.35;
+  }
+  .ticker-chip {
+    display: inline-block; padding: 1px 5px;
+    font-family: 'Inter'; font-weight: 600; font-size: 10.5px;
+    color: var(--pa-text);
+    background: var(--pa-surface);
+    border: 1px solid var(--pa-border);
+    border-radius: 2px; letter-spacing: 0.02em;
+  }
+  .ticker-chip.pvt {
+    color: #7b8794; font-style: italic; font-weight: 500;
+    border-style: dashed;
+  }
+  .ticker-chip.held {
+    border-color: var(--pa-navy); border-width: 1.5px;
+    color: var(--pa-navy);
+    background: #fff;
+  }
+  .subnode-more {
+    position: absolute; bottom: 6px; right: 10px;
+    font-size: 9.5px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--pa-navy);
+    pointer-events: none;
+  }
+
+  /* Highlight sub-nodes that contain ≥1 held position (always on; toggle UI removed) */
+  .universe-frame.holdings-on .subnode-card.has-holding {
+    border-left-color: var(--pa-navy);
+    border-left-width: 3px;
+    padding-left: 10px;
+  }
+  .universe-frame.holdings-on .subnode-card.has-holding::before {
+    content: '★';
+    position: absolute; top: 6px; right: 8px;
+    font-size: 11px; color: var(--pa-navy);
+    line-height: 1;
+  }
+
+  /* Detail panel — appears below grid on click */
+  .universe-detail {
+    margin-top: 16px;
+    background: #fbf8f1;
+    border: 1px solid var(--pa-border);
+    border-left: 3px solid var(--pa-navy);
+    border-radius: 2px;
+    padding: 0;
+    display: none;
+  }
+  .universe-detail.visible { display: block; }
+  .udx-head {
+    padding: 12px 16px 10px 16px;
+    border-bottom: 1px solid var(--pa-border);
+  }
+  .udx-band-label {
+    font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--pa-navy);
+  }
+  .udx-title {
+    font-size: 15px; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--pa-text); margin-top: 3px;
+  }
+  .udx-sub {
+    font-size: 12px; color: var(--pa-muted); margin-top: 4px;
+    line-height: 1.5;
+  }
+  .udx-body { padding: 12px 16px 14px 16px; }
+  .udx-body table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .udx-body th {
+    text-align: left; font-weight: 600; font-size: 9.5px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: #7b8794;
+    padding: 4px 10px 6px 0;
+    border-bottom: 1px solid var(--pa-border);
+  }
+  .udx-body td {
+    padding: 6px 10px 6px 0;
+    border-bottom: 1px dashed var(--pa-border);
+    vertical-align: top;
+  }
+  .udx-body tr:last-child td { border-bottom: none; }
+  .udx-body td.col-ticker { font-family: 'Inter'; font-weight: 700; color: var(--pa-text); white-space: nowrap; }
+  .udx-body td.col-ticker.held { color: var(--pa-navy); }
+  .udx-body td.col-name { color: var(--pa-text); }
+  .udx-body td.col-geo { font-size: 10px; color: var(--pa-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+  .udx-body td.col-exch { font-size: 10px; color: var(--pa-muted); letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
+  .udx-body td.col-num { font-size: 11.5px; font-variant-numeric: tabular-nums; color: var(--pa-text); text-align: right; white-space: nowrap; }
+  .udx-body td.col-num.muted { color: #9ca3af; }
+  .udx-body td.col-num.ret-pos { color: #166534; font-weight: 600; }
+  .udx-body td.col-num.ret-neg { color: var(--pa-signature); font-weight: 600; }
+  .udx-body th.num { text-align: right; }
+  .udx-body td.col-flag { font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .udx-body td.col-flag .pvt { color: #7b8794; font-style: italic; }
+  .udx-body td.col-flag .held { color: var(--pa-navy); font-weight: 700; }
+  .udx-hint {
+    font-size: 11px; color: var(--pa-muted); font-style: italic;
+    padding: 16px 0; text-align: center;
+  }
+
+  .universe-legend {
+    display: flex; flex-wrap: wrap; gap: 18px;
+    margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed var(--pa-border);
+    font-family: 'Inter'; font-size: 11px; color: var(--pa-muted);
+  }
+  .universe-legend .lg-chip {
+    display: inline-block; padding: 1px 6px; margin-right: 6px;
+    font-size: 9.5px; font-weight: 700; background: #fff;
+    border: 1px solid var(--pa-border); border-radius: 2px;
+  }
+  .universe-legend .lg-chip.held { border-color: var(--pa-navy); color: var(--pa-navy); border-width: 1.5px; }
+  .universe-legend .lg-chip.pvt { border-style: dashed; color: #7b8794; font-style: italic; }
+
+  @media (max-width: 860px) {
+    .universe-row.supply-chain { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .universe-row.financing { grid-template-columns: 1fr; }
+  }
+
+  /* === DORRSUM SCORE DRAWER === */
+  .udx-body tbody tr { cursor: pointer; transition: background 120ms ease; }
+  .udx-body tbody tr:hover { background: rgba(83, 74, 183, 0.05); }
+
+  .sd-scrim { position: fixed; inset: 0; background: rgba(38, 33, 92, 0.28); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 180ms ease; }
+  .sd-scrim.open { opacity: 1; pointer-events: auto; }
+
+  .sd-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(480px, 100vw); background: var(--pa-page); border-left: 1px solid var(--pa-border); box-shadow: -8px 0 32px rgba(38, 33, 92, 0.1); z-index: 999; transform: translateX(100%); transition: transform 240ms cubic-bezier(.4,0,.2,1); overflow-y: auto; overflow-x: hidden; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: var(--pa-text); }
+  .sd-drawer.open { transform: translateX(0); }
+  .sd-inner { padding: 20px 20px 48px; position: relative; }
+  .sd-close { position: absolute; top: 14px; right: 14px; background: transparent; border: none; cursor: pointer; font-size: 22px; color: var(--pa-muted); line-height: 1; padding: 4px 10px; border-radius: 3px; font-family: inherit; }
+  .sd-close:hover { background: rgba(38, 33, 92, 0.06); color: var(--pa-text); }
+
+  .sd-crumb { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pa-muted); margin-bottom: 10px; padding-right: 44px; }
+  .sd-crumb .rr { color: var(--pa-signature); font-weight: 700; }
+  .sd-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; margin: 0 0 6px; letter-spacing: -0.01em; color: var(--pa-navy); }
+  .sd-tags { margin-bottom: 14px; }
+  .sd-tag { display: inline-block; padding: 2px 7px; border: 1px solid var(--pa-border); border-radius: 3px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; margin-right: 4px; background: var(--pa-surface); font-weight: 500; color: var(--pa-text); }
+  .sd-tag.held { background: var(--pa-signature); color: #fff; border-color: var(--pa-signature); }
+
+  .sd-composite-card { border: 1px solid var(--pa-border); background: var(--pa-surface); border-radius: 6px; padding: 14px; margin-bottom: 12px; }
+  .sd-composite-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .sd-composite-score { font-family: 'Space Grotesk', sans-serif; font-size: 44px; font-weight: 700; line-height: 1; color: var(--pa-navy); }
+  .sd-score-over { font-size: 16px; color: var(--pa-muted); font-weight: 400; }
+  .sd-rating { display: inline-block; color: #fff; padding: 4px 10px; border-radius: 3px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 8px; font-weight: 600; background: var(--pa-signature); }
+  .sd-rating.strong-buy { background: #166534; }
+  .sd-rating.buy { background: var(--pa-signature); }
+  .sd-rating.hold { background: #b8860b; }
+  .sd-rating.sell, .sd-rating.strong-sell { background: #b91c1c; }
+  .sd-rating.pending { background: #6b7280; color: #fff; }
+
+  .sd-dq { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #166534; font-weight: 600; }
+  .sd-dq.fail { color: #b91c1c; }
+  .sd-dq.pending { color: var(--pa-muted); }
+  .sd-wsum { font-size: 10px; color: var(--pa-muted); letter-spacing: 0.04em; margin: 4px 0 8px; }
+  .sd-reset { background: transparent; border: 1px solid var(--pa-navy); color: var(--pa-navy); padding: 5px 10px; border-radius: 3px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; font-family: inherit; font-weight: 600; }
+  .sd-reset:hover { background: var(--pa-navy); color: var(--pa-page); }
+
+  .sd-note { font-size: 10.5px; color: var(--pa-navy); padding: 10px 12px; background: rgba(83, 74, 183, 0.07); border-left: 3px solid var(--pa-signature); margin-bottom: 14px; line-height: 1.55; border-radius: 0 3px 3px 0; }
+  .sd-note .dm { color: var(--pa-signature); font-weight: 700; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; }
+
+  .sd-factor-table { background: var(--pa-surface); border: 1px solid var(--pa-border); border-radius: 6px; padding: 4px 12px; margin-bottom: 14px; }
+  .sd-factor-head { display: grid; grid-template-columns: 108px 34px 1fr 44px 34px; gap: 10px; padding: 8px 0 6px; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pa-muted); font-weight: 600; border-bottom: 1px solid var(--pa-border); }
+  .sd-factor-row { display: grid; grid-template-columns: 108px 34px 1fr 44px 34px; gap: 10px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--pa-border); font-size: 12px; }
+  .sd-factor-row:last-child { border-bottom: none; }
+  .sd-factor-row.dorrsum-factor { background: linear-gradient(to right, rgba(83, 74, 183, 0.05), transparent); margin: 0 -12px; padding-left: 12px; padding-right: 12px; }
+  .sd-factor-name { font-weight: 600; font-size: 11.5px; color: var(--pa-text); }
+  .sd-factor-dq-tag { display: block; font-size: 8.5px; color: var(--pa-muted); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; margin-top: 2px; }
+  .sd-factor-dq-tag .dm { color: var(--pa-signature); font-weight: 700; }
+  .sd-factor-grade { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; text-align: center; }
+  .sd-grade-A { color: #166534; }
+  .sd-grade-B { color: #4a7c59; }
+  .sd-grade-C { color: #b8860b; }
+  .sd-grade-D { color: #cc5500; }
+  .sd-grade-F { color: #b91c1c; }
+  .sd-grade-pending { color: var(--pa-muted); }
+
+  .sd-slider { width: 100%; -webkit-appearance: none; appearance: none; height: 4px; background: var(--pa-border); border-radius: 2px; outline: none; }
+  .sd-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 14px; height: 14px; background: var(--pa-signature); border-radius: 50%; cursor: pointer; border: 2px solid var(--pa-surface); box-shadow: 0 0 0 1px var(--pa-signature); }
+  .sd-weight-val { font-size: 11px; font-family: 'Space Mono', monospace; text-align: right; color: var(--pa-navy); font-weight: 600; }
+  .sd-score-val { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 13px; text-align: right; color: var(--pa-text); }
+
+  .sd-section-title { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pa-muted); margin: 16px 0 8px; font-weight: 700; }
+  .sd-metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .sd-metric-card { background: var(--pa-surface); border: 1px solid var(--pa-border); border-radius: 4px; padding: 10px 11px; }
+  .sd-metric-card.wide { grid-column: 1 / -1; }
+  .sd-metric-card.dorrsum { border-color: var(--pa-signature); }
+  .sd-metric-title { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pa-signature); margin-bottom: 6px; font-weight: 700; }
+  .sd-metric-title .mark { display: inline-block; margin-left: 4px; padding: 1px 4px; background: var(--pa-signature); color: #fff; border-radius: 2px; font-size: 8px; letter-spacing: 0.1em; }
+  .sd-metric-line { display: flex; justify-content: space-between; font-size: 11px; padding: 2px 0; }
+  .sd-metric-label { color: var(--pa-muted); }
+  .sd-metric-value { font-family: 'Space Mono', monospace; font-weight: 500; color: var(--pa-navy); }
+  .sd-metric-value.pending { color: #9ca3af; font-weight: 400; }
+  .sd-metric-lines.two-col { display: grid; grid-template-columns: 1fr 1fr; column-gap: 18px; row-gap: 0; }
+  .sd-metric-note { font-size: 10px; color: var(--pa-muted); font-style: italic; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--pa-border); line-height: 1.5; }
+  .sd-metric-note b { font-style: normal; color: var(--pa-text); font-weight: 600; }
+  .sd-live-bake-banner { font-size: 10px; color: var(--pa-muted); letter-spacing: 0.06em; background: rgba(83, 74, 183, 0.04); border: 1px solid var(--pa-border); border-radius: 3px; padding: 7px 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .sd-live-bake-banner .lb-label { text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600; color: var(--pa-signature); font-size: 9px; }
+  .sd-live-bake-banner .lb-row { display: flex; gap: 12px; font-family: 'Space Mono', monospace; color: var(--pa-navy); }
+  .sd-live-bake-banner .lb-row span b { font-weight: 500; color: var(--pa-muted); font-family: 'Inter', sans-serif; margin-right: 4px; font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .sd-pending-msg { font-size: 10.5px; color: var(--pa-muted); font-style: italic; padding: 10px 12px; background: rgba(38, 33, 92, 0.03); border-radius: 3px; margin-top: 0; margin-bottom: 14px; line-height: 1.5; border: 1px dashed var(--pa-border); }
+  /* === END DORRSUM SCORE DRAWER === */
 </style>
 </head>
 
@@ -176,7 +397,7 @@
       <a href="#" style="color: var(--pa-navy); font-weight: 600; text-decoration: none;">Open Portfolio</a>
       <a href="/contact" style="color: var(--pa-text); opacity: 0.68; text-decoration: none;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.68'">Contact</a>
     </nav>
-    <a href="#follow" class="pa-cta" style="padding: 8px 14px; font-size: 11px;">Follow Free</a>
+    <a href="#universe-frame" class="pa-cta" style="padding: 8px 14px; font-size: 11px;">Explore</a>
   </div>
 </header>
 
@@ -184,400 +405,49 @@
 <main class="min-h-full w-full" style="background: var(--pa-page); color: var(--pa-text);">
   <article class="relative mx-auto max-w-5xl px-5 pb-20 pt-10 sm:px-8 sm:pt-14 md:pt-16">
 
-    <!-- Breadcrumb + header -->
-    <header class="mb-12 border-b pb-10" style="border-color: var(--pa-border);">
-      <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em]" style="color:#7b8794;">
-        <a href="/research" style="color:#7b8794; text-decoration:none;">← Research</a>
-        <span style="margin: 0 6px;">·</span>Open Portfolio
-      </p>
-      <h1 class="pa-title text-3xl sm:text-4xl md:text-[2.75rem] max-w-3xl">
-        A live portfolio of global TMT and digital infrastructure equities.
-      </h1>
-      <p class="mt-5 text-base sm:text-lg leading-[1.7] max-w-2xl" style="color: var(--pa-muted);">
-        Every position held in a real brokerage account. Every entry price, exit, and return is real.
-        Published openly — to build a transparent, long-run track record in the sectors I know best.
-      </p>
-      <p class="mt-5 text-sm" style="color:#7b8794; letter-spacing: 0.02em;">
-        Singapore · Inception 03 October 2025 · Updated end-of-day · Free to follow
-      </p>
-    </header>
-
-    <!-- What this is -->
+    <!-- Digital Infrastructure Universe Map -->
     <section class="mb-14">
-      <div class="flex items-baseline gap-2 mb-4">
-        <h2 class="pa-section-h">What this is</h2>
+      <div class="flex items-baseline gap-2 mb-5">
+        <h2 class="pa-section-h">The Digital Infrastructure Universe</h2>
+        <span class="ml-3 text-xs uppercase tracking-[0.14em]" style="color:#7b8794;">Supply chain &mdash; who owns what, publicly</span>
       </div>
-      <div class="max-w-3xl space-y-4">
-        <p class="pa-body">
-          <strong style="color: var(--pa-text); font-weight: 600;">Dorrsum Open Portfolio</strong> is a live, publicly tracked investment portfolio in global technology, media, telecom, and digital infrastructure equities. It is managed by me — a credit practitioner in these sectors — with my own capital, in a real brokerage account.
-        </p>
-        <p class="pa-body">
-          Everything here is observable: position sizes as percentage weights, real entry dates, real fill prices, real returns, and a weekly letter explaining the thinking. No paid tier, no model portfolio separate from my real one, no personalised advice.
-        </p>
-        <p class="pa-body" style="color: var(--pa-text); font-weight: 500;">
-          Nothing on this page is investment advice. It is my own views and my own trades, published for readers who want to follow a practitioner's thinking in the open.
-        </p>
-      </div>
-    </section>
+      <p class="pa-body mb-6" style="max-width: 760px;">
+        The investable universe behind the portfolio &mdash; roughly 150 public names and the dozen or so private
+        leaders that shape the chain. Top three prominent names per sub-node; click any card for the full roster,
+        with geography and the companies still trapped in private markets. Stars on tickers mark positions held in the
+        Dorrsum Open Portfolio (see legend below).
+      </p>
 
-    <!-- Performance -->
-    <section class="mb-14">
-      <div class="flex items-baseline gap-2 mb-6">
-        <h2 class="pa-section-h">Performance</h2>
-        <span class="ml-3 text-xs uppercase tracking-[0.14em]" style="color:#7b8794;">As of EOD 23 Apr 2026</span>
-      </div>
+      <div id="universe-frame" class="universe-frame holdings-on">
 
-      <!-- Inline stats row -->
-      <div class="grid grid-cols-2 sm:grid-cols-5 gap-x-10 gap-y-6 mb-8 max-w-4xl">
-        <div>
-          <div class="sub-label mb-2">Since Inception</div>
-          <div class="font-serif-display font-light text-3xl" style="color: var(--pa-navy);">+14.2<span style="font-size: 0.65em; letter-spacing: 0;">%</span></div>
-          <div class="text-xs mt-1" style="color: var(--pa-muted);">Benchmark +9.5%</div>
+        <!-- Financing row -->
+        <div class="universe-row financing" id="row-financing">
+          <span class="financing-label">Capital layer</span>
         </div>
-        <div>
-          <div class="sub-label mb-2">YTD 2026</div>
-          <div class="font-serif-display font-light text-3xl" style="color: var(--pa-navy);">+7.8<span style="font-size: 0.65em; letter-spacing: 0;">%</span></div>
-          <div class="text-xs mt-1" style="color: var(--pa-muted);">Benchmark +4.2%</div>
-        </div>
-        <div>
-          <div class="sub-label mb-2">Positions</div>
-          <div class="font-serif-display font-light text-3xl" style="color: var(--pa-navy);">15</div>
-          <div class="text-xs mt-1" style="color: var(--pa-muted);">Long only</div>
-        </div>
-        <div>
-          <div class="sub-label mb-2">Cash</div>
-          <div class="font-serif-display font-light text-3xl" style="color: var(--pa-navy);">8.0<span style="font-size: 0.65em; letter-spacing: 0;">%</span></div>
-          <div class="text-xs mt-1" style="color: var(--pa-muted);">Dry powder</div>
-        </div>
-        <div>
-          <div class="sub-label mb-2">Days Live</div>
-          <div class="font-serif-display font-light text-3xl" style="color: var(--pa-navy);">202</div>
-          <div class="text-xs mt-1" style="color: var(--pa-muted);">Oct '25 – Apr '26</div>
-        </div>
-      </div>
 
-      <!-- NAV chart -->
-      <div class="mt-8 pt-8 border-t" style="border-color: var(--pa-border);">
-        <div class="flex items-baseline justify-between mb-4 flex-wrap gap-3">
-          <div class="sub-label">NAV Curve · Rebased to 100 at Inception</div>
-          <div class="flex items-center gap-5 text-xs" style="color: var(--pa-muted);">
-            <span class="inline-flex items-center gap-2"><span style="display:inline-block;width:16px;height:2px;background:var(--pa-navy);"></span>Open Portfolio</span>
-            <span class="inline-flex items-center gap-2"><span style="display:inline-block;width:16px;height:1px;background:#7b8794;border-top:1px dashed #7b8794;"></span>Benchmark (ACWI Tech + Comm 50/50)</span>
+        <!-- Supply chain row (5 columns) -->
+        <div class="universe-row supply-chain" id="row-supply-chain">
+          <!-- 5 band columns populated by JS -->
+        </div>
+
+        <div class="universe-legend">
+          <span><span class="lg-chip">NVDA</span>Listed public</span>
+          <span><span class="lg-chip held">★ NVDA</span>Position held &middot; Dorrsum Open Portfolio</span>
+          <span><span class="lg-chip pvt">Mistral</span>Private leader (not yet investable)</span>
+          <span style="color:#7b8794;">Click any sub-node for the full roster</span>
+        </div>
+
+        <div id="universe-detail" class="universe-detail" aria-live="polite">
+          <div class="udx-head">
+            <div class="udx-band-label" id="udx-band-label">Capital layer</div>
+            <div class="udx-title" id="udx-title">Select a sub-node</div>
+            <div class="udx-sub" id="udx-sub">Click any card above to see the full roster of public and private names, with geography.</div>
           </div>
-        </div>
-        <div class="w-full" style="height: 320px;">
-          <svg viewBox="0 0 1000 320" preserveAspectRatio="none" style="width: 100%; height: 100%;">
-            <!-- gridlines -->
-            <g stroke="#d8d3c8" stroke-width="1" opacity="0.6">
-              <line x1="0" y1="60"  x2="1000" y2="60"/>
-              <line x1="0" y1="130" x2="1000" y2="130"/>
-              <line x1="0" y1="200" x2="1000" y2="200"/>
-              <line x1="0" y1="270" x2="1000" y2="270"/>
-            </g>
-            <!-- y labels -->
-            <g font-family="Inter, sans-serif" font-size="10" fill="#7b8794" font-weight="500">
-              <text x="8" y="63">120</text>
-              <text x="8" y="133">110</text>
-              <text x="8" y="203">100</text>
-              <text x="8" y="273">90</text>
-            </g>
-            <!-- x labels -->
-            <g font-family="Inter, sans-serif" font-size="10" fill="#7b8794" font-weight="500" letter-spacing="0.05em">
-              <text x="40"  y="312">OCT</text>
-              <text x="180" y="312">NOV</text>
-              <text x="320" y="312">DEC</text>
-              <text x="460" y="312">JAN</text>
-              <text x="600" y="312">FEB</text>
-              <text x="740" y="312">MAR</text>
-              <text x="880" y="312">APR '26</text>
-            </g>
-            <!-- Benchmark dashed -->
-            <path d="M 30 200 L 90 197 L 150 205 L 210 228 L 270 232 L 330 225 L 390 193 L 450 176 L 510 179 L 570 192 L 630 207 L 690 221 L 750 205 L 810 170 L 870 147 L 930 133 L 970 132"
-              fill="none" stroke="#7b8794" stroke-width="1.25" stroke-dasharray="5,4" opacity="0.75"/>
-            <!-- Portfolio line -->
-            <path d="M 30 200 L 90 193 L 150 202 L 210 232 L 270 240 L 330 228 L 390 180 L 450 156 L 510 162 L 570 175 L 630 189 L 690 212 L 750 191 L 810 150 L 870 120 L 930 102 L 970 100"
-              fill="none" stroke="#26215C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <!-- end marker -->
-            <circle cx="970" cy="100" r="4" fill="#26215C"/>
-            <!-- callout -->
-            <g transform="translate(870, 70)">
-              <rect width="100" height="24" rx="1" fill="#ffffff" stroke="#d8d3c8"/>
-              <text x="10" y="16" font-family="Space Grotesk, sans-serif" font-weight="500" font-size="13" fill="#26215C">114.2</text>
-              <text x="58" y="16" font-family="Inter, sans-serif" font-size="10" fill="#5c6573">+14.2%</text>
-            </g>
-          </svg>
-        </div>
-      </div>
-    </section>
-
-    <!-- Latest letter -->
-    <section class="mb-14 border-t pt-12" style="border-color: var(--pa-border);">
-      <div class="flex items-baseline gap-2 mb-5">
-        <h2 class="pa-section-h">This Week's Letter</h2>
-        <span class="ml-3 text-xs uppercase tracking-[0.14em]" style="color:#7b8794;">Wk 29 · 20 Apr 2026</span>
-      </div>
-      <div class="max-w-3xl">
-        <h3 class="pa-title text-2xl sm:text-[1.75rem] mb-4">Equinix Q1 — the bottleneck is still power.</h3>
-        <p class="pa-body mb-5">
-          The Equinix print confirms what the last six months of site visits and utility filings have been
-          telegraphing: new capacity in Northern Virginia is gated not by steel or capital, but by when
-          Dominion can energise the substation. Same story in Singapore. Here is why Vertiv and
-          Constellation are the right way to play this — and why I am not trimming EQIX.
-        </p>
-        <a href="#" class="pa-cta-ghost">Continue reading →</a>
-      </div>
-    </section>
-
-    <!-- Portfolio -->
-    <section id="portfolio" class="mb-14 border-t pt-12" style="border-color: var(--pa-border);">
-      <div class="flex items-baseline gap-2 mb-5">
-        <h2 class="pa-section-h">Current Portfolio</h2>
-        <span class="ml-3 text-xs uppercase tracking-[0.14em]" style="color:#7b8794;">15 positions · % weights</span>
-      </div>
-
-      <div class="overflow-x-auto">
-        <table class="pa-exhibit">
-          <thead>
-            <tr>
-              <th>Ticker</th>
-              <th>Holding</th>
-              <th>Sector</th>
-              <th>Geo</th>
-              <th class="num">Weight</th>
-              <th class="num">Entry</th>
-              <th class="num">P&L</th>
-              <th class="num">Days</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><span class="ticker">NVDA</span></td>
-              <td>Nvidia</td>
-              <td><span class="sub-label">Semis · AI</span></td>
-              <td><span class="sub-label">US</span></td>
-              <td class="num">10.0%</td>
-              <td class="num">03 Oct 2025</td>
-              <td class="num pl-gain">+29.7%</td>
-              <td class="num">202</td>
-            </tr>
-            <tr>
-              <td><span class="ticker">EQIX</span></td>
-              <td>Equinix</td>
-              <td><span class="sub-label">Data Centre</span></td>
-              <td><span class="sub-label">US</span></td>
-              <td class="num">9.0%</td>
-              <td class="num">03 Oct 2025</td>
-              <td class="num pl-gain">+10.9%</td>
-              <td class="num">202</td>
-            </tr>
-            <tr>
-              <td><span class="ticker">MSFT</span></td>
-              <td>Microsoft</td>
-              <td><span class="sub-label">Hyperscaler</span></td>
-              <td><span class="sub-label">US</span></td>
-              <td class="num">7.5%</td>
-              <td class="num">03 Oct 2025</td>
-              <td class="num pl-gain">+11.0%</td>
-              <td class="num">202</td>
-            </tr>
-            <tr>
-              <td><span class="ticker">VRT</span></td>
-              <td>Vertiv Holdings</td>
-              <td><span class="sub-label">Power · Cooling</span></td>
-              <td><span class="sub-label">US</span></td>
-              <td class="num">7.0%</td>
-              <td class="num">03 Oct 2025</td>
-              <td class="num pl-gain">+33.0%</td>
-              <td class="num">202</td>
-            </tr>
-            <tr>
-              <td><span class="ticker">CEG</span></td>
-              <td>Constellation Energy</td>
-              <td><span class="sub-label">Power · Nuclear</span></td>
-              <td><span class="sub-label">US</span></td>
-              <td class="num">6.5%</td>
-              <td class="num">15 Nov 2025</td>
-              <td class="num pl-gain">+18.4%</td>
-              <td class="num">160</td>
-            </tr>
-            <tr>
-              <td><span class="ticker">DLR</span></td>
-              <td>Digital Realty</td>
-              <td><span class="sub-label">Data Centre</span></td>
-              <td><span class="sub-label">US</span></td>
-              <td class="num">6.5%</td>
-              <td class="num">03 Oct 2025</td>
-              <td class="num pl-gain">+8.8%</td>
-              <td class="num">202</td>
-            </tr>
-            <tr>
-              <td><span class="ticker">TSM</span></td>
-              <td>TSMC</td>
-              <td><span class="sub-label">Semis · Foundry</span></td>
-              <td><span class="sub-label">TW</span></td>
-              <td class="num">6.0%</td>
-              <td class="num">03 Oct 2025</td>
-              <td class="num pl-gain">+17.7%</td>
-              <td class="num">202</td>
-            </tr>
-            <tr>
-              <td><span class="ticker">AMT</span></td>
-              <td>American Tower</td>
-              <td><span class="sub-label">Towers</span></td>
-              <td><span class="sub-label">US</span></td>
-              <td class="num">6.0%</td>
-              <td class="num">03 Oct 2025</td>
-              <td class="num pl-gain">+10.1%</td>
-              <td class="num">202</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Gate -->
-      <div class="gate">
-        <p class="sub-label mb-2" style="color: var(--pa-navy);">7 More Positions</p>
-        <p class="pa-body mb-5" style="max-width: 440px; margin-left: auto; margin-right: auto;">
-          Join the free list to see the full portfolio, the weekly letter, and the complete trade log.
-        </p>
-        <form onsubmit="event.preventDefault();" class="flex justify-center gap-2 flex-wrap">
-          <input type="email" placeholder="you@domain.com" required class="gate-input">
-          <button type="submit" class="pa-cta">Unlock</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- Composition -->
-    <section class="mb-14 border-t pt-12" style="border-color: var(--pa-border);">
-      <div class="flex items-baseline gap-2 mb-6">
-        <h2 class="pa-section-h">Composition</h2>
-        <span class="ml-3 text-xs uppercase tracking-[0.14em]" style="color:#7b8794;">By sector and geography</span>
-      </div>
-      <div class="grid md:grid-cols-2 gap-x-12 gap-y-8">
-        <div>
-          <div class="sub-label mb-4" style="color: var(--pa-navy);">By Sector</div>
-          <div class="mix-row"><div class="label">Semiconductors</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 26.5%;"></span></div><div class="pct">26.5%</div></div>
-          <div class="mix-row"><div class="label">Data Centres</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 19.5%;"></span></div><div class="pct">19.5%</div></div>
-          <div class="mix-row"><div class="label">Power &amp; Cooling</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 18.5%;"></span></div><div class="pct">18.5%</div></div>
-          <div class="mix-row"><div class="label">Towers</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 14.5%;"></span></div><div class="pct">14.5%</div></div>
-          <div class="mix-row"><div class="label">Hyperscalers</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 12%;"></span></div><div class="pct">12.0%</div></div>
-          <div class="mix-row"><div class="label">AI Cloud</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 5%;"></span></div><div class="pct">5.0%</div></div>
-          <div class="mix-row"><div class="label">Cash</div><div class="mix-bar-outer"><span class="mix-bar-inner signature" style="width: 8%;"></span></div><div class="pct">8.0%</div></div>
-        </div>
-        <div>
-          <div class="sub-label mb-4" style="color: var(--pa-navy);">By Geography</div>
-          <div class="mix-row"><div class="label">United States</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 72.5%;"></span></div><div class="pct">72.5%</div></div>
-          <div class="mix-row"><div class="label">Asia-Pacific</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 10%;"></span></div><div class="pct">10.0%</div></div>
-          <div class="mix-row"><div class="label">Europe</div><div class="mix-bar-outer"><span class="mix-bar-inner" style="width: 9.5%;"></span></div><div class="pct">9.5%</div></div>
-          <div class="mix-row"><div class="label">Cash</div><div class="mix-bar-outer"><span class="mix-bar-inner signature" style="width: 8%;"></span></div><div class="pct">8.0%</div></div>
-
-          <div class="mt-8 pt-6 border-t" style="border-color: var(--pa-border);">
-            <div class="sub-label mb-3" style="color: var(--pa-navy);">Portfolio stats</div>
-            <dl class="text-sm space-y-2" style="color: var(--pa-muted);">
-              <div class="flex justify-between"><dt>Largest position</dt><dd style="color: var(--pa-text); font-weight: 500;">NVDA · 10.0%</dd></div>
-              <div class="flex justify-between"><dt>Smallest position</dt><dd style="color: var(--pa-text); font-weight: 500;">GDS · 4.0%</dd></div>
-              <div class="flex justify-between"><dt>Average holding</dt><dd style="color: var(--pa-text); font-weight: 500;">163 days</dd></div>
-              <div class="flex justify-between"><dt>Turnover (LTM)</dt><dd style="color: var(--pa-text); font-weight: 500;">14%</dd></div>
-            </dl>
+          <div class="udx-body" id="udx-body">
+            <div class="udx-hint">No sub-node selected.</div>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- Trade Log -->
-    <section class="mb-14 border-t pt-12" style="border-color: var(--pa-border);">
-      <div class="flex items-baseline gap-2 mb-5">
-        <h2 class="pa-section-h">Trade Log</h2>
-        <span class="ml-3 text-xs uppercase tracking-[0.14em]" style="color:#7b8794;">Last 30 days · % weights</span>
-      </div>
-      <div>
-        <div class="trade-item">
-          <div class="trade-date">22 Apr 2026</div>
-          <div class="trade-action">Opened</div>
-          <div class="trade-ticker">GDS</div>
-          <div class="trade-text">New <em>4.0%</em> position. China DC thesis — hyperscaler pipeline catching up, valuation gap vs US peers narrowing.</div>
-        </div>
-        <div class="trade-item">
-          <div class="trade-date">15 Apr 2026</div>
-          <div class="trade-action">Trimmed</div>
-          <div class="trade-ticker">MSFT</div>
-          <div class="trade-text">Reduced from <em>8.5% to 7.5%</em>. Valuation discipline after strong rally; recycled into cash buffer.</div>
-        </div>
-        <div class="trade-item">
-          <div class="trade-date">08 Apr 2026</div>
-          <div class="trade-action">Opened</div>
-          <div class="trade-ticker">CRWV</div>
-          <div class="trade-text">New <em>5.0%</em> position. Risk/reward post correction; GPU-debt unwind overdone; contract book under-appreciated.</div>
-        </div>
-        <div class="trade-item">
-          <div class="trade-date">02 Apr 2026</div>
-          <div class="trade-action exit">Exited</div>
-          <div class="trade-ticker">VOD</div>
-          <div class="trade-text">Closed <em>3.0%</em> position. Thesis broken — third consecutive execution miss; capex discipline question marks.</div>
-        </div>
-        <div class="trade-item">
-          <div class="trade-date">25 Mar 2026</div>
-          <div class="trade-action">Added</div>
-          <div class="trade-ticker">CEG</div>
-          <div class="trade-text">Increased from <em>5.0% to 6.5%</em>. Power scarcity thesis strengthening; nuclear re-rating has further to run.</div>
-        </div>
-        <div class="trade-item">
-          <div class="trade-date">18 Mar 2026</div>
-          <div class="trade-action">Trimmed</div>
-          <div class="trade-ticker">NVDA</div>
-          <div class="trade-text">Reduced from <em>11.0% to 10.0%</em>. Position sizing discipline — not a thesis change.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Letter archive -->
-    <section id="letters" class="mb-14 border-t pt-12" style="border-color: var(--pa-border);">
-      <div class="flex items-baseline gap-2 mb-5">
-        <h2 class="pa-section-h">Letters</h2>
-        <span class="ml-3 text-xs uppercase tracking-[0.14em]" style="color:#7b8794;">29 issues · weekly</span>
-      </div>
-      <div>
-        <div class="archive-item"><div class="archive-num">WK 29</div><div class="archive-date">20 Apr 2026</div><a href="#" class="archive-title" style="text-decoration:none;">Equinix Q1 — the bottleneck is still power.</a></div>
-        <div class="archive-item"><div class="archive-num">WK 28</div><div class="archive-date">13 Apr 2026</div><a href="#" class="archive-title" style="text-decoration:none;">Why I opened a position in CoreWeave.</a></div>
-        <div class="archive-item"><div class="archive-num">WK 27</div><div class="archive-date">06 Apr 2026</div><a href="#" class="archive-title" style="text-decoration:none;">Vertiv vs Eaton — both benefit, neither dominant.</a></div>
-        <div class="archive-item"><div class="archive-num">WK 26</div><div class="archive-date">30 Mar 2026</div><a href="#" class="archive-title" style="text-decoration:none;">The China data centre valuation gap.</a></div>
-        <div class="archive-item"><div class="archive-num">WK 25</div><div class="archive-date">23 Mar 2026</div><a href="#" class="archive-title" style="text-decoration:none;">Constellation and the nuclear call option.</a></div>
-        <div class="archive-item"><div class="archive-num">WK 24</div><div class="archive-date">16 Mar 2026</div><a href="#" class="archive-title" style="text-decoration:none;">When to trim a winner.</a></div>
-        <div class="archive-item"><div class="archive-num">WK 23</div><div class="archive-date">09 Mar 2026</div><a href="#" class="archive-title" style="text-decoration:none;">Cellnex — cash flow finally arriving.</a></div>
-        <div class="archive-item"><div class="archive-num">WK 22</div><div class="archive-date">02 Mar 2026</div><a href="#" class="archive-title" style="text-decoration:none;">Reading the hyperscaler capex plans.</a></div>
-      </div>
-      <div class="mt-8">
-        <a href="#" class="pa-cta-ghost">View all 29 letters →</a>
-      </div>
-    </section>
-
-    <!-- Follow / Subscribe -->
-    <section id="follow" class="mb-14 border-t pt-12" style="border-color: var(--pa-border);">
-      <div class="grid md:grid-cols-[1fr_auto] gap-10 items-center">
-        <div class="max-w-2xl">
-          <h2 class="pa-title text-2xl sm:text-[1.75rem] mb-3">Follow the portfolio.</h2>
-          <p class="pa-body">
-            One weekly letter. Every trade, with reasoning. Free, always. Signal, not noise.
-          </p>
-        </div>
-        <form onsubmit="event.preventDefault();" class="flex gap-2 flex-wrap">
-          <input type="email" placeholder="you@domain.com" required class="gate-input">
-          <button type="submit" class="pa-cta">Follow</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- Disclaimer -->
-    <section class="mt-16 border-t pt-10" style="border-color: var(--pa-border);">
-      <p class="text-sm leading-relaxed" style="color: var(--pa-muted); max-width: 960px;">
-        <strong style="color: var(--pa-text); font-weight: 600;">Dorrsum Open Portfolio</strong> reflects the author's personal, real-money investment
-        positions held in a live brokerage account. All entries, exits, prices, and returns shown are real
-        fills from that account, updated at end-of-day. This page is published for transparency and
-        educational purposes. <strong style="color: var(--pa-text); font-weight: 600;">Nothing here constitutes personalised financial advice</strong>
-        or a recommendation to buy or sell any security. The author is not a registered investment
-        adviser in any jurisdiction. Past performance is not indicative of future returns. Readers should
-        conduct their own research and consult a licensed adviser before making any investment decision.
-      </p>
     </section>
 
   </article>
@@ -600,6 +470,1044 @@
     </div>
   </div>
 </footer>
+
+<script>
+(function() {
+  var frame = document.getElementById('universe-frame');
+  if (!frame) return;
+
+  // t(symbol, name, geo, flags) — flags: 'H' = held in Dorrsum Open Portfolio, 'P' = private
+  function t(symbol, name, geo, flags) {
+    flags = flags || '';
+    return { symbol: symbol, name: name, geo: geo, held: flags.indexOf('H') >= 0, pvt: flags.indexOf('P') >= 0 };
+  }
+
+  /* === FINANCIALS START === (auto-baked; do not edit by hand — re-run fetch_fundamentals.py + bake_financials.py) */
+  var FINANCIALS = {"fetched_at":"2026-04-24T05:01:14.190246+00:00","counts":{"total":220,"ok":178,"missing":7,"private":35},"by_symbol":{"JPM":{"price_local":311.69,"currency":"USD","market_cap_usd":835173351424.0,"pe_ttm":14.927683,"one_yr_return_pct":29.885442565148534,"data_status":"ok","exchange":"NYSE/Nasdaq"},"GS":{"price_local":931.3,"currency":"USD","market_cap_usd":276366000128.0,"pe_ttm":17.006939,"one_yr_return_pct":74.30252915643227,"data_status":"ok","exchange":"NYSE/Nasdaq"},"MS":{"price_local":188.65,"currency":"USD","market_cap_usd":299549818880.0,"pe_ttm":17.087862,"one_yr_return_pct":67.57140074727883,"data_status":"ok","exchange":"NYSE/Nasdaq"},"BAC":{"price_local":52.47,"currency":"USD","market_cap_usd":374106292224.0,"pe_ttm":13.052239,"one_yr_return_pct":35.54867433324445,"data_status":"ok","exchange":"NYSE/Nasdaq"},"C":{"price_local":128.51,"currency":"USD","market_cap_usd":224804978688.0,"pe_ttm":15.865431,"one_yr_return_pct":93.44292455592931,"data_status":"ok","exchange":"NYSE/Nasdaq"},"WFC":{"price_local":80.51,"currency":"USD","market_cap_usd":246710009856.0,"pe_ttm":12.443586,"one_yr_return_pct":18.254287451882114,"data_status":"ok","exchange":"NYSE/Nasdaq"},"UBS":{"price_local":41.04,"currency":"USD","market_cap_usd":126883340288.0,"pe_ttm":17.389832,"one_yr_return_pct":41.22346306417683,"data_status":"ok","exchange":"NYSE/Nasdaq"},"BNP.PA":{"price_local":90.31,"currency":"EUR","market_cap_usd":116221438761.75,"pe_ttm":8.776482,"one_yr_return_pct":34.639534124548746,"data_status":"ok","exchange":"Euronext Paris"},"BARC.L":{"price_local":427.8,"currency":"GBp","market_cap_usd":null,"pe_ttm":10.185715,"one_yr_return_pct":45.662790818500156,"data_status":"ok","exchange":"London Stock Exchange"},"HSBA.L":{"price_local":1338.0,"currency":"GBp","market_cap_usd":null,"pe_ttm":15.033709,"one_yr_return_pct":58.38413987644302,"data_status":"ok","exchange":"London Stock Exchange"},"8411.T":{"price_local":6461.0,"currency":"JPY","market_cap_usd":98614199177.56934,"pe_ttm":15.3111515,"one_yr_return_pct":91.94560123962701,"data_status":"ok","exchange":"Tokyo Stock Exchange"},"OWL":{"price_local":9.42,"currency":"USD","market_cap_usd":6366059008.0,"pe_ttm":94.2,"one_yr_return_pct":-46.0104782760409,"data_status":"ok","exchange":"NYSE/Nasdaq"},"APO":{"price_local":124.77,"currency":"USD","market_cap_usd":72147918848.0,"pe_ttm":22.52166,"one_yr_return_pct":-4.979487958363049,"data_status":"ok","exchange":"NYSE/Nasdaq"},"ARES":{"price_local":114.78,"currency":"USD","market_cap_usd":25884444672.0,"pe_ttm":67.1228,"one_yr_return_pct":-22.44931286366276,"data_status":"ok","exchange":"NYSE/Nasdaq"},"BX":{"price_local":122.33,"currency":"USD","market_cap_usd":149519319040.0,"pe_ttm":31.366667,"one_yr_return_pct":-5.986765472774513,"data_status":"ok","exchange":"NYSE/Nasdaq"},"KKR":{"price_local":101.64,"currency":"USD","market_cap_usd":94130782208.0,"pe_ttm":43.435898,"one_yr_return_pct":-9.690821836991093,"data_status":"ok","exchange":"NYSE/Nasdaq"},"CG":{"price_local":49.03,"currency":"USD","market_cap_usd":17708216320.0,"pe_ttm":22.490824,"one_yr_return_pct":29.734576927692878,"data_status":"ok","exchange":"NYSE/Nasdaq"},"TCPC":{"price_local":4.09,"currency":"USD","market_cap_usd":344497088.0,"pe_ttm":null,"one_yr_return_pct":-30.397291245479497,"data_status":"ok","exchange":"NYSE/Nasdaq"},"BN":{"price_local":45.36,"currency":"USD","market_cap_usd":101476171776.0,"pe_ttm":92.57143,"one_yr_return_pct":29.33787343091172,"data_status":"ok","exchange":"NYSE/Nasdaq"},"BAM":{"price_local":47.8,"currency":"USD","market_cap_usd":78305427456.0,"pe_ttm":31.038961,"one_yr_return_pct":-5.684889480198507,"data_status":"ok","exchange":"NYSE/Nasdaq"},"EQT.ST":{"price_local":317.3,"currency":"SEK","market_cap_usd":40095905024.34082,"pe_ttm":47.642643,"one_yr_return_pct":20.363128475451965,"data_status":"ok","exchange":"Nasdaq Stockholm"},"MQG.AX":{"price_local":232.07,"currency":"AUD","market_cap_usd":63032365045.59375,"pe_ttm":23.900105,"one_yr_return_pct":24.419987382066832,"data_status":"ok","exchange":"ASX"},"ASML":{"price_local":1417.8,"currency":"USD","market_cap_usd":546445197312.0,"pe_ttm":46.73039,"one_yr_return_pct":111.88325623922304,"data_status":"ok","exchange":"NYSE/Nasdaq"},"AMAT":{"price_local":403.91,"currency":"USD","market_cap_usd":320546963456.0,"pe_ttm":41.51182,"one_yr_return_pct":171.3746507815389,"data_status":"ok","exchange":"NYSE/Nasdaq"},"LRCX":{"price_local":258.56,"currency":"USD","market_cap_usd":323339354112.0,"pe_ttm":48.784904,"one_yr_return_pct":267.3546468553,"data_status":"ok","exchange":"NYSE/Nasdaq"},"KLAC":{"price_local":1815.43,"currency":"USD","market_cap_usd":238533591040.0,"pe_ttm":52.91256,"one_yr_return_pct":165.32368876923874,"data_status":"ok","exchange":"NYSE/Nasdaq"},"8035.T":{"price_local":45700.0,"currency":"JPY","market_cap_usd":130671152642.66309,"pe_ttm":38.79687,"one_yr_return_pct":128.3954377136717,"data_status":"ok","exchange":"Tokyo Stock Exchange"},"ASM":{"price_local":6.99,"currency":"USD","market_cap_usd":1178313600.0,"pe_ttm":41.117645,"one_yr_return_pct":220.64218151680802,"data_status":"ok","exchange":"NYSE/Nasdaq"},"ACLS":{"price_local":139.86,"currency":"USD","market_cap_usd":4297893376.0,"pe_ttm":36.708664,"one_yr_return_pct":186.01226226206705,"data_status":"ok","exchange":"NYSE/Nasdaq"},"ONTO":{"price_local":292.31,"currency":"USD","market_cap_usd":14540541952.0,"pe_ttm":105.147484,"one_yr_return_pct":132.52724499836467,"data_status":"ok","exchange":"NYSE/Nasdaq"},"ICHR":{"price_local":68.41,"currency":"USD","market_cap_usd":2376885760.0,"pe_ttm":null,"one_yr_return_pct":227.63413032435068,"data_status":"ok","exchange":"NYSE/Nasdaq"},"NVDA":{"price_local":199.64,"currency":"USD","market_cap_usd":4852250312704.0,"pe_ttm":40.826176,"one_yr_return_pct":87.62289819545921,"data_status":"ok","exchange":"NYSE/Nasdaq"},"AMD":{"price_local":305.33,"currency":"USD","market_cap_usd":497813323776.0,"pe_ttm":117.434616,"one_yr_return_pct":223.2031148797662,"data_status":"ok","exchange":"NYSE/Nasdaq"},"AVGO":{"price_local":419.94,"currency":"USD","market_cap_usd":1988276649984.0,"pe_ttm":82.01953,"one_yr_return_pct":125.00270612939124,"data_status":"ok","exchange":"NYSE/Nasdaq"},"MRVL":{"price_local":165.56,"currency":"USD","market_cap_usd":144775299072.0,"pe_ttm":53.92834,"one_yr_return_pct":189.56493496615602,"data_status":"ok","exchange":"NYSE/Nasdaq"},"INTC":{"price_local":66.78,"currency":"USD","market_cap_usd":335303081984.0,"pe_ttm":null,"one_yr_return_pct":210.74918329709314,"data_status":"ok","exchange":"NYSE/Nasdaq"},"QCOM":{"price_local":133.95,"currency":"USD","market_cap_usd":143064645632.0,"pe_ttm":27.006048,"one_yr_return_pct":-6.8755369068353005,"data_status":"ok","exchange":"NYSE/Nasdaq"},"ARM":{"price_local":204.61,"currency":"USD","market_cap_usd":217295536128.0,"pe_ttm":269.2237,"one_yr_return_pct":82.67118713335775,"data_status":"ok","exchange":"NYSE/Nasdaq"},"TSM":{"price_local":382.66,"currency":"USD","market_cap_usd":1984627998720.0,"pe_ttm":32.790062,"one_yr_return_pct":135.96017977681174,"data_status":"ok","exchange":"NYSE/Nasdaq"},"005930.KS":{"price_local":218000.0,"currency":"KRW","market_cap_usd":970317134622.3438,"pe_ttm":null,"one_yr_return_pct":297.46269976937646,"data_status":"ok","exchange":"KRX (KOSPI)"},"GFS":{"price_local":61.54,"currency":"USD","market_cap_usd":33789915136.0,"pe_ttm":38.704403,"one_yr_return_pct":75.62785190526921,"data_status":"ok","exchange":"NYSE/Nasdaq"},"UMC":{"price_local":12.0,"currency":"USD","market_cap_usd":30188457984.0,"pe_ttm":22.64151,"one_yr_return_pct":84.64453440725212,"data_status":"ok","exchange":"NYSE/Nasdaq"},"0981.HK":{"price_local":63.6,"currency":"HKD","market_cap_usd":65051137961.54053,"pe_ttm":89.57747,"one_yr_return_pct":37.21682970417206,"data_status":"ok","exchange":"HKEX"},"TSEM":{"price_local":201.27,"currency":"USD","market_cap_usd":23948920832.0,"pe_ttm":104.28498,"one_yr_return_pct":446.92937077500244,"data_status":"ok","exchange":"NYSE/Nasdaq"},"6770.TW":{"price_local":52.8,"currency":"TWD","market_cap_usd":7095838305.724915,"pe_ttm":null,"one_yr_return_pct":277.14285169328963,"data_status":"ok","exchange":"TWSE"},"MU":{"price_local":481.72,"currency":"USD","market_cap_usd":543252021248.0,"pe_ttm":22.722641,"one_yr_return_pct":523.7058795289549,"data_status":"ok","exchange":"NYSE/Nasdaq"},"000660.KS":{"price_local":1210000.0,"currency":"KRW","market_cap_usd":578450864163.8125,"pe_ttm":null,"one_yr_return_pct":582.583989386101,"data_status":"ok","exchange":"KRX (KOSPI)"},"2408.TW":{"price_local":206.0,"currency":"TWD","market_cap_usd":20261471539.56299,"pe_ttm":98.095245,"one_yr_return_pct":450.802116565312,"data_status":"ok","exchange":"TWSE"},"2344.TW":{"price_local":87.4,"currency":"TWD","market_cap_usd":12484130251.581543,"pe_ttm":99.318184,"one_yr_return_pct":470.50384693294296,"data_status":"ok","exchange":"TWSE"},"VRT":{"price_local":321.75,"currency":"USD","market_cap_usd":123587002368.0,"pe_ttm":80.6391,"one_yr_return_pct":284.05787585450713,"data_status":"ok","exchange":"NYSE/Nasdaq"},"SU.PA":{"price_local":274.85,"currency":"EUR","market_cap_usd":180417646776.9375,"pe_ttm":34.485573,"one_yr_return_pct":33.901079136289546,"data_status":"ok","exchange":"Euronext Paris"},"ETN":{"price_local":424.5,"currency":"USD","market_cap_usd":164699783168.0,"pe_ttm":40.660923,"one_yr_return_pct":49.722701175251885,"data_status":"ok","exchange":"NYSE/Nasdaq"},"JCI":{"price_local":141.73,"currency":"USD","market_cap_usd":86748135424.0,"pe_ttm":47.560402,"one_yr_return_pct":77.55500077418762,"data_status":"ok","exchange":"NYSE/Nasdaq"},"TT":{"price_local":485.53,"currency":"USD","market_cap_usd":107361402880.0,"pe_ttm":36.89438,"one_yr_return_pct":42.51332503445748,"data_status":"ok","exchange":"NYSE/Nasdaq"},"CARR":{"price_local":61.54,"currency":"USD","market_cap_usd":51412570112.0,"pe_ttm":36.4142,"one_yr_return_pct":3.5078019629493307,"data_status":"ok","exchange":"NYSE/Nasdaq"},"LR.PA":{"price_local":150.55,"currency":"EUR","market_cap_usd":45967792057.03125,"pe_ttm":31.963907,"one_yr_return_pct":62.48610980163212,"data_status":"ok","exchange":"Euronext Paris"},"NVT":{"price_local":142.76,"currency":"USD","market_cap_usd":23084048384.0,"pe_ttm":54.69732,"one_yr_return_pct":163.88685203261412,"data_status":"ok","exchange":"NYSE/Nasdaq"},"WTS":{"price_local":303.39,"currency":"USD","market_cap_usd":10128004096.0,"pe_ttm":29.861223,"one_yr_return_pct":45.878305763416606,"data_status":"ok","exchange":"NYSE/Nasdaq"},"HUBB":{"price_local":557.85,"currency":"USD","market_cap_usd":29656197120.0,"pe_ttm":33.788612,"one_yr_return_pct":56.75863875162701,"data_status":"ok","exchange":"NYSE/Nasdaq"},"CMI":{"price_local":656.93,"currency":"USD","market_cap_usd":90825449472.0,"pe_ttm":32.045364,"one_yr_return_pct":127.63130345183767,"data_status":"ok","exchange":"NYSE/Nasdaq"},"GNRC":{"price_local":218.38,"currency":"USD","market_cap_usd":12813627392.0,"pe_ttm":81.18216,"one_yr_return_pct":91.8812139244464,"data_status":"ok","exchange":"NYSE/Nasdaq"},"CAT":{"price_local":835.24,"currency":"USD","market_cap_usd":388626579456.0,"pe_ttm":44.4513,"one_yr_return_pct":175.13507373187113,"data_status":"ok","exchange":"NYSE/Nasdaq"},"RR.L":{"price_local":1160.2,"currency":"GBp","market_cap_usd":null,"pe_ttm":16.814491,"one_yr_return_pct":59.425519434369356,"data_status":"ok","exchange":"London Stock Exchange"},"BE":{"price_local":237.57,"currency":"USD","market_cap_usd":67517571072.0,"pe_ttm":null,"one_yr_return_pct":1209.6472729750349,"data_status":"ok","exchange":"NYSE/Nasdaq"},"FCEL":{"price_local":12.17,"currency":"USD","market_cap_usd":644740608.0,"pe_ttm":null,"one_yr_return_pct":216.10390591569146,"data_status":"ok","exchange":"NYSE/Nasdaq"},"PWR":{"price_local":633.44,"currency":"USD","market_cap_usd":95051931648.0,"pe_ttm":93.42773,"one_yr_return_pct":124.74489503129735,"data_status":"ok","exchange":"NYSE/Nasdaq"},"MTZ":{"price_local":382.88,"currency":"USD","market_cap_usd":30181588992.0,"pe_ttm":75.81782,"one_yr_return_pct":211.7153783075254,"data_status":"ok","exchange":"NYSE/Nasdaq"},"EME":{"price_local":873.11,"currency":"USD","market_cap_usd":38881828864.0,"pe_ttm":30.961346,"one_yr_return_pct":118.35734457035261,"data_status":"ok","exchange":"NYSE/Nasdaq"},"ACM":{"price_local":80.46,"currency":"USD","market_cap_usd":10402563072.0,"pe_ttm":17.800884,"one_yr_return_pct":-16.688360815792702,"data_status":"ok","exchange":"NYSE/Nasdaq"},"FLR":{"price_local":47.62,"currency":"USD","market_cap_usd":6814720000.0,"pe_ttm":null,"one_yr_return_pct":33.76404767685999,"data_status":"ok","exchange":"NYSE/Nasdaq"},"J":{"price_local":127.58,"currency":"USD","market_cap_usd":14983852032.0,"pe_ttm":33.66227,"one_yr_return_pct":6.361346525605183,"data_status":"ok","exchange":"NYSE/Nasdaq"},"FIX":{"price_local":1773.91,"currency":"USD","market_cap_usd":62413193216.0,"pe_ttm":61.359737,"one_yr_return_pct":372.85288814743296,"data_status":"ok","exchange":"NYSE/Nasdaq"},"LT.NS":{"price_local":4025.8,"currency":"INR","market_cap_usd":58749481692.01904,"pe_ttm":31.525452,"one_yr_return_pct":23.10930932159543,"data_status":"ok","exchange":"NSE"},"MOD":{"price_local":250.57,"currency":"USD","market_cap_usd":13212856320.0,"pe_ttm":136.9235,"one_yr_return_pct":216.81630917483693,"data_status":"ok","exchange":"NYSE/Nasdaq"},"SPXC":{"price_local":223.96,"currency":"USD","market_cap_usd":11237588992.0,"pe_ttm":44.26087,"one_yr_return_pct":67.76030465458216,"data_status":"ok","exchange":"NYSE/Nasdaq"},"MTRS.ST":{"price_local":193.8,"currency":"SEK","market_cap_usd":3818244774.602356,"pe_ttm":64.6,"one_yr_return_pct":81.33331029940632,"data_status":"ok","exchange":"Nasdaq Stockholm"},"AAON":{"price_local":98.71,"currency":"USD","market_cap_usd":8078792704.0,"pe_ttm":76.51938,"one_yr_return_pct":15.523821862770415,"data_status":"ok","exchange":"NYSE/Nasdaq"},"LII":{"price_local":493.67,"currency":"USD","market_cap_usd":17188544512.0,"pe_ttm":21.642702,"one_yr_return_pct":-4.610993543310582,"data_status":"ok","exchange":"NYSE/Nasdaq"},"BLUESTARCO.NS":{"price_local":1815.0,"currency":"INR","market_cap_usd":3958527922.0929565,"pe_ttm":75.71965,"one_yr_return_pct":-1.3992982652526575,"data_status":"ok","exchange":"NSE"},"DUK":{"price_local":128.04,"currency":"USD","market_cap_usd":99642859520.0,"pe_ttm":20.2916,"one_yr_return_pct":9.837498344170626,"data_status":"ok","exchange":"NYSE/Nasdaq"},"D":{"price_local":62.52,"currency":"USD","market_cap_usd":54952873984.0,"pe_ttm":18.01729,"one_yr_return_pct":22.616667778921283,"data_status":"ok","exchange":"NYSE/Nasdaq"},"SO":{"price_local":93.91,"currency":"USD","market_cap_usd":105865125888.0,"pe_ttm":23.956633,"one_yr_return_pct":6.526085492808664,"data_status":"ok","exchange":"NYSE/Nasdaq"},"NEE":{"price_local":96.25,"currency":"USD","market_cap_usd":200710406144.0,"pe_ttm":24.428934,"one_yr_return_pct":49.3782812015642,"data_status":"ok","exchange":"NYSE/Nasdaq"},"AEP":{"price_local":135.08,"currency":"USD","market_cap_usd":73424551936.0,"pe_ttm":20.282284,"one_yr_return_pct":30.821989217378842,"data_status":"ok","exchange":"NYSE/Nasdaq"},"EXC":{"price_local":46.75,"currency":"USD","market_cap_usd":47833436160.0,"pe_ttm":17.124542,"one_yr_return_pct":4.497903686391136,"data_status":"ok","exchange":"NYSE/Nasdaq"},"PCG":{"price_local":16.83,"currency":"USD","market_cap_usd":37063442432.0,"pe_ttm":13.046512,"one_yr_return_pct":-2.3034042139523314,"data_status":"ok","exchange":"NYSE/Nasdaq"},"ETR":{"price_local":113.92,"currency":"USD","market_cap_usd":52152418304.0,"pe_ttm":29.13555,"one_yr_return_pct":37.74727535392262,"data_status":"ok","exchange":"NYSE/Nasdaq"},"PPL":{"price_local":38.54,"currency":"USD","market_cap_usd":28988444672.0,"pe_ttm":24.238995,"one_yr_return_pct":9.700643977677291,"data_status":"ok","exchange":"NYSE/Nasdaq"},"EIX":{"price_local":70.34,"currency":"USD","market_cap_usd":27074283520.0,"pe_ttm":6.090043,"one_yr_return_pct":28.041057114597233,"data_status":"ok","exchange":"NYSE/Nasdaq"},"CMS":{"price_local":76.62,"currency":"USD","market_cap_usd":23598702592.0,"pe_ttm":21.767046,"one_yr_return_pct":6.471986998690982,"data_status":"ok","exchange":"NYSE/Nasdaq"},"EVRG":{"price_local":81.89,"currency":"USD","market_cap_usd":18857967616.0,"pe_ttm":22.374317,"one_yr_return_pct":24.45986539509144,"data_status":"ok","exchange":"NYSE/Nasdaq"},"TATAPOWER.NS":{"price_local":430.35,"currency":"INR","market_cap_usd":14587750700.460205,"pe_ttm":36.224747,"one_yr_return_pct":9.355255189887114,"data_status":"ok","exchange":"NSE"},"CEG":{"price_local":292.77,"currency":"USD","market_cap_usd":106069000192.0,"pe_ttm":39.51012,"one_yr_return_pct":34.93556672030247,"data_status":"ok","exchange":"NYSE/Nasdaq"},"VST":{"price_local":156.85,"currency":"USD","market_cap_usd":53101457408.0,"pe_ttm":71.94954,"one_yr_return_pct":26.90319665916412,"data_status":"ok","exchange":"NYSE/Nasdaq"},"TLN":{"price_local":345.25,"currency":"USD","market_cap_usd":15776201728.0,"pe_ttm":null,"one_yr_return_pct":63.61784227657292,"data_status":"ok","exchange":"NYSE/Nasdaq"},"NRG":{"price_local":154.53,"currency":"USD","market_cap_usd":32818493440.0,"pe_ttm":38.6325,"one_yr_return_pct":47.439951752484724,"data_status":"ok","exchange":"NYSE/Nasdaq"},"PEG":{"price_local":80.16,"currency":"USD","market_cap_usd":40012185600.0,"pe_ttm":18.995262,"one_yr_return_pct":1.2555351289631478,"data_status":"ok","exchange":"NYSE/Nasdaq"},"AES":{"price_local":14.5,"currency":"USD","market_cap_usd":10339538944.0,"pe_ttm":11.068703,"one_yr_return_pct":51.47800715588493,"data_status":"ok","exchange":"NYSE/Nasdaq"},"CCJ":{"price_local":123.85,"currency":"USD","market_cap_usd":53940760576.0,"pe_ttm":125.101006,"one_yr_return_pct":182.73217232114453,"data_status":"ok","exchange":"NYSE/Nasdaq"},"EDF.PA":{"price_local":null,"currency":"EUR","market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"missing: empty info (delisted / wrong suffix?)","exchange":"Euronext Paris"},"NTPC.NS":{"price_local":401.1,"currency":"INR","market_cap_usd":41259564934.23926,"pe_ttm":22.209303,"one_yr_return_pct":13.349527792410122,"data_status":"ok","exchange":"NSE"},"BEP":{"price_local":33.9,"currency":"USD","market_cap_usd":10372993024.0,"pe_ttm":null,"one_yr_return_pct":55.95931750308043,"data_status":"ok","exchange":"NYSE/Nasdaq"},"ORSTED.CO":{"price_local":163.5,"currency":"DKK","market_cap_usd":33761961806.64453,"pe_ttm":86.052635,"one_yr_return_pct":-37.83269961977186,"data_status":"ok","exchange":"Nasdaq Copenhagen"},"IBE.MC":{"price_local":20.02,"currency":"EUR","market_cap_usd":158051485944.84375,"pe_ttm":23.833334,"one_yr_return_pct":35.540524259390274,"data_status":"ok","exchange":"Bolsa de Madrid"},"RWE.DE":{"price_local":60.6,"currency":"EUR","market_cap_usd":50516381055.65625,"pe_ttm":14.093022,"one_yr_return_pct":86.40635366305563,"data_status":"ok","exchange":"Xetra Frankfurt"},"FSLR":{"price_local":196.19,"currency":"USD","market_cap_usd":21080764416.0,"pe_ttm":13.816197,"one_yr_return_pct":43.79214228294921,"data_status":"ok","exchange":"NYSE/Nasdaq"},"ENPH":{"price_local":36.16,"currency":"USD","market_cap_usd":4765307392.0,"pe_ttm":28.031008,"one_yr_return_pct":-20.961748967405224,"data_status":"ok","exchange":"NYSE/Nasdaq"},"NEP":{"price_local":null,"currency":"USD","market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"missing: empty info (delisted / wrong suffix?)","exchange":"NYSE/Nasdaq"},"ARRY":{"price_local":8.11,"currency":"USD","market_cap_usd":1241188992.0,"pe_ttm":null,"one_yr_return_pct":77.85087189570903,"data_status":"ok","exchange":"NYSE/Nasdaq"},"ADANIGREEN.NS":{"price_local":1185.55,"currency":"INR","market_cap_usd":20716170543.635376,"pe_ttm":137.5348,"one_yr_return_pct":22.354098136366375,"data_status":"ok","exchange":"NSE"},"GEV":{"price_local":1149.53,"currency":"USD","market_cap_usd":308901707776.0,"pe_ttm":33.553127,"one_yr_return_pct":219.57979632067259,"data_status":"ok","exchange":"NYSE/Nasdaq"},"ENR.DE":{"price_local":182.8,"currency":"EUR","market_cap_usd":182659958022.9375,"pe_ttm":82.714935,"one_yr_return_pct":181.21865994401202,"data_status":"ok","exchange":"Xetra Frankfurt"},"VMI":{"price_local":494.44,"currency":"USD","market_cap_usd":9664923648.0,"pe_ttm":27.46889,"one_yr_return_pct":68.00899846921496,"data_status":"ok","exchange":"NYSE/Nasdaq"},"MYRG":{"price_local":338.05,"currency":"USD","market_cap_usd":5253321728.0,"pe_ttm":44.834217,"one_yr_return_pct":180.16739394408447,"data_status":"ok","exchange":"NYSE/Nasdaq"},"PNR":{"price_local":90.48,"currency":"USD","market_cap_usd":14769567744.0,"pe_ttm":23.022902,"one_yr_return_pct":1.356606886293532,"data_status":"ok","exchange":"NYSE/Nasdaq"},"POWERGRID.NS":{"price_local":315.7,"currency":"INR","market_cap_usd":31148365408.335205,"pe_ttm":20.276173,"one_yr_return_pct":3.6953334153952744,"data_status":"ok","exchange":"NSE"},"AMT":{"price_local":179.01,"currency":"USD","market_cap_usd":83484901376.0,"pe_ttm":33.088726,"one_yr_return_pct":-11.99251715780727,"data_status":"ok","exchange":"NYSE/Nasdaq"},"CCI":{"price_local":87.52,"currency":"USD","market_cap_usd":38190870528.0,"pe_ttm":36.928272,"one_yr_return_pct":-9.036172475233862,"data_status":"ok","exchange":"NYSE/Nasdaq"},"SBAC":{"price_local":219.6,"currency":"USD","market_cap_usd":23291305984.0,"pe_ttm":22.431053,"one_yr_return_pct":0.7463657729210871,"data_status":"ok","exchange":"NYSE/Nasdaq"},"CLNX.MC":{"price_local":28.69,"currency":"EUR","market_cap_usd":22494581920.125,"pe_ttm":null,"one_yr_return_pct":-16.755639896665542,"data_status":"ok","exchange":"Bolsa de Madrid"},"INDUSTOWER.NS":{"price_local":398.6,"currency":"INR","market_cap_usd":11151215107.500183,"pe_ttm":14.724788,"one_yr_return_pct":-1.9434179327144863,"data_status":"ok","exchange":"NSE"},"TBIG.JK":{"price_local":1860.0,"currency":"IDR","market_cap_usd":2432757498.277588,"pe_ttm":29.22231,"one_yr_return_pct":-4.525052060599699,"data_status":"ok","exchange":"IDX"},"LUMN":{"price_local":9.01,"currency":"USD","market_cap_usd":9281728512.0,"pe_ttm":null,"one_yr_return_pct":169.7604928269199,"data_status":"ok","exchange":"NYSE/Nasdaq"},"FYBR":{"price_local":null,"currency":"USD","market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"missing: empty info (delisted / wrong suffix?)","exchange":"NYSE/Nasdaq"},"CCOI":{"price_local":23.97,"currency":"USD","market_cap_usd":1200953600.0,"pe_ttm":null,"one_yr_return_pct":-52.81922694939127,"data_status":"ok","exchange":"NYSE/Nasdaq"},"BT.L":{"price_local":null,"currency":"GBP","market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"missing: empty info (delisted / wrong suffix?)","exchange":"London Stock Exchange"},"TEF":{"price_local":null,"currency":"USD","market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"missing: empty info (delisted / wrong suffix?)","exchange":"NYSE/Nasdaq"},"TATACOMM.NS":{"price_local":1552.5,"currency":"INR","market_cap_usd":4693815191.678833,"pe_ttm":42.5226,"one_yr_return_pct":-2.0163034970051896,"data_status":"ok","exchange":"NSE"},"ANET":{"price_local":172.55,"currency":"USD","market_cap_usd":217269682176.0,"pe_ttm":62.974453,"one_yr_return_pct":129.18050332520608,"data_status":"ok","exchange":"NYSE/Nasdaq"},"CSCO":{"price_local":88.59,"currency":"USD","market_cap_usd":349921017856.0,"pe_ttm":31.866905,"one_yr_return_pct":61.00392115102515,"data_status":"ok","exchange":"NYSE/Nasdaq"},"JNPR":{"price_local":null,"currency":"USD","market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"missing: empty info (delisted / wrong suffix?)","exchange":"NYSE/Nasdaq"},"DELL":{"price_local":212.14,"currency":"USD","market_cap_usd":137931030528.0,"pe_ttm":24.440092,"one_yr_return_pct":128.14155179433203,"data_status":"ok","exchange":"NYSE/Nasdaq"},"HPE":{"price_local":27.93,"currency":"USD","market_cap_usd":37059035136.0,"pe_ttm":null,"one_yr_return_pct":76.98749581730434,"data_status":"ok","exchange":"NYSE/Nasdaq"},"EXTR":{"price_local":16.9,"currency":"USD","market_cap_usd":2269155072.0,"pe_ttm":281.66666,"one_yr_return_pct":36.842097947523044,"data_status":"ok","exchange":"NYSE/Nasdaq"},"EQIX":{"price_local":1115.29,"currency":"USD","market_cap_usd":109993795584.0,"pe_ttm":80.93542,"one_yr_return_pct":39.64342571511716,"data_status":"ok","exchange":"NYSE/Nasdaq"},"DLR":{"price_local":200.0,"currency":"USD","market_cap_usd":69791088640.0,"pe_ttm":55.865925,"one_yr_return_pct":33.875418194706256,"data_status":"ok","exchange":"NYSE/Nasdaq"},"GDS":{"price_local":43.25,"currency":"USD","market_cap_usd":8666332160.0,"pe_ttm":67.578125,"one_yr_return_pct":87.47291101916741,"data_status":"ok","exchange":"NYSE/Nasdaq"},"9432.T":{"price_local":151.7,"currency":"JPY","market_cap_usd":77313806552.85645,"pe_ttm":12.068417,"one_yr_return_pct":7.3814310192421795,"data_status":"ok","exchange":"Tokyo Stock Exchange"},"VNET":{"price_local":8.84,"currency":"USD","market_cap_usd":2516674304.0,"pe_ttm":null,"one_yr_return_pct":63.09963151573334,"data_status":"ok","exchange":"NYSE/Nasdaq"},"AJBU.SI":{"price_local":2.37,"currency":"SGD","market_cap_usd":4531253660.750153,"pe_ttm":12.473683,"one_yr_return_pct":19.78613105437823,"data_status":"ok","exchange":"SGX"},"ME8U.SI":{"price_local":2.06,"currency":"SGD","market_cap_usd":4598594490.122589,"pe_ttm":18.727272,"one_yr_return_pct":7.072596455312197,"data_status":"ok","exchange":"SGX"},"IRM":{"price_local":116.12,"currency":"USD","market_cap_usd":34543239168.0,"pe_ttm":236.9796,"one_yr_return_pct":40.86954549914017,"data_status":"ok","exchange":"NYSE/Nasdaq"},"SIFY":{"price_local":15.6,"currency":"USD","market_cap_usd":1128666240.0,"pe_ttm":null,"one_yr_return_pct":255.35309466781993,"data_status":"ok","exchange":"NYSE/Nasdaq"},"MSFT":{"price_local":415.75,"currency":"USD","market_cap_usd":3090011127808.0,"pe_ttm":26.0495,"one_yr_return_pct":8.167531135898765,"data_status":"ok","exchange":"NYSE/Nasdaq"},"GOOGL":{"price_local":338.89,"currency":"USD","market_cap_usd":4099552575488.0,"pe_ttm":31.349676,"one_yr_return_pct":113.50146210003498,"data_status":"ok","exchange":"NYSE/Nasdaq"},"AMZN":{"price_local":255.08,"currency":"USD","market_cap_usd":2743194615808.0,"pe_ttm":35.57601,"one_yr_return_pct":36.74279565336356,"data_status":"ok","exchange":"NYSE/Nasdaq"},"META":{"price_local":659.15,"currency":"USD","market_cap_usd":1673201713152.0,"pe_ttm":28.084791,"one_yr_return_pct":24.018831958748564,"data_status":"ok","exchange":"NYSE/Nasdaq"},"ORCL":{"price_local":176.28,"currency":"USD","market_cap_usd":506989412352.0,"pe_ttm":31.648113,"one_yr_return_pct":29.480464707740882,"data_status":"ok","exchange":"NYSE/Nasdaq"},"IBM":{"price_local":231.08,"currency":"USD","market_cap_usd":217188696064.0,"pe_ttm":20.761904,"one_yr_return_pct":3.2679219334647236,"data_status":"ok","exchange":"NYSE/Nasdaq"},"CRWV":{"price_local":117.42,"currency":"USD","market_cap_usd":62021255168.0,"pe_ttm":null,"one_yr_return_pct":181.11083763974628,"data_status":"ok","exchange":"NYSE/Nasdaq"},"NBIS":{"price_local":157.08,"currency":"USD","market_cap_usd":39743905792.0,"pe_ttm":1428.0,"one_yr_return_pct":542.1913643110885,"data_status":"ok","exchange":"NYSE/Nasdaq"},"BABA":{"price_local":131.7,"currency":"USD","market_cap_usd":324980473856.0,"pe_ttm":23.18662,"one_yr_return_pct":12.26923572460208,"data_status":"ok","exchange":"NYSE/Nasdaq"},"0700.HK":{"price_local":493.2,"currency":"HKD","market_cap_usd":568903283739.8828,"pe_ttm":17.785791,"one_yr_return_pct":5.627461451891347,"data_status":"ok","exchange":"HKEX"},"BIDU":{"price_local":121.53,"currency":"USD","market_cap_usd":41350905856.0,"pe_ttm":70.24855,"one_yr_return_pct":35.7877081332926,"data_status":"ok","exchange":"NYSE/Nasdaq"},"035420.KS":{"price_local":214000.0,"currency":"KRW","market_cap_usd":21579120903.6167,"pe_ttm":null,"one_yr_return_pct":12.9232105678184,"data_status":"ok","exchange":"KRX (KOSPI)"},"035720.KS":{"price_local":47900.0,"currency":"KRW","market_cap_usd":14239199039.570312,"pe_ttm":null,"one_yr_return_pct":21.58966107119953,"data_status":"ok","exchange":"KRX (KOSPI)"},"9613.T":{"price_local":null,"currency":"JPY","market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"missing: empty info (delisted / wrong suffix?)","exchange":"Tokyo Stock Exchange"},"9984.T":{"price_local":5949.0,"currency":"JPY","market_cap_usd":212200147505.36426,"pe_ttm":11.12649,"one_yr_return_pct":239.8442179275393,"data_status":"ok","exchange":"Tokyo Stock Exchange"},"PLTR":{"price_local":141.57,"currency":"USD","market_cap_usd":338589548544.0,"pe_ttm":221.20314,"one_yr_return_pct":31.350908264634803,"data_status":"ok","exchange":"NYSE/Nasdaq"},"NOW":{"price_local":84.78,"currency":"USD","market_cap_usd":87845363712.0,"pe_ttm":50.464287,"one_yr_return_pct":-54.83554943190248,"data_status":"ok","exchange":"NYSE/Nasdaq"},"SNOW":{"price_local":146.4,"currency":"USD","market_cap_usd":50610479104.0,"pe_ttm":null,"one_yr_return_pct":-7.7272214059282085,"data_status":"ok","exchange":"NYSE/Nasdaq"},"MDB":{"price_local":258.11,"currency":"USD","market_cap_usd":20744177664.0,"pe_ttm":null,"one_yr_return_pct":49.015631514838006,"data_status":"ok","exchange":"NYSE/Nasdaq"},"CRM":{"price_local":173.3,"currency":"USD","market_cap_usd":141768720384.0,"pe_ttm":22.217949,"one_yr_return_pct":-34.041077695985145,"data_status":"ok","exchange":"NYSE/Nasdaq"},"WDAY":{"price_local":114.67,"currency":"USD","market_cap_usd":29475807232.0,"pe_ttm":44.27413,"one_yr_return_pct":-51.589479236399605,"data_status":"ok","exchange":"NYSE/Nasdaq"},"HUBS":{"price_local":214.69,"currency":"USD","market_cap_usd":11322865664.0,"pe_ttm":249.63953,"one_yr_return_pct":-64.24812615463675,"data_status":"ok","exchange":"NYSE/Nasdaq"},"PATH":{"price_local":10.09,"currency":"USD","market_cap_usd":5286371840.0,"pe_ttm":19.403847,"one_yr_return_pct":-10.865720630705622,"data_status":"ok","exchange":"NYSE/Nasdaq"},"AI":{"price_local":8.54,"currency":"USD","market_cap_usd":1240786944.0,"pe_ttm":null,"one_yr_return_pct":-61.21707636549095,"data_status":"ok","exchange":"NYSE/Nasdaq"},"TCS.NS":{"price_local":2458.0,"currency":"INR","market_cap_usd":94343171256.57129,"pe_ttm":18.082838,"one_yr_return_pct":-25.242642896305846,"data_status":"ok","exchange":"NSE"},"INFY.NS":{"price_local":1188.3,"currency":"INR","market_cap_usd":51011733005.635254,"pe_ttm":15.858802,"one_yr_return_pct":-16.850144282500036,"data_status":"ok","exchange":"NSE"},"018260.KS":{"price_local":170000.0,"currency":"KRW","market_cap_usd":8870194669.07837,"pe_ttm":null,"one_yr_return_pct":39.37196532917404,"data_status":"ok","exchange":"KRX (KOSPI)"},"RELIANCE.NS":{"price_local":1335.7,"currency":"INR","market_cap_usd":191750077591.61133,"pe_ttm":21.708109,"one_yr_return_pct":3.0297004102806557,"data_status":"ok","exchange":"NSE"},"KT":{"price_local":21.69,"currency":"USD","market_cap_usd":10446444544.0,"pe_ttm":9.075314,"one_yr_return_pct":17.171621524293478,"data_status":"ok","exchange":"NYSE/Nasdaq"},"CHT":{"price_local":43.18,"currency":"USD","market_cap_usd":33496653824.0,"pe_ttm":27.329113,"one_yr_return_pct":13.835642268933391,"data_status":"ok","exchange":"NYSE/Nasdaq"},"TLKM.JK":{"price_local":2780.0,"currency":"IDR","market_cap_usd":15932483121.917725,"pe_ttm":12.684217,"one_yr_return_pct":14.028965084357491,"data_status":"ok","exchange":"IDX"},"Sixth Street":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"GIP":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Cerebras":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Groq":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Tenstorrent":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"SambaNova":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Kioxia":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Kohler":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Mortenson":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Turner":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Holder":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"DPR":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Vantage":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Summit":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Zayo":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Colt":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"CyrusOne":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"QTS":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"GlobalSwitch":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Cologix":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"STACK":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Yotta":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"AdaniConneX":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"OpenAI":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Anthropic":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"xAI":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Mistral":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Cohere":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Perplexity":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Stability":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Inflection":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Sarvam":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"Databricks":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"},"G42":{"price_local":null,"currency":null,"market_cap_usd":null,"pe_ttm":null,"one_yr_return_pct":null,"data_status":"private","exchange":"Private"}}};
+  /* === FINANCIALS END === */
+  /* === FINANCIALS HELPERS START === */
+  function fmtMCapUsd(v) {
+    if (v === null || v === undefined || isNaN(v)) return '—';
+    var abs = Math.abs(v);
+    if (abs >= 1e12) return '$' + (v/1e12).toFixed(2) + 'T';
+    if (abs >= 1e9)  return '$' + (v/1e9).toFixed(1)  + 'B';
+    if (abs >= 1e6)  return '$' + (v/1e6).toFixed(0)  + 'M';
+    return '$' + v.toFixed(0);
+  }
+  function fmtPrice(v, ccy) {
+    if (v === null || v === undefined || isNaN(v)) return '—';
+    var symbolMap = { USD:'$', EUR:'€', GBP:'£', GBp:'p', JPY:'¥',
+                      HKD:'HK$', KRW:'₩', TWD:'NT$', INR:'₹', SGD:'S$',
+                      AUD:'A$', IDR:'Rp', SEK:'kr', DKK:'kr' };
+    var sym = symbolMap[ccy] || '';
+    var rounded = v >= 1000 ? Math.round(v).toLocaleString('en-US')
+                            : v.toFixed(2);
+    return sym + rounded;
+  }
+  function fmtPE(v) {
+    if (v === null || v === undefined || isNaN(v) || v < 0) return '—';
+    return v.toFixed(1) + 'x';
+  }
+  function fmtPct(v) {
+    if (v === null || v === undefined || isNaN(v)) return { t: '—', cls: 'muted' };
+    var sign = v >= 0 ? '+' : '';
+    var cls = v >= 0 ? 'ret-pos' : 'ret-neg';
+    return { t: sign + v.toFixed(1) + '%', cls: cls };
+  }
+  function getFin(sym) {
+    var db = (FINANCIALS && FINANCIALS.by_symbol) || {};
+    return db[sym] || null;
+  }
+  /* === FINANCIALS HELPERS END === */
+
+
+  var BAND_LABELS = {
+    silicon:      { num: '01', title: 'Silicon & Equipment' },
+    buildout:     { num: '02', title: 'Physical Build-out' },
+    energy:       { num: '03', title: 'Energy' },
+    connectivity: { num: '04', title: 'Connectivity & DC' },
+    compute:      { num: '05', title: 'Compute & End Demand' }
+  };
+
+  var SUBNODES = {
+    'fin-banks': {
+      band: 'financing', bandLabel: 'Capital layer · Senior debt',
+      title: 'Banks & Syndication',
+      desc: 'Lead arrangers of the large-ticket senior debt and revolvers that underwrite land acquisition, DC shell construction and equipment financing for both hyperscalers and the REITs that lease to them.',
+      top3: ['JPM','GS','MS'],
+      roster: [
+        t('JPM','JPMorgan Chase','US'), t('GS','Goldman Sachs','US'), t('MS','Morgan Stanley','US'),
+        t('BAC','Bank of America','US'), t('C','Citigroup','US'), t('WFC','Wells Fargo','US'),
+        t('UBS','UBS Group','EU'), t('BNP.PA','BNP Paribas','EU'), t('BARC.L','Barclays','EU'),
+        t('HSBA.L','HSBC','EU'), t('8411.T','Mizuho Financial','APAC')
+      ]
+    },
+    'fin-privcredit': {
+      band: 'financing', bandLabel: 'Capital layer · Private credit',
+      title: 'Private Credit',
+      desc: 'Direct-lending, asset-backed and structured private credit — increasingly the marginal funder of DC developers and IPPs too small for the public bond market, and a fast-growing allocation for retail BDCs.',
+      top3: ['OWL','APO','ARES'],
+      roster: [
+        t('OWL','Blue Owl Capital','US'), t('APO','Apollo Global','US'), t('ARES','Ares Management','US'),
+        t('BX','Blackstone','US'), t('KKR','KKR & Co','US'), t('CG','Carlyle Group','US'),
+        t('TCPC','BlackRock TCP Capital','US'),
+        t('Sixth Street','Sixth Street Partners','US','P')
+      ]
+    },
+    'fin-pe': {
+      band: 'financing', bandLabel: 'Capital layer · PE & Infra',
+      title: 'PE / Infra Funds',
+      desc: 'Infrastructure funds that own the operating DC platforms (QTS, CyrusOne, Vantage) that hyperscalers lease from. They capture the equity return before the public REITs ever see the asset.',
+      top3: ['BX','KKR','BN'],
+      roster: [
+        t('BX','Blackstone','US'), t('KKR','KKR & Co','US'), t('BN','Brookfield Corp','US'),
+        t('BAM','Brookfield Asset Mgmt','US'), t('APO','Apollo Global','US'), t('CG','Carlyle Group','US'),
+        t('EQT.ST','EQT Partners','EU'), t('MQG.AX','Macquarie Group','APAC'),
+        t('GIP','Global Infra Partners (BlackRock)','US','P')
+      ]
+    },
+
+    'si-wfe': {
+      band: 'silicon', bandLabel: 'Band 01 · Silicon & Equipment',
+      title: 'Wafer Fab Equipment',
+      desc: 'Makers of the physical machines TSMC, Samsung and Intel use to print chips. Near-monopolies at the leading edge — ASML on EUV lithography; AMAT and Lam on deposition and etch.',
+      top3: ['ASML','AMAT','LRCX'],
+      roster: [
+        t('ASML','ASML Holding','EU','H'), t('AMAT','Applied Materials','US'), t('LRCX','Lam Research','US'),
+        t('KLAC','KLA Corp','US'), t('8035.T','Tokyo Electron','APAC'),
+        t('ASM','ASM International','EU'), t('ACLS','Axcelis Technologies','US'),
+        t('ONTO','Onto Innovation','US'), t('ICHR','Ichor Holdings','US')
+      ]
+    },
+    'si-logic': {
+      band: 'silicon', bandLabel: 'Band 01 · Silicon & Equipment',
+      title: 'AI & Logic Chips',
+      desc: 'The compute chokepoint. NVDA owns training GPUs; AMD is the closest public alternative; AVGO and MRVL are the custom-silicon hedge behind hyperscaler ASIC programmes. Every AI lab sits on top of this layer.',
+      top3: ['NVDA','AMD','AVGO'],
+      roster: [
+        t('NVDA','NVIDIA','US','H'), t('AMD','Advanced Micro Devices','US'),
+        t('AVGO','Broadcom','US','H'), t('MRVL','Marvell Technology','US'),
+        t('INTC','Intel','US'), t('QCOM','Qualcomm','US'), t('ARM','Arm Holdings','EU'),
+        t('Cerebras','Cerebras Systems','US','P'), t('Groq','Groq','US','P'),
+        t('Tenstorrent','Tenstorrent','US','P'), t('SambaNova','SambaNova Systems','US','P')
+      ]
+    },
+    'si-foundry': {
+      band: 'silicon', bandLabel: 'Band 01 · Silicon & Equipment',
+      title: 'Foundries',
+      desc: 'Where silicon is physically printed. TSMC dominates leading-edge; Samsung is a node behind; everyone else is capacity-constrained or focused on mature nodes.',
+      top3: ['TSM','005930.KS','GFS'],
+      roster: [
+        t('TSM','Taiwan Semiconductor','APAC','H'),
+        t('005930.KS','Samsung Electronics (Foundry)','APAC'),
+        t('GFS','GlobalFoundries','US'), t('UMC','United Microelectronics','APAC'),
+        t('0981.HK','SMIC','APAC'), t('TSEM','Tower Semiconductor','APAC'),
+        t('6770.TW','Powerchip Semi','APAC')
+      ]
+    },
+    'si-memory': {
+      band: 'silicon', bandLabel: 'Band 01 · Silicon & Equipment',
+      title: 'Memory',
+      desc: 'HBM (high-bandwidth memory) is the choke point on every GPU cluster. Three vendors globally; SK Hynix took the early lead on HBM3E, Micron is catching up, Samsung is the incumbent bulk supplier.',
+      top3: ['MU','000660.KS','005930.KS'],
+      roster: [
+        t('MU','Micron Technology','US'),
+        t('000660.KS','SK Hynix','APAC'),
+        t('005930.KS','Samsung Electronics','APAC'),
+        t('2408.TW','Nanya Technology','APAC'),
+        t('2344.TW','Winbond Electronics','APAC'),
+        t('Kioxia','Kioxia Holdings (IPO pending)','APAC','P')
+      ]
+    },
+
+    'bo-powcool': {
+      band: 'buildout', bandLabel: 'Band 02 · Physical Build-out',
+      title: 'Power & Cooling Equipment',
+      desc: 'Inside-the-rack power distribution, busbars, switchgear and the liquid-cooling loops that AI-generation racks require. Attach-rate per megawatt is rising meaningfully as rack densities climb past 100 kW.',
+      top3: ['VRT','SU.PA','ETN'],
+      roster: [
+        t('VRT','Vertiv Holdings','US','H'),
+        t('SU.PA','Schneider Electric','EU'),
+        t('ETN','Eaton Corp','US'),
+        t('JCI','Johnson Controls','US'), t('TT','Trane Technologies','US'),
+        t('CARR','Carrier Global','US'), t('LR.PA','Legrand','EU'),
+        t('NVT','nVent Electric','US'), t('WTS','Watts Water','US'), t('HUBB','Hubbell','US')
+      ]
+    },
+    'bo-backup': {
+      band: 'buildout', bandLabel: 'Band 02 · Physical Build-out',
+      title: 'Backup Power & Gensets',
+      desc: 'Diesel and gas gensets for N+1 redundancy; increasingly on-site fuel cells and primary power where utility interconnection queues are multi-year.',
+      top3: ['CMI','GNRC','CAT'],
+      roster: [
+        t('CMI','Cummins','US'), t('GNRC','Generac Holdings','US'), t('CAT','Caterpillar','US'),
+        t('RR.L','Rolls-Royce (MTU)','EU'), t('BE','Bloom Energy','US'),
+        t('FCEL','FuelCell Energy','US'),
+        t('Kohler','Kohler Co','US','P')
+      ]
+    },
+    'bo-epc': {
+      band: 'buildout', bandLabel: 'Band 02 · Physical Build-out',
+      title: 'EPC Contractors',
+      desc: 'The general contractors physically building DC shells, running power to the site, trenching fibre. The private players — Mortenson, Turner, DPR, Holder — do the overwhelming majority of hyperscaler work.',
+      top3: ['PWR','MTZ','EME'],
+      roster: [
+        t('PWR','Quanta Services','US'), t('MTZ','MasTec','US'), t('EME','EMCOR','US'),
+        t('ACM','AECOM','US'), t('FLR','Fluor Corp','US'), t('J','Jacobs Solutions','US'),
+        t('FIX','Comfort Systems USA','US'),
+        t('Mortenson','Mortenson Construction','US','P'),
+        t('Turner','Turner Construction','US','P'),
+        t('Holder','Holder Construction','US','P'),
+        t('DPR','DPR Construction','US','P'),
+        t('LT.NS','Larsen & Toubro','APAC')
+      ]
+    },
+    'bo-hvac': {
+      band: 'buildout', bandLabel: 'Band 02 · Physical Build-out',
+      title: 'HVAC & Specialty Cooling',
+      desc: 'Evaporative cooling, chiller plants, in-row liquid cooling. Specialty vendors still under-owned relative to the DC capex cycle; Munters and Modine have the most direct AI-cooling exposure.',
+      top3: ['MOD','SPXC','MTRS.ST'],
+      roster: [
+        t('MOD','Modine Manufacturing','US'),
+        t('SPXC','SPX Technologies','US'),
+        t('MTRS.ST','Munters Group','EU'),
+        t('AAON','AAON','US'),
+        t('FIX','Comfort Systems USA','US'),
+        t('LII','Lennox International','US'),
+        t('BLUESTARCO.NS','Blue Star','APAC')
+      ]
+    },
+
+    'en-util': {
+      band: 'energy', bandLabel: 'Band 03 · Energy',
+      title: 'Regulated Utilities',
+      desc: 'Investor-owned utilities sitting on interconnection queues 7–10 years long. Dominion (Virginia) is the bottleneck utility for the largest DC cluster on earth; Georgia Power (SO) and AEP are the next battlegrounds.',
+      top3: ['DUK','D','SO'],
+      roster: [
+        t('DUK','Duke Energy','US'), t('D','Dominion Energy','US'), t('SO','Southern Company','US'),
+        t('NEE','NextEra Energy','US'), t('AEP','American Electric Power','US'),
+        t('EXC','Exelon','US'), t('PCG','PG&E','US'), t('ETR','Entergy','US'),
+        t('PPL','PPL Corp','US'), t('EIX','Edison International','US'),
+        t('CMS','CMS Energy','US'), t('EVRG','Evergy','US'),
+        t('TATAPOWER.NS','Tata Power','APAC')
+      ]
+    },
+    'en-ipp': {
+      band: 'energy', bandLabel: 'Band 03 · Energy',
+      title: 'IPPs & Nuclear',
+      desc: 'Merchant generators with nuclear fleets (CEG, VST, TLN) are the only ones who can sign hyperscaler 24x7 carbon-free PPAs at scale today — and are doing so at premium pricing. The Three Mile Island restart is the defining trade of the cycle.',
+      top3: ['CEG','VST','TLN'],
+      roster: [
+        t('CEG','Constellation Energy','US','H'),
+        t('VST','Vistra','US'), t('TLN','Talen Energy','US'),
+        t('NRG','NRG Energy','US'), t('PEG','Public Service Enterprise','US'),
+        t('AES','AES Corp','US'), t('CCJ','Cameco (uranium fuel)','US'),
+        t('EDF.PA','EDF','EU'),
+        t('NTPC.NS','NTPC Ltd','APAC')
+      ]
+    },
+    'en-renew': {
+      band: 'energy', bandLabel: 'Band 03 · Energy',
+      title: 'Renewables',
+      desc: 'Wind, solar and battery storage — capacity that gets paired with gas and nuclear in hyperscaler 24x7 carbon-free PPAs. Not a standalone solution given the DC baseload profile, but a critical ESG sleeve.',
+      top3: ['NEE','BEP','ORSTED.CO'],
+      roster: [
+        t('NEE','NextEra Energy','US'),
+        t('BEP','Brookfield Renewable','US'),
+        t('ORSTED.CO','Ørsted','EU'),
+        t('IBE.MC','Iberdrola','EU'), t('RWE.DE','RWE','EU'),
+        t('FSLR','First Solar','US'), t('ENPH','Enphase Energy','US'),
+        t('NEP','NextEra Energy Partners','US'),
+        t('ARRY','Array Technologies','US'), t('AES','AES Corp','US'),
+        t('ADANIGREEN.NS','Adani Green Energy','APAC')
+      ]
+    },
+    'en-td': {
+      band: 'energy', bandLabel: 'Band 03 · Energy',
+      title: 'Transmission & Distribution',
+      desc: 'Transformers, switchgear and transmission EPC. Large-power transformer lead times have gone from 12 weeks to over two years — this layer has become structurally investable almost overnight.',
+      top3: ['GEV','ENR.DE','HUBB'],
+      roster: [
+        t('GEV','GE Vernova','US'),
+        t('ENR.DE','Siemens Energy','EU'),
+        t('HUBB','Hubbell','US'),
+        t('PWR','Quanta Services','US'),
+        t('VMI','Valmont Industries','US'),
+        t('MYRG','MYR Group','US'),
+        t('PNR','Pentair','US'),
+        t('POWERGRID.NS','Power Grid Corp India','APAC')
+      ]
+    },
+
+    'cn-tower': {
+      band: 'connectivity', bandLabel: 'Band 04 · Connectivity & DC',
+      title: 'Towers',
+      desc: 'Macro cell towers — the original passive infra asset class. Edge-compute optionality is the bull case, but the core thesis remains carrier lease escalators, dividend growth and consolidating national operators.',
+      top3: ['AMT','CCI','SBAC'],
+      roster: [
+        t('AMT','American Tower','US','H'),
+        t('CCI','Crown Castle','US'), t('SBAC','SBA Communications','US'),
+        t('CLNX.MC','Cellnex Telecom','EU'),
+        t('INDUSTOWER.NS','Indus Towers','APAC'),
+        t('TBIG.JK','Tower Bersama Infrastructure','APAC'),
+        t('Vantage','Vantage Towers (Vodafone/KKR)','EU','P'),
+        t('Summit','Summit Digitel','APAC','P')
+      ]
+    },
+    'cn-fibre': {
+      band: 'connectivity', bandLabel: 'Band 04 · Connectivity & DC',
+      title: 'Fibre & Long-Haul',
+      desc: 'Inter-DC dark fibre and long-haul wavelength services. The most-privatised layer in the stack — LUMN is the only large-scale US backbone operator still listed; most major fibre networks now sit with PE.',
+      top3: ['LUMN','FYBR','CCOI'],
+      roster: [
+        t('LUMN','Lumen Technologies','US'),
+        t('FYBR','Frontier Communications','US'),
+        t('CCOI','Cogent Communications','US'),
+        t('BT.L','BT Group','EU'), t('TEF','Telefónica','EU'),
+        t('Zayo','Zayo Group (EQT/DigitalBridge)','US','P'),
+        t('Colt','Colt Technology Services (Fidelity)','EU','P'),
+        t('TATACOMM.NS','Tata Communications','APAC')
+      ]
+    },
+    'cn-nethw': {
+      band: 'connectivity', bandLabel: 'Band 04 · Connectivity & DC',
+      title: 'Network Hardware',
+      desc: 'Switches, routers and the interconnect fabric holding AI clusters together. Arista has captured the hyperscaler AI-cluster spine; Cisco still dominates enterprise; Juniper being absorbed by HPE.',
+      top3: ['ANET','CSCO','JNPR'],
+      roster: [
+        t('ANET','Arista Networks','US','H'),
+        t('CSCO','Cisco Systems','US'),
+        t('JNPR','Juniper Networks (HPE close pending)','US'),
+        t('DELL','Dell Technologies','US'),
+        t('HPE','Hewlett Packard Enterprise','US'),
+        t('EXTR','Extreme Networks','US')
+      ]
+    },
+    'cn-colo': {
+      band: 'connectivity', bandLabel: 'Band 04 · Connectivity & DC',
+      title: 'Colocation & Wholesale DC',
+      desc: 'Where the portfolio is deepest. Retail colo (EQIX), wholesale (DLR) and emerging-market (GDS) — but private operators collectively own more capacity than the listed REITs combined.',
+      top3: ['EQIX','DLR','GDS'],
+      roster: [
+        t('EQIX','Equinix','US','H'),
+        t('DLR','Digital Realty Trust','US','H'),
+        t('GDS','GDS Holdings','APAC','H'),
+        t('9432.T','NTT (DC arm)','APAC'),
+        t('VNET','VNET Group','APAC'),
+        t('AJBU.SI','Keppel DC REIT','APAC'),
+        t('ME8U.SI','Mapletree Industrial Trust','APAC'),
+        t('IRM','Iron Mountain','US'),
+        t('CyrusOne','CyrusOne (KKR)','US','P'),
+        t('QTS','QTS Data Centers (Blackstone)','US','P'),
+        t('Vantage','Vantage Data Centers','US','P'),
+        t('GlobalSwitch','Global Switch','EU','P'),
+        t('Cologix','Cologix','US','P'),
+        t('STACK','STACK Infrastructure','US','P'),
+        t('SIFY','Sify Technologies','APAC'),
+        t('Yotta','Yotta Data Services (Hiranandani)','APAC','P'),
+        t('AdaniConneX','AdaniConneX (Adani + EdgeConneX)','APAC','P')
+      ]
+    },
+
+    'cp-hyperUS': {
+      band: 'compute', bandLabel: 'Band 05 · Compute & End Demand',
+      title: 'Hyperscalers (US)',
+      desc: 'The buyers. Four core US hyperscalers own the lion\u2019s share of AI training capex — every layer above this one is downstream of their capex plans. CoreWeave and Nebius are the pure-play neocloud bets.',
+      top3: ['MSFT','GOOGL','AMZN'],
+      roster: [
+        t('MSFT','Microsoft','US','H'),
+        t('GOOGL','Alphabet','US','H'),
+        t('AMZN','Amazon.com','US','H'),
+        t('META','Meta Platforms','US','H'),
+        t('ORCL','Oracle','US'),
+        t('IBM','IBM','US'),
+        t('CRWV','CoreWeave','US'),
+        t('NBIS','Nebius Group','EU')
+      ]
+    },
+    'cp-hyperAPAC': {
+      band: 'compute', bandLabel: 'Band 05 · Compute & End Demand',
+      title: 'Hyperscalers (APAC)',
+      desc: 'Regional cloud leaders — mostly China-domestic plus Japan/Korea national champions. Harder to own directly for global investors; GDS and VNET are the cleaner public APAC proxies.',
+      top3: ['BABA','0700.HK','BIDU'],
+      roster: [
+        t('BABA','Alibaba Group','APAC'),
+        t('0700.HK','Tencent Holdings','APAC'),
+        t('BIDU','Baidu','APAC'),
+        t('035420.KS','Naver','APAC'),
+        t('035720.KS','Kakao','APAC'),
+        t('9613.T','NTT Data','APAC'),
+        t('9984.T','SoftBank Group','APAC')
+      ]
+    },
+    'cp-frontier': {
+      band: 'compute', bandLabel: 'Band 05 · Compute & End Demand',
+      title: 'Frontier AI Labs',
+      desc: 'None of the frontier model labs are publicly tradable. Exposure is indirect — through NVDA (compute), MSFT (OpenAI, Anthropic), GOOGL (Anthropic), AMZN (Anthropic) and private-credit vehicles.',
+      top3: ['OpenAI','Anthropic','xAI'],
+      roster: [
+        t('OpenAI','OpenAI','US','P'),
+        t('Anthropic','Anthropic','US','P'),
+        t('xAI','xAI','US','P'),
+        t('Mistral','Mistral AI','EU','P'),
+        t('Cohere','Cohere','US','P'),
+        t('Perplexity','Perplexity AI','US','P'),
+        t('Stability','Stability AI','EU','P'),
+        t('Inflection','Inflection (MSFT-absorbed)','US','P'),
+        t('Sarvam','Sarvam AI','APAC','P')
+      ]
+    },
+    'cp-enterprise': {
+      band: 'compute', bandLabel: 'Band 05 · Compute & End Demand',
+      title: 'Enterprise AI / SaaS',
+      desc: 'Where enterprise AI spend shows up in revenue — infrastructure software, data platforms and AI-first application vendors. Monetisation is real but still small relative to the capex flowing left of this band.',
+      top3: ['PLTR','NOW','SNOW'],
+      roster: [
+        t('PLTR','Palantir Technologies','US'),
+        t('NOW','ServiceNow','US'),
+        t('SNOW','Snowflake','US'),
+        t('MDB','MongoDB','US'),
+        t('CRM','Salesforce','US'),
+        t('WDAY','Workday','US'),
+        t('HUBS','HubSpot','US'),
+        t('PATH','UiPath','US'),
+        t('AI','C3.ai','US'),
+        t('Databricks','Databricks','US','P'),
+        t('TCS.NS','Tata Consultancy Services','APAC'),
+        t('INFY.NS','Infosys','APAC')
+      ]
+    },
+    'cp-sovereign': {
+      band: 'compute', bandLabel: 'Band 05 · Compute & End Demand',
+      title: 'Sovereign AI / National',
+      desc: 'National-champion AI platforms backed by industrial policy — compute and model stacks tied to a country\u2019s strategic autonomy. Thin public liquidity today, but capex budgets are scaling fast (G42, Reliance Jio, Samsung SDS).',
+      top3: ['G42','018260.KS','9432.T'],
+      roster: [
+        t('G42','G42 (Abu Dhabi)','EM','P'),
+        t('018260.KS','Samsung SDS','APAC'),
+        t('9432.T','NTT','APAC'),
+        t('RELIANCE.NS','Reliance Industries (Jio platform)','APAC'),
+        t('KT','KT Corp','APAC'),
+        t('CHT','Chunghwa Telecom','APAC'),
+        t('TLKM.JK','Telkom Indonesia','APAC')
+      ]
+    }
+  };
+
+  var BAND_ORDER = {
+    financing:    ['fin-banks','fin-privcredit','fin-pe'],
+    silicon:      ['si-wfe','si-logic','si-foundry','si-memory'],
+    buildout:     ['bo-powcool','bo-backup','bo-epc','bo-hvac'],
+    energy:       ['en-util','en-ipp','en-renew','en-td'],
+    connectivity: ['cn-tower','cn-fibre','cn-nethw','cn-colo'],
+    compute:      ['cp-hyperUS','cp-hyperAPAC','cp-frontier','cp-enterprise','cp-sovereign']
+  };
+
+  function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function chipHtml(entry) {
+    if (!entry) return '';
+    var cls = 'ticker-chip';
+    if (entry.pvt)  cls += ' pvt';
+    if (entry.held) cls += ' held';
+    var prefix = entry.held ? '\u2605 ' : '';
+    return '<span class="' + cls + '">' + prefix + esc(entry.symbol) + '</span>';
+  }
+
+  function renderCard(id, data) {
+    var hasHold = data.roster.some(function(e){ return e.held; });
+    var top3Html = data.top3.map(function(sym) {
+      var entry = data.roster.find(function(e){ return e.symbol === sym; });
+      return chipHtml(entry);
+    }).join('');
+    var rest = data.roster.length - data.top3.length;
+    var moreHtml = rest > 0 ? '<div class="subnode-more">+' + rest + ' more</div>' : '';
+    return '<div class="subnode-card' + (hasHold ? ' has-holding' : '') + '" data-id="' + id + '" role="button" tabindex="0">' +
+           '<div class="subnode-title">' + esc(data.title) + '</div>' +
+           '<div class="subnode-tickers">' + top3Html + '</div>' +
+           moreHtml +
+           '</div>';
+  }
+
+  // Build financing row
+  var finRow = document.getElementById('row-financing');
+  BAND_ORDER.financing.forEach(function(id) {
+    finRow.insertAdjacentHTML('beforeend', renderCard(id, SUBNODES[id]));
+  });
+
+  // Build supply-chain row (5 columns)
+  var scRow = document.getElementById('row-supply-chain');
+  ['silicon','buildout','energy','connectivity','compute'].forEach(function(bandKey) {
+    var col = document.createElement('div');
+    col.className = 'band-col';
+    var meta = BAND_LABELS[bandKey];
+    col.innerHTML =
+      '<div class="band-col-header"><span class="band-num">' + meta.num + '</span>' +
+      '<span class="band-col-title">' + esc(meta.title) + '</span></div>';
+    BAND_ORDER[bandKey].forEach(function(id) {
+      col.insertAdjacentHTML('beforeend', renderCard(id, SUBNODES[id]));
+    });
+    scRow.appendChild(col);
+  });
+
+  // Detail panel
+  var detail    = document.getElementById('universe-detail');
+  var lblEl     = document.getElementById('udx-band-label');
+  var titleEl   = document.getElementById('udx-title');
+  var subEl     = document.getElementById('udx-sub');
+  var bodyEl    = document.getElementById('udx-body');
+
+  function activate(id) {
+    var data = SUBNODES[id];
+    if (!data) return;
+    frame.querySelectorAll('.subnode-card').forEach(function(c){ c.classList.remove('active'); });
+    var card = frame.querySelector('.subnode-card[data-id="' + id + '"]');
+    if (card) card.classList.add('active');
+
+    lblEl.textContent   = data.bandLabel;
+    titleEl.textContent = data.title;
+    subEl.textContent   = data.desc;    var rows = data.roster.map(function(entry) {
+      var fin = getFin(entry.symbol) || {};
+      var flags = [];
+      if (entry.held) flags.push('<span class="held">\u2605 Held</span>');
+      if (entry.pvt)  flags.push('<span class="pvt">Private</span>');
+      var tcls = 'col-ticker' + (entry.held ? ' held' : '');
+      var isPrivate = entry.pvt || fin.data_status === 'private';
+      var isMissing = !isPrivate && (!fin.data_status || fin.data_status !== 'ok');
+      var mcapHtml = isPrivate ? '<span class="muted">Private</span>' : (isMissing ? '<span class="muted">\u2014</span>' : fmtMCapUsd(fin.market_cap_usd));
+      var priceHtml = isPrivate || isMissing ? '<span class="muted">\u2014</span>' : fmtPrice(fin.price_local, fin.currency);
+      var peHtml = isPrivate || isMissing ? '<span class="muted">\u2014</span>' : fmtPE(fin.pe_ttm);
+      var ret = fmtPct(isPrivate || isMissing ? null : fin.one_yr_return_pct);
+      var exchHtml = esc(fin.exchange || entry.geo || '');
+      return '<tr data-symbol="' + esc(entry.symbol) + '" data-name="' + esc(entry.name) + '" data-geo="' + esc(entry.geo || '') + '" data-held="' + (entry.held ? '1' : '0') + '" data-private="' + (isPrivate ? '1' : '0') + '" data-subnode="' + esc(id) + '">' +
+        '<td class="' + tcls + '">' + esc(entry.symbol) + '</td>' +
+        '<td class="col-name">' + esc(entry.name) + '</td>' +
+        '<td class="col-exch">' + exchHtml + '</td>' +
+        '<td class="col-num">' + priceHtml + '</td>' +
+        '<td class="col-num">' + mcapHtml + '</td>' +
+        '<td class="col-num">' + peHtml + '</td>' +
+        '<td class="col-num ' + ret.cls + '">' + ret.t + '</td>' +
+        '<td class="col-flag">' + flags.join(' &middot; ') + '</td>' +
+      '</tr>';
+    }).join('');
+
+    bodyEl.innerHTML =
+      '<table><thead><tr>' +
+        '<th>Ticker</th>' +
+        '<th>Company</th>' +
+        '<th>Exchange</th>' +
+        '<th class="num">Price</th>' +
+        '<th class="num">MCap (USD)</th>' +
+        '<th class="num">P/E</th>' +
+        '<th class="num">1Y Ret</th>' +
+        '<th>Flag</th>' +
+      '</tr></thead><tbody>' + rows + '</tbody></table>';
+    detail.classList.add('visible');
+    // Gentle scroll so detail is in view
+    if (detail.scrollIntoView) detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Interactions
+  frame.addEventListener('click', function(ev) {
+    var card = ev.target.closest('.subnode-card');
+    if (card) activate(card.getAttribute('data-id'));
+  });
+
+  frame.addEventListener('keydown', function(ev) {
+    if (ev.key !== 'Enter' && ev.key !== ' ') return;
+    var card = ev.target.closest('.subnode-card');
+    if (card) { ev.preventDefault(); activate(card.getAttribute('data-id')); }
+  });
+
+  // Expose data for the Score X-ray drawer
+  window.__Dorrsum = {
+    SUBNODES: SUBNODES,
+    FINANCIALS: FINANCIALS,
+    BAND_LABELS: BAND_LABELS,
+    helpers: {
+      fmtMCapUsd: fmtMCapUsd,
+      fmtPrice: fmtPrice,
+      fmtPE: fmtPE,
+      fmtPct: fmtPct,
+      getFin: getFin
+    }
+  };
+})();
+</script>
+
+<!-- === DORRSUM SCORE X-RAY DRAWER === -->
+<div id="sd-scrim" class="sd-scrim" aria-hidden="true"></div>
+<aside id="sd-drawer" class="sd-drawer" role="dialog" aria-modal="true" aria-labelledby="sd-title" aria-hidden="true">
+  <div class="sd-inner">
+    <button id="sd-close" class="sd-close" type="button" aria-label="Close drawer">&times;</button>
+    <div class="sd-crumb" id="sd-crumb">
+      <span class="rr">DORRSUM SCORE</span> &middot; <span id="sd-crumb-band">&mdash;</span>
+    </div>
+    <h2 class="sd-title" id="sd-title">&mdash;</h2>
+    <div class="sd-tags" id="sd-tags"></div>
+
+    <div class="sd-composite-card">
+      <div class="sd-composite-top">
+        <div>
+          <div class="sd-composite-score"><span id="sd-score">&mdash;</span><span class="sd-score-over"> / 10</span></div>
+          <div class="sd-rating pending" id="sd-rating">Pending</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="sd-dq pending" id="sd-dq">&mdash;</div>
+          <div class="sd-wsum" id="sd-wsum">Weights sum: 100%</div>
+          <button class="sd-reset" id="sd-reset" type="button">Reset weights</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sd-note" id="sd-note">
+      <span class="dm">Dorrsum method:</span> Six-factor sector-relative composite &mdash; SA&rsquo;s five (Value, Growth, Profitability, Momentum, EPS Revisions) plus Financial Strength as a Dorrsum twist for highly-levered infra builders. Disqualifier rule: D+ or worse on Growth / Momentum / EPS Revisions, or D- or worse on Value / Profitability, caps the overall rating at Neutral.
+    </div>
+
+    <div class="sd-section-title">Factor scores (sector-relative)</div>
+    <div class="sd-factor-table" id="sd-factor-table">
+      <div class="sd-factor-head">
+        <div>Factor</div>
+        <div style="text-align:center;">Grade</div>
+        <div>Weight</div>
+        <div style="text-align:right;">Wt %</div>
+        <div style="text-align:right;">Score</div>
+      </div>
+      <!-- factor rows injected by JS -->
+    </div>
+
+    <div id="sd-pending-wrap"></div>
+
+    <div class="sd-section-title">Underlying metrics &mdash; grouped by factor</div>
+    <div id="sd-live-bake-banner" class="sd-live-bake-banner" style="display:none;">
+      <span class="lb-label">Live bake</span>
+      <div class="lb-row" id="sd-live-bake-row"></div>
+    </div>
+    <div class="sd-metrics-grid" id="sd-metrics-grid">
+      <!-- metric cards injected by JS -->
+    </div>
+  </div>
+</aside>
+
+<script>
+(function(){
+  var D = window.__Dorrsum;
+  if (!D) return;
+
+  var SUBNODES    = D.SUBNODES;
+  var FINANCIALS  = D.FINANCIALS;
+  var BAND_LABELS = D.BAND_LABELS;
+  var H           = D.helpers;
+
+  var scrim    = document.getElementById('sd-scrim');
+  var drawer   = document.getElementById('sd-drawer');
+  var closeBtn = document.getElementById('sd-close');
+  var resetBtn = document.getElementById('sd-reset');
+
+  var crumbBand = document.getElementById('sd-crumb-band');
+  var titleEl   = document.getElementById('sd-title');
+  var tagsEl    = document.getElementById('sd-tags');
+  var scoreEl   = document.getElementById('sd-score');
+  var ratingEl  = document.getElementById('sd-rating');
+  var dqEl      = document.getElementById('sd-dq');
+  var wsumEl    = document.getElementById('sd-wsum');
+  var tableEl   = document.getElementById('sd-factor-table');
+  var gridEl    = document.getElementById('sd-metrics-grid');
+  var noteEl    = document.getElementById('sd-note');
+  var pendingWrap = document.getElementById('sd-pending-wrap');
+
+  // === Factor definitions ===================================================
+  // Factor keys mirror SA canon + Dorrsum's Financial Strength twist.
+  // Default weights: SA-equivalent 5 each at 18%, Financial Strength at 10%.
+  var FACTORS = [
+    { key: 'value',     name: 'Value',              defWeight: 18, dqFloor: 'D-', dorrsum: false },
+    { key: 'growth',    name: 'Growth',             defWeight: 18, dqFloor: 'D+', dorrsum: false },
+    { key: 'profit',    name: 'Profitability',      defWeight: 18, dqFloor: 'D-', dorrsum: false },
+    { key: 'momentum',  name: 'Momentum',           defWeight: 18, dqFloor: 'D+', dorrsum: false },
+    { key: 'revisions', name: 'EPS Revisions',      defWeight: 18, dqFloor: 'D+', dorrsum: false, proxy: true },
+    { key: 'strength',  name: 'Financial Strength', defWeight: 10, dqFloor: null, dorrsum: true  }
+  ];
+
+  // Grade → numeric score (out of 10), with sort rank for disqualifier comparisons.
+  var GRADE_MAP = {
+    'A+': 9.5, 'A': 8.8, 'A-': 8.2,
+    'B+': 7.5, 'B': 7.0, 'B-': 6.3,
+    'C+': 5.7, 'C': 5.0, 'C-': 4.3,
+    'D+': 3.7, 'D': 3.0, 'D-': 2.3,
+    'F':  1.0
+  };
+  var GRADE_ORDER = ['A+','A','A-','B+','B','B-','C+','C','C-','D+','D','D-','F'];
+  function gradeRank(g){ var i = GRADE_ORDER.indexOf(g); return i < 0 ? 99 : i; }
+  function gradeClass(g){
+    if (!g) return 'sd-grade-pending';
+    var letter = g.charAt(0);
+    return 'sd-grade-' + (['A','B','C','D','F'].indexOf(letter) >= 0 ? letter : 'pending');
+  }
+
+  // === Per-ticker score data (Phase 1: ASML hard-coded mock) ================
+  // All other tickers surface "Phase 1 pending" + live financials.
+  var SCORES = {
+    'ASML': {
+      value:     { grade: 'D+', score: 4.2, note: 'Rich on P/E and FCF yield vs semi-cap group; EUV monopoly priced in.' },
+      growth:    { grade: 'B-', score: 7.0, note: 'Revenue decel 2025-2026 per guidance; High-NA ramp from 2027.' },
+      profit:    { grade: 'A',  score: 8.5, note: 'Gross margin ~52%, ROIC > 35%; best-in-class in semi-cap.' },
+      momentum:  { grade: 'A+', score: 9.1, note: '1Y price return +112%; strong relative momentum vs SOXX.' },
+      revisions: { grade: 'B',  score: 7.5, note: 'Proxy: mgmt guidance reiterated at Q4; FY26 rev revisions +2% on thin sell-side coverage.', isProxy: true },
+      strength:  { grade: 'A',  score: 9.0, note: 'Net cash balance sheet; covers capex from OCF; no refinancing risk.' }
+    }
+  };
+
+  // === State ================================================================
+  var state = {
+    symbol: null,
+    weights: FACTORS.reduce(function(a,f){ a[f.key] = f.defWeight; return a; }, {})
+  };
+
+  // === Rendering helpers ====================================================
+  function ratingLabel(score, capped) {
+    if (capped) return { label: 'Hold', cls: 'hold' };
+    if (score >= 8.5) return { label: 'Strong Buy', cls: 'strong-buy' };
+    if (score >= 7.0) return { label: 'Buy', cls: 'buy' };
+    if (score >= 5.0) return { label: 'Hold', cls: 'hold' };
+    if (score >= 3.5) return { label: 'Sell', cls: 'sell' };
+    return { label: 'Strong Sell', cls: 'strong-sell' };
+  }
+
+  function disqualifierCheck(scoreBundle) {
+    if (!scoreBundle) return { pending: true };
+    for (var i = 0; i < FACTORS.length; i++) {
+      var f = FACTORS[i];
+      if (!f.dqFloor) continue;
+      var s = scoreBundle[f.key];
+      if (!s || !s.grade) continue;
+      if (gradeRank(s.grade) >= gradeRank(f.dqFloor)) {
+        return { pending: false, failed: true, failedOn: f.name, floor: f.dqFloor, grade: s.grade };
+      }
+    }
+    return { pending: false, failed: false };
+  }
+
+  function recompute() {
+    var bundle = SCORES[state.symbol];
+    var hasScores = !!bundle;
+
+    // Normalize weights (slider values) and compute weight-sum display.
+    var wsum = 0;
+    FACTORS.forEach(function(f){ wsum += (state.weights[f.key] || 0); });
+    wsumEl.textContent = 'Weights sum: ' + wsum + '%';
+
+    // Composite score (weighted avg, normalized to sum).
+    var composite = null;
+    if (hasScores && wsum > 0) {
+      var acc = 0;
+      FACTORS.forEach(function(f){
+        var s = bundle[f.key];
+        if (!s) return;
+        acc += s.score * (state.weights[f.key] / wsum);
+      });
+      composite = acc;
+    }
+
+    // Disqualifier check (caps composite at 5.0 / Hold).
+    var dq = disqualifierCheck(bundle);
+    var capped = false;
+    if (!dq.pending && dq.failed && composite !== null) {
+      capped = true;
+      if (composite > 5.0) composite = 5.0;
+    }
+
+    // Paint composite card
+    if (composite === null) {
+      scoreEl.textContent = '—';
+      ratingEl.textContent = 'Pending';
+      ratingEl.className = 'sd-rating pending';
+    } else {
+      scoreEl.textContent = composite.toFixed(1);
+      var r = ratingLabel(composite, capped);
+      ratingEl.textContent = r.label;
+      ratingEl.className = 'sd-rating ' + r.cls;
+    }
+
+    // Paint DQ line
+    if (dq.pending) {
+      dqEl.className = 'sd-dq pending';
+      dqEl.textContent = 'Disqualifier: pending scores';
+    } else if (dq.failed) {
+      dqEl.className = 'sd-dq fail';
+      dqEl.textContent = 'DQ: ' + dq.failedOn + ' ' + dq.grade + ' — capped at Hold';
+    } else {
+      dqEl.className = 'sd-dq';
+      dqEl.textContent = 'Disqualifier: clear';
+    }
+
+    // Paint per-row score values (grades + numeric score). Weights are already in DOM.
+    FACTORS.forEach(function(f){
+      var row = tableEl.querySelector('[data-factor="' + f.key + '"]');
+      if (!row) return;
+      var s = bundle ? bundle[f.key] : null;
+      var gradeEl = row.querySelector('.sd-factor-grade');
+      var scoreCell = row.querySelector('.sd-score-val');
+      if (s && s.grade) {
+        gradeEl.textContent = s.grade;
+        gradeEl.className = 'sd-factor-grade ' + gradeClass(s.grade);
+        scoreCell.textContent = s.score.toFixed(1);
+      } else {
+        gradeEl.textContent = '—';
+        gradeEl.className = 'sd-factor-grade sd-grade-pending';
+        scoreCell.textContent = '—';
+      }
+    });
+  }
+
+  function buildFactorRows() {
+    // Build once; rebuild on open with fresh bindings.
+    // Remove any existing rows (keep the header).
+    var oldRows = tableEl.querySelectorAll('.sd-factor-row');
+    oldRows.forEach(function(r){ r.parentNode.removeChild(r); });
+
+    FACTORS.forEach(function(f){
+      var row = document.createElement('div');
+      row.className = 'sd-factor-row' + (f.dorrsum ? ' dorrsum-factor' : '');
+      row.setAttribute('data-factor', f.key);
+
+      var nameHtml = '<div><div class="sd-factor-name">' + f.name + '</div>';
+      if (f.dorrsum) {
+        nameHtml += '<div class="sd-factor-dq-tag"><span class="dm">Dorrsum twist</span></div>';
+      } else if (f.proxy) {
+        nameHtml += '<div class="sd-factor-dq-tag">Proxy: guidance</div>';
+      } else if (f.dqFloor) {
+        nameHtml += '<div class="sd-factor-dq-tag">DQ floor: ' + f.dqFloor + '</div>';
+      }
+      nameHtml += '</div>';
+
+      row.innerHTML =
+        nameHtml +
+        '<div class="sd-factor-grade sd-grade-pending">—</div>' +
+        '<div><input type="range" min="0" max="30" value="' + f.defWeight + '" step="1" class="sd-slider" data-weight-for="' + f.key + '"></div>' +
+        '<div class="sd-weight-val" data-weight-val-for="' + f.key + '">' + f.defWeight + '%</div>' +
+        '<div class="sd-score-val">—</div>';
+      tableEl.appendChild(row);
+
+      // Wire slider
+      var slider = row.querySelector('input[type="range"]');
+      var valEl  = row.querySelector('[data-weight-val-for="' + f.key + '"]');
+      slider.addEventListener('input', function(){
+        var v = parseInt(slider.value, 10) || 0;
+        state.weights[f.key] = v;
+        valEl.textContent = v + '%';
+        recompute();
+      });
+    });
+  }
+
+  function resetWeights() {
+    FACTORS.forEach(function(f){
+      state.weights[f.key] = f.defWeight;
+      var slider = tableEl.querySelector('input[data-weight-for="' + f.key + '"]');
+      var valEl  = tableEl.querySelector('[data-weight-val-for="' + f.key + '"]');
+      if (slider) slider.value = String(f.defWeight);
+      if (valEl)  valEl.textContent = f.defWeight + '%';
+    });
+    recompute();
+  }
+
+  // === Per-ticker underlying metrics (Phase 1: ASML hard-coded mock) ========
+  // Keys match the factor cards below. Values are human-ready strings, so the
+  // mock faithfully reflects Sudipto's ASML X-ray screenshot. Adding more
+  // tickers is just another block in this object — structure stays identical.
+  var METRICS = {
+    'ASML': {
+      value:     { pe_ttm: '46.7x', forward_pe: '29.9x', ev_ebitda: '42.6x', peg: '1.4x', pb: '16.2x', ps: '10.8x' },
+      growth:    { rev_yoy: '+13.2%', eps_yoy: '+19.1%', fcf_yoy: '-8.4%', rev_3y_cagr: '+18.0%', eps_3y_cagr: '+22.5%' },
+      profit:    { gross_margin: '52.6%', op_margin: '36.0%', ebitda_margin: '37.7%', roe: '57.0%', roic: '35.2%', fcf_yield: '1.5%' },
+      momentum:  { r3m: '+12.0%', r6m: '+38.0%', r9m: '+72.4%', r12m: '+111.9%', ytd: '+22.0%', off_52w_high: '-8.4%' },
+      revisions: { chg_30d: '+2.1%', chg_90d: '+4.8%', up_90d: '18', down_90d: '3', net_ratio: '0.86', analysts: '35',
+                   note: 'Proxy fallback — for thin-coverage names (&lt;6 analysts), factor uses consensus revenue revision 30d/90d + guidance beat/miss history. ASML has dense coverage → sell-side consensus applies.' },
+      strength:  { net_debt: '-$5.7B (net cash)', nd_ebitda: '-0.45x', int_cov: '145x', current_ratio: '1.8', d_e: '0.34', cash: '$8.4B',
+                   note: 'Why this factor exists — the digital-infra universe includes high-leverage DC builders, fiber roll-outs, and tower REITs where balance sheet matters as much as margin. This factor separates resilient from fragile.' }
+    }
+  };
+
+  // Factor card schemas: the fixed set of rows each card renders. Order
+  // matches the ASML screenshot exactly. Each row is [key, label].
+  var METRIC_SCHEMA = {
+    value: {
+      title: 'Value', wide: false, dorrsum: false,
+      rows: [['pe_ttm','P/E TTM'],['forward_pe','Forward P/E'],['ev_ebitda','EV/EBITDA'],['peg','PEG'],['pb','P/B'],['ps','P/S']]
+    },
+    growth: {
+      title: 'Growth', wide: false, dorrsum: false,
+      rows: [['rev_yoy','Revenue YoY'],['eps_yoy','EPS YoY'],['fcf_yoy','FCF YoY'],['rev_3y_cagr','Rev 3Y CAGR'],['eps_3y_cagr','EPS 3Y CAGR']]
+    },
+    profit: {
+      title: 'Profitability', wide: false, dorrsum: false,
+      rows: [['gross_margin','Gross margin'],['op_margin','Operating margin'],['ebitda_margin','EBITDA margin'],['roe','ROE'],['roic','ROIC'],['fcf_yield','FCF yield']]
+    },
+    momentum: {
+      title: 'Momentum', wide: false, dorrsum: false,
+      rows: [['r3m','3M return'],['r6m','6M return'],['r9m','9M return'],['r12m','12M return'],['ytd','YTD'],['off_52w_high','Off 52w high']]
+    },
+    revisions: {
+      title: 'EPS Revisions &mdash; Sell-side consensus', wide: true, dorrsum: false,
+      rows: [['chg_30d','30d FY1 EPS change'],['chg_90d','90d FY1 EPS change'],['up_90d','Up revisions (90d)'],['down_90d','Down revisions (90d)'],['net_ratio','Net revision ratio'],['analysts','Analysts covering']]
+    },
+    strength: {
+      title: 'Financial Strength', wide: true, dorrsum: true,
+      rows: [['net_debt','Net debt'],['nd_ebitda','Net debt / EBITDA'],['int_cov','Interest coverage'],['current_ratio','Current ratio'],['d_e','Debt / equity'],['cash','Cash & equivalents']]
+    }
+  };
+
+  var FACTOR_CARD_ORDER = ['value','growth','profit','momentum','revisions','strength'];
+
+  function renderMetricCard(factorKey, sym, ticker_metrics, fin) {
+    var schema = METRIC_SCHEMA[factorKey];
+    var bucket = (ticker_metrics && ticker_metrics[factorKey]) || {};
+
+    // Allow live-bake fill-in for Value.pe_ttm and Momentum.r12m when no mock exists
+    var live_fill = {};
+    if (!(sym in METRICS) && fin && fin.data_status === 'ok') {
+      if (factorKey === 'value' && fin.pe_ttm != null) live_fill.pe_ttm = H.fmtPE(fin.pe_ttm);
+      if (factorKey === 'momentum' && fin.one_yr_return_pct != null) live_fill.r12m = H.fmtPct(fin.one_yr_return_pct).t;
+    }
+
+    var classes = 'sd-metric-card';
+    if (schema.wide) classes += ' wide';
+    if (schema.dorrsum) classes += ' dorrsum';
+
+    var titleHtml = '<div class="sd-metric-title">' + schema.title;
+    if (schema.dorrsum) titleHtml += ' <span class="mark">DORRSUM</span>';
+    titleHtml += '</div>';
+
+    var rowsHtml = schema.rows.map(function(r){
+      var key = r[0], label = r[1];
+      var val = bucket[key] != null ? bucket[key] : (live_fill[key] != null ? live_fill[key] : null);
+      var valCls = val == null ? 'sd-metric-value pending' : 'sd-metric-value';
+      var valTxt = val == null ? '—' : val;
+      return '<div class="sd-metric-line"><span class="sd-metric-label">' + label + '</span><span class="' + valCls + '">' + valTxt + '</span></div>';
+    }).join('');
+
+    var linesWrap = schema.wide
+      ? '<div class="sd-metric-lines two-col">' + rowsHtml + '</div>'
+      : rowsHtml;
+
+    var noteHtml = '';
+    if (bucket.note) {
+      noteHtml = '<div class="sd-metric-note">' + bucket.note + '</div>';
+    }
+
+    return '<div class="' + classes + '">' + titleHtml + linesWrap + noteHtml + '</div>';
+  }
+
+  function buildMetricsGrid(sym, entryMeta) {
+    var fin = (FINANCIALS.by_symbol || {})[sym] || {};
+    var isPrivate = entryMeta.isPrivate || fin.data_status === 'private';
+    var ticker_metrics = METRICS[sym] || null;
+
+    // Live-bake banner — always-known numbers from the daily bake, regardless
+    // of whether the full factor engine has scored this ticker.
+    var banner = document.getElementById('sd-live-bake-banner');
+    var bRow   = document.getElementById('sd-live-bake-row');
+    if (isPrivate) {
+      banner.style.display = 'flex';
+      bRow.innerHTML = '<span><b>Status</b>Private — no public financials</span>';
+    } else if (fin && fin.data_status === 'ok') {
+      banner.style.display = 'flex';
+      var priceTxt = H.fmtPrice(fin.price_local, fin.currency);
+      var mcapTxt  = H.fmtMCapUsd(fin.market_cap_usd);
+      var peTxt    = H.fmtPE(fin.pe_ttm);
+      var retTxt   = H.fmtPct(fin.one_yr_return_pct).t;
+      var exch     = fin.exchange || entryMeta.geo || '—';
+      bRow.innerHTML =
+        '<span><b>Price</b>' + priceTxt + '</span>' +
+        '<span><b>MCap</b>' + mcapTxt + '</span>' +
+        '<span><b>P/E</b>' + peTxt + '</span>' +
+        '<span><b>1Y</b>' + retTxt + '</span>' +
+        '<span><b>Exch</b>' + exch + '</span>';
+    } else {
+      banner.style.display = 'none';
+      bRow.innerHTML = '';
+    }
+
+    // Six factor-grouped cards (Value / Growth / Profitability / Momentum /
+    // EPS Revisions / Financial Strength). ASML fills from METRICS mock;
+    // others show placeholders with live-bake fill-in for P/E + 12M return.
+    gridEl.innerHTML = FACTOR_CARD_ORDER.map(function(k){
+      return renderMetricCard(k, sym, ticker_metrics, fin);
+    }).join('');
+  }
+
+  function openDrawer(sym, entryMeta) {
+    state.symbol = sym;
+
+    // Identity strip
+    var subId = entryMeta.subnodeId;
+    var sub = (subId && SUBNODES[subId]) ? SUBNODES[subId] : null;
+    var bandLabel = sub ? sub.bandLabel : '—';
+    crumbBand.textContent = bandLabel + (sub ? ' · ' + sub.title : '');
+    titleEl.textContent = entryMeta.name + ' (' + sym + ')';
+
+    var tags = '';
+    if (entryMeta.held)    tags += '<span class="sd-tag held">★ Held</span>';
+    if (entryMeta.isPrivate) tags += '<span class="sd-tag">Private</span>';
+    if (entryMeta.geo)     tags += '<span class="sd-tag">' + entryMeta.geo + '</span>';
+    tagsEl.innerHTML = tags;
+
+    // Reset sliders visually + internally
+    buildFactorRows();
+
+    // Pending-state message for non-ASML tickers
+    pendingWrap.innerHTML = SCORES[sym]
+      ? ''
+      : '<div class="sd-pending-msg">Phase 1 — scoring engine in build. Factor grades pending for this ticker; live financials below are baked daily.</div>';
+
+    // Build metrics grid
+    buildMetricsGrid(sym, entryMeta);
+
+    recompute();
+
+    scrim.classList.add('open');
+    drawer.classList.add('open');
+    scrim.setAttribute('aria-hidden', 'false');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    scrim.classList.remove('open');
+    drawer.classList.remove('open');
+    scrim.setAttribute('aria-hidden', 'true');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // === Event wiring =========================================================
+  closeBtn.addEventListener('click', closeDrawer);
+  scrim.addEventListener('click', closeDrawer);
+  resetBtn.addEventListener('click', resetWeights);
+  document.addEventListener('keydown', function(ev) {
+    if (ev.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+  });
+
+  // Delegation on table rows in the universe detail panel.
+  var udxBody = document.getElementById('udx-body');
+  if (udxBody) {
+    udxBody.addEventListener('click', function(ev) {
+      var tr = ev.target.closest('tr[data-symbol]');
+      if (!tr) return;
+      var sym = tr.getAttribute('data-symbol');
+      if (!sym) return;
+      openDrawer(sym, {
+        name:      tr.getAttribute('data-name') || sym,
+        geo:       tr.getAttribute('data-geo') || '',
+        held:      tr.getAttribute('data-held') === '1',
+        isPrivate: tr.getAttribute('data-private') === '1',
+        subnodeId: tr.getAttribute('data-subnode') || null
+      });
+    });
+  }
+})();
+</script>
+<!-- === END DORRSUM SCORE X-RAY DRAWER === -->
 
 </body>
 </html>

@@ -224,7 +224,7 @@ export default async function AdvisoryPage({
                   href={ch.cta.href}
                   className={`inline-flex items-center text-[12px] font-semibold uppercase tracking-[0.18em] no-underline transition-colors ${
                     ch.cta.primary
-                      ? "border-b-2 border-[var(--pa-signature)] pb-1 text-[var(--pa-signature)] hover:text-[var(--pa-signature-deep)]"
+                      ? "border-b-2 border-[var(--pa-signature)] pb-1 text-[var(--pa-signature)] hover:text-[var(--color-deep)]"
                       : "border-b border-[color:var(--pa-border)] pb-1 text-[var(--pa-navy)] hover:border-[var(--pa-navy)]"
                   }`}
                 >

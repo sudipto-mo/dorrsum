@@ -20,7 +20,7 @@ export const heroPreviewViz = {
     fontSize: 12.5,
     fontWeight: 700,
     color: "oklch(16% 0.06 70)",
-    fontFamily: "Libre Baskerville, serif",
+    fontFamily: "var(--font-serif), ui-serif, Georgia, Cambria, serif",
     lineHeight: 1.28,
   } satisfies CSSProperties,
   /** Italic deck / preview hint (Worldview intro + Physical hint) */
@@ -29,7 +29,7 @@ export const heroPreviewViz = {
     color: "oklch(38% 0.05 70)",
     lineHeight: 1.55,
     fontStyle: "italic" as const,
-    fontFamily: "Libre Baskerville, serif",
+    fontFamily: "var(--font-serif), ui-serif, Georgia, Cambria, serif",
   } satisfies CSSProperties,
   /** Section number */
   rowNum: {
@@ -69,7 +69,7 @@ export const heroPreviewViz = {
     fontSize: 18,
     fontWeight: 700,
     color: "oklch(18% 0.06 70)",
-    fontFamily: "Libre Baskerville, serif",
+    fontFamily: "var(--font-serif), ui-serif, Georgia, Cambria, serif",
   } satisfies CSSProperties,
   /** Stat description line */
   statCaption: {
@@ -83,7 +83,7 @@ export const heroPreviewViz = {
     color: "oklch(44% 0.04 70)",
     lineHeight: 1.45,
     fontStyle: "italic" as const,
-    fontFamily: "Libre Baskerville, serif",
+    fontFamily: "var(--font-serif), ui-serif, Georgia, Cambria, serif",
   } satisfies CSSProperties,
   playerName: {
     fontSize: 9.5,

@@ -8,7 +8,7 @@ import { PHYSICAL_STACK_HERO_DETAILS, PHYSICAL_STACK_SUPPLY_TOC } from '@/lib/ph
 // ─────────────────────────────────────────────────────────────────────────────
 // PRINCIPAL AI — Hero Preview Section
 // Drop this component into your homepage. Requires:
-//   - Fonts: Libre Baskerville + DM Sans (add to your global CSS or next/font)
+//   - Fonts: Source Serif 4 + Space Grotesk via next/font on <html> (see app/layout.tsx)
 //   - Tailwind NOT required — all styles are inline
 // Usage: <HeroPreview /> — primary chrome is `SiteNavbar` in root layout (single nav).
 // ─────────────────────────────────────────────────────────────────────────────
@@ -393,10 +393,10 @@ function WorkCard({ type, title, subtitle, date, region, accent, light, href, ch
       <div style={{ padding:'16px 20px 20px', flexShrink:0 }}>
         <div style={{ fontSize:9.5, letterSpacing:'0.18em', textTransform:'uppercase',
           color: accent, fontWeight:600, marginBottom:8 }}>{type}</div>
-        <div style={{ fontSize:18, fontFamily:'Libre Baskerville,serif', fontWeight:700,
+        <div style={{ fontSize:18, fontFamily:'var(--font-serif),ui-serif,Georgia,serif', fontWeight:700,
           color:titleColor, lineHeight:1.22, marginBottom: subtitle ? 6 : 0 }}>{title}</div>
         {subtitle && (
-          <div style={{ fontSize:13, fontFamily:'Libre Baskerville,serif', fontStyle:'italic',
+          <div style={{ fontSize:13, fontFamily:'var(--font-serif),ui-serif,Georgia,serif', fontStyle:'italic',
             color:subColor, lineHeight:1.35, marginBottom:8 }}>{subtitle}</div>
         )}
         {(date || region) && (
@@ -627,7 +627,7 @@ export default function HeroPreview() {
             </div>
 
             <h1 style={{
-              fontFamily:'Libre Baskerville,serif',
+              fontFamily:'var(--font-serif),ui-serif,Georgia,serif',
               fontSize:'clamp(28px,3vw,50px)',
               fontWeight:700, lineHeight:1.08,
               letterSpacing:'-0.018em',

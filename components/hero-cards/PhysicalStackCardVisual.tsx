@@ -64,12 +64,12 @@ export default function PhysicalStackCardVisual() {
   const [hoverId, setHoverId] = useState<string | null>(null);
 
   return (
-    <div className="flex h-full min-h-0 flex-col bg-[oklch(95%_0.014_82)] font-[family-name:var(--font-hero-sans)]">
+    <div className="flex h-full min-h-0 flex-col bg-[oklch(95%_0.014_82)] font-[family-name:var(--font-brand)]">
       <div className="shrink-0 border-b border-black/[0.08] px-3 pb-2 pt-3">
         <p className="text-[7.5px] font-bold uppercase tracking-[0.18em] text-[oklch(33%_0.05_258)]">
           Supply Chain Intelligence · APAC 2026
         </p>
-        <p className="mt-1.5 font-[family-name:var(--font-hero-serif)] text-[9.5px] italic leading-snug text-[oklch(33%_0.05_258)]">
+        <p className="mt-1.5 font-[family-name:var(--font-serif)] text-[9.5px] italic leading-snug text-[oklch(33%_0.05_258)]">
           Independent read on where physical constraints bind before covenants do.
         </p>
       </div>
@@ -102,7 +102,7 @@ export default function PhysicalStackCardVisual() {
                 </div>
                 {expanded ? (
                   <div className="border-t border-black/[0.06] px-2 pb-2 pt-2">
-                    <p className="font-[family-name:var(--font-hero-serif)] text-base font-bold text-[oklch(14%_0.07_258)]">
+                    <p className="font-[family-name:var(--font-serif)] text-base font-bold text-[oklch(14%_0.07_258)]">
                       {r.stat}
                     </p>
                     <p className="mt-0.5 text-[7.5px] leading-snug text-[oklch(33%_0.05_258)]">{r.statLabel}</p>

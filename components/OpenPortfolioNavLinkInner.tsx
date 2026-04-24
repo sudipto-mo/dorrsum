@@ -18,7 +18,7 @@ export default function OpenPortfolioNavLinkInner({ showDevWip }: { showDevWip: 
         (e.currentTarget as HTMLAnchorElement).style.opacity = "0.68";
       }}
     >
-      Open Portfolio
+      Dorrsum Score
       {showDevWip ? <span style={marketingNavWipBadgeStyle}>WIP</span> : null}
     </Link>
   );

@@ -59,11 +59,11 @@ export default function WorkCard({
 
       <footer className="shrink-0 px-5 pb-5 pt-4">
         <p className={`text-[11px] font-bold uppercase tracking-[0.2em] ${metaColor}`}>{type}</p>
-        <h3 className={`mt-2 font-[family-name:var(--font-hero-serif)] text-xl font-bold leading-snug ${titleColor}`}>
+        <h3 className={`mt-2 font-[family-name:var(--font-serif)] text-xl font-bold leading-snug ${titleColor}`}>
           {title}
         </h3>
         {subtitle ? (
-          <p className={`mt-1.5 font-[family-name:var(--font-hero-serif)] text-sm italic leading-snug ${subtitleColor}`}>
+          <p className={`mt-1.5 font-[family-name:var(--font-serif)] text-sm italic leading-snug ${subtitleColor}`}>
             {subtitle}
           </p>
         ) : null}

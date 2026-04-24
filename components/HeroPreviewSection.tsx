@@ -53,7 +53,7 @@ export default function HeroPreviewSection() {
   const go = (dir: -1 | 1) => setActiveIndex((i) => (i + dir + 3) % 3);
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[oklch(95.5%_0.010_82)] font-[family-name:var(--font-hero-sans)] text-[oklch(33%_0.05_258)]">
+    <section className="relative min-h-screen overflow-hidden bg-[oklch(95.5%_0.010_82)] font-[family-name:var(--font-brand)] text-[oklch(33%_0.05_258)]">
       <HeroPreviewBackground />
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-[1440px] flex-col gap-10 px-5 pb-10 pt-12 sm:px-10 sm:pb-[60px] sm:pt-[52px] md:flex-row md:items-center md:gap-[68px] md:px-[60px]">
@@ -62,7 +62,7 @@ export default function HeroPreviewSection() {
           <p className="text-[9.5px] font-semibold uppercase tracking-[0.22em] text-[oklch(46%_0.14_253)]">
             APAC Digital Infrastructure Advisory
           </p>
-          <h1 className="mt-5 max-w-[520px] font-[family-name:var(--font-hero-serif)] text-[clamp(2rem,4vw,50px)] font-bold leading-[1.08] tracking-[-0.018em] text-[oklch(15%_0.07_258)]">
+          <h1 className="mt-5 max-w-[520px] font-[family-name:var(--font-serif)] text-[clamp(2rem,4vw,50px)] font-bold leading-[1.08] tracking-[-0.018em] text-[oklch(15%_0.07_258)]">
             Pricing risk where connectivity, real assets, and{" "}
             <em className="italic">power converge.</em>
           </h1>

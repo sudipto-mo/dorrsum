@@ -18,7 +18,7 @@ export const marketingNavLinkStyle: CSSProperties = {
   textDecoration: "none",
   whiteSpace: "nowrap",
   padding: "0 10px",
-  fontFamily: "var(--font-hero-sans), DM Sans, ui-sans-serif, system-ui, sans-serif",
+  fontFamily: "var(--font-brand), 'Space Grotesk', ui-sans-serif, system-ui, sans-serif",
 };
 
 export const marketingNavShellStyle: CSSProperties = {
@@ -35,7 +35,7 @@ export const marketingNavShellStyle: CSSProperties = {
   display: "flex",
   alignItems: "center",
   padding: "0 clamp(16px, 4vw, 44px)",
-  fontFamily: "var(--font-hero-sans), DM Sans, ui-sans-serif, system-ui, sans-serif",
+  fontFamily: "var(--font-brand), 'Space Grotesk', ui-sans-serif, system-ui, sans-serif",
 };
 
 export const marketingNavInnerRowStyle: CSSProperties = {
@@ -49,12 +49,12 @@ export const marketingNavInnerRowStyle: CSSProperties = {
   gap: 16,
 };
 
-/** Square D badge — light surface, Dorrsum deep letter (see rebrand spec). */
+/** Square D badge — deep surface, off-white letter (visible on cream nav). */
 export const marketingNavBrandMarkStyle: CSSProperties = {
   width: 34,
   height: 34,
   borderRadius: 2,
-  background: "var(--color-off-white)",
+  background: "var(--color-deep)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -66,7 +66,7 @@ export const marketingNavBrandMarkLetterStyle: CSSProperties = {
   fontSize: 18,
   fontWeight: 700,
   lineHeight: 1,
-  color: "var(--color-deep)",
+  color: "var(--color-off-white)",
 };
 
 /** “DORRSUM” with RR in brand violet — use with child span for RR. */

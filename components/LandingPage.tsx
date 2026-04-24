@@ -41,7 +41,7 @@ export default function LandingPage() {
           </h2>
 
           <div className="mt-10 grid gap-6 md:grid-cols-2">
-            <article className="rounded-sm border border-[color:var(--pa-border)] bg-white p-7">
+            <article className="rounded-[4px] border border-[color:var(--pa-border)] bg-white p-7">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#6b7280]">Capital Providers</p>
               <h3 className="mt-3 text-xl font-semibold tracking-tight text-[var(--pa-navy)]">
                 Independent Credit Assessment
@@ -58,7 +58,7 @@ export default function LandingPage() {
               </div>
             </article>
 
-            <article className="rounded-sm border border-[color:var(--pa-border)] bg-white p-7">
+            <article className="rounded-[4px] border border-[color:var(--pa-border)] bg-white p-7">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#6b7280]">
                 Infrastructure Sponsors
               </p>
@@ -82,7 +82,7 @@ export default function LandingPage() {
             {expertise.map((col) => (
               <article
                 key={col.title}
-                className="rounded-sm border border-[color:var(--pa-border)] bg-white p-7"
+                className="rounded-[4px] border border-[color:var(--pa-border)] bg-white p-7"
                 aria-label={col.title}
               >
                 <h3 className="text-base font-semibold tracking-tight text-[var(--pa-navy)]">{col.title}</h3>
